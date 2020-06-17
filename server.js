@@ -1,11 +1,9 @@
 var express = require("express");
-const stripe = require("stripe")(
-  "sk_test_51GrsxpDr6Z4R7UKU64WSwPlj2vwYMFmnZbNENtahng8CXC02OTfg99WFNRcaKTPOzA5sSDCgOvPVW1Fqczw94SSh00IqMLH76n"
-);
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 var PORT = process.env.PORT || 8080;
 var app = express();
 app.use(express.static("public"));
-
 // Parse application body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
