@@ -1,7 +1,8 @@
 import React from "react";
+import Checkout from "./components/Checkout";
 
 function App() {
-  return <p>Hello World</p>;
+  return <Checkout />;
 }
 
 export default App;
