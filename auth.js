@@ -115,13 +115,17 @@ $("#forgotPW").on("click", function (event) {
 
 var emailAddress = $("#loginEmail").val().trim();
 
+if(!emailAddress){
+    alert("Please enter an email address")
+}else{
+
 auth.sendPasswordResetEmail(emailAddress).then(function() {
   // Email sent.
   console.log("email sent")
 }).catch(function(error) {
   // An error happened.
 });
-
+}
 });
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
