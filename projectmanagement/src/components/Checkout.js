@@ -18,6 +18,8 @@ const styles = {
 };
 
 const CheckoutForm = (props) => {
+  // toclear the stripe form after submit
+  const [ref, setRef] = React.useState(null);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -32,18 +34,26 @@ const CheckoutForm = (props) => {
     if (!error) {
       const { id } = paymentMethod;
       console.log(id);
-      try {
-        const { data } = await axios.post("/charge", {
+
+      await axios
+        .post("/charge", {
           id,
           amount: 19999,
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data === "success") {
+            props.response(response.data);
+          } else {
+            props.response(response.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        console.log(data);
-        props.success();
-      } catch (err) {
-        console.log(err);
-        props.failed();
-      }
     }
+    // toclear the stripe form after submit
+    ref.clear();
   };
 
   return (
@@ -54,7 +64,7 @@ const CheckoutForm = (props) => {
         alt="kids Car"
         style={{ width: "200px" }}
       />
-      <CardElement />
+      <CardElement onReady={(e) => setRef(e)} />
       <button type="submit" disabled={!stripe}>
         Pay
       </button>
@@ -65,20 +75,15 @@ const stripePromise = loadStripe(
   "pk_test_51GrsxpDr6Z4R7UKUmoPXHW7swHORfQcKX7XO6D9GqXVuM1qn6m5ywhZmVmFzgxMYD6oHwkJqCneMr4oUXuIzixt4003qzTIOiD"
 );
 
+function FormMsg(props) {
+  return <p>{props.msg}</p>;
+}
 function Checkout() {
-  const [status, setStatus] = React.useState("ready");
-
-  if (status === "success") {
-    return <div>Purchased</div>;
-  } else if (status === "failed") {
-    return <div>Failed</div>;
-  }
+  const [status, setStatus] = React.useState("");
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm
-        success={() => setStatus("success")}
-        failed={() => setStatus("failed")}
-      />
+      <CheckoutForm response={(msg) => setStatus(msg)} />
+      <FormMsg msg={status} />
     </Elements>
   );
 }

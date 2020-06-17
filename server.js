@@ -20,10 +20,9 @@ app.post("/charge", async (req, res) => {
       confirm: true,
     });
     console.log(`payment ${payment}`);
-    res.status(200).end();
+    res.send("success");
   } catch (error) {
-    console.log(error.raw.message);
-    res.status(500).send(error.raw.message);
+    res.send(error.raw.message);
   }
 });
 app.listen(PORT, () => {
