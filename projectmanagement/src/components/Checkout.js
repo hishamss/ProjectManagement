@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -38,8 +38,10 @@ const CheckoutForm = () => {
           amount: 19999,
         });
         console.log(data);
+        props.success();
       } catch (err) {
         console.log(err);
+        props.failed();
       }
     }
   };
@@ -64,9 +66,19 @@ const stripePromise = loadStripe(
 );
 
 function Checkout() {
+  const [status, setStatus] = React.useState("ready");
+
+  if (status === "success") {
+    return <div>Purchased</div>;
+  } else if (status === "failed") {
+    return <div>Failed</div>;
+  }
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm />
+      <CheckoutForm
+        success={() => setStatus("success")}
+        failed={() => setStatus("failed")}
+      />
     </Elements>
   );
 }
