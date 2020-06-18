@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f3f3f3;
+}
+
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 768px;
+  height: 100vh;
+
+  overflow: hidden;
+
+  margin: 0 auto;
+
+  padding: 15px;
+}
+
+.card p {
+  color: white;
+}
+
+.flexbox .Board {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 300px;
+
+  background-color: #331133;
+
+  padding: 15px;
+
+}
+
+
+.flexbox .Board .Card {
+  padding: 15px 25px;
+  background-color: #3f3f3f;
+
+  cursor: pointer;
+  margin-bottom: 15px;
+}
