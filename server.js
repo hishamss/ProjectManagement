@@ -1,28 +1,27 @@
-var express = require("express");
-require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-var PORT = process.env.PORT || 8080;
-var app = express();
-app.use(express.static("public"));
-// Parse application body
+const express = require("express");
+const path = require("path");
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+const apiRoutes = require("./routes/api-routes");
+
+// Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.post("/charge", async (req, res) => {
-  const { id, amount } = req.body;
-  try {
-    const payment = await stripe.paymentIntents.create({
-      amount,
-      currency: "USD",
-      description: "kids Card",
-      payment_method: id,
-      confirm: true,
-    });
-    console.log(`payment ${payment}`);
-    res.send("success");
-  } catch (error) {
-    res.send(error.raw.message);
-  }
-});
-app.listen(PORT, () => {
-  console.log(`listning on Port ${PORT}`);
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+// Use apiRoutes
+app.use("/api", apiRoutes);
+
+// Send every request to the React app
+// Define any API routes before this runs
+// app.get("*", function (req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
+
+app.listen(PORT, function () {
+  console.log(`Api server is listening on Port ${PORT}`);
 });

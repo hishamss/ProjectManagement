@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -36,7 +36,7 @@ const CheckoutForm = (props) => {
       console.log(id);
 
       await axios
-        .post("/charge", {
+        .post("/api/charge", {
           id,
           amount: 19999,
         })
