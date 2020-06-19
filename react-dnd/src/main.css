@@ -36,7 +36,10 @@ body {
 
   background-color: #331133;
 
-  padding: 15px;
+  padding: 25px;
+
+  border-width: 50px;
+  margin: 5px;
 
 }
 
@@ -47,4 +50,10 @@ body {
 
   cursor: pointer;
   margin-bottom: 15px;
+
+  height: 15px;
+}
+
+#board-1 {
+  border-width: 25px;
 }
