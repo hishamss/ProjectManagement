@@ -1,10 +1,8 @@
 const express = require("express");
-const path = require("path");
-
+const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiRoutes = require("./routes/api-routes");
-
+var db = require("./models");
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,14 +12,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Use apiRoutes
-app.use("/api", apiRoutes);
+app.use(routes);
 
-// Send every request to the React app
-// Define any API routes before this runs
-// app.get("*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
-
-app.listen(PORT, function () {
-  console.log(`Api server is listening on Port ${PORT}`);
+// Connect to the Sequelize
+db.sequelize.sync().then(() => {
+  app.listen(PORT, function () {
+    // Log (server-side) when our server has started
+    console.log("Server is listening on: http://localhost:" + PORT);
+  });
 });

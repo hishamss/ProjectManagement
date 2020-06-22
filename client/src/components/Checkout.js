@@ -36,7 +36,7 @@ const CheckoutForm = (props) => {
       console.log(id);
 
       await axios
-        .post("/api/charge", {
+        .post("/api/charge/", {
           id,
           amount: 19999,
         })
