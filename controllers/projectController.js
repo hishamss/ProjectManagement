@@ -12,11 +12,35 @@ module.exports = {
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },
-  //   remove: function(req, res) {
-  //     db.Projects
-  //       .findById({ _id: req.params.id })
-  //       .then(dbModel => dbModel.remove())
-  //       .then(dbModel => res.json(dbModel))
-  //       .catch(err => res.status(422).json(err));
-  //   }
+  delete: function (req, res) {
+    db.Projects.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(() => res.send(true))
+      .catch((err) => res.status(422).json(err));
+  },
+  update: function (req, res) {
+    db.Projects.update({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(() => res.send(true))
+      .catch((err) => res.status(422).json(err));
+  }
+
+
+
 };
+// app.delete("/api/decks/:id", function (req, res) {
+//   db.Deck.destroy({
+//       where: {
+//           id: req.params.id
+//       }
+//   }).then(function (dbDeck) {
+//       res.json(dbDeck);
+//   });
+// })
+

@@ -1,6 +1,6 @@
 
 module.exports = function (sequelize, DataTypes) {
-    var Notes = sequelize.define("Notes", {
+    var Issues = sequelize.define("Issues", {
 
         id: {
             type: DataTypes.INTEGER,
@@ -15,9 +15,9 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    Notes.associate = function(models) {
-        models.Notes.belongsTo(models.Projects);
+    Issues.associate = function(models) {
+        models.Issues.belongsTo(models.Projects);
     }
 
-    return Notes;
+    return Issues;
 }

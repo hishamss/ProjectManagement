@@ -4,6 +4,9 @@ const projectsController = require("../../controllers/projectController");
 router
   .route("/")
   .get(projectsController.findAll)
-  .post(projectsController.create);
+  .post(projectsController.create)
+
+  router.route("/:id").delete(projectsController.delete);
+
 
 module.exports = router;

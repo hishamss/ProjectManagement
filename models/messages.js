@@ -16,10 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Messages.associate = function(models){
-        models.Messages.belongsTo(models.User, { as: "host" })
-        models.Messages.hasMany(models.UserMessages, {
-          onDelete: "cascade"
-        })
+        models.Messages.belongsTo(models.Projects)
       }
 
     return Messages;
