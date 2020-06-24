@@ -6,7 +6,10 @@ router
   .get(projectsController.findAll)
   .post(projectsController.create)
 
-  router.route("/:id").delete(projectsController.delete);
+router
+  .route("/:id")
+  .delete(projectsController.delete)
+  .put(projectsController.update);
 
 
 module.exports = router;
