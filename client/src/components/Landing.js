@@ -9,6 +9,10 @@ import React from "react";
 function Landing() {
     return (
         <div className="container">
+            
+            <div className="jumbotron">
+            <h1 className="display-4 text-center">Tagline to go here</h1>
+            </div>
             <div className="row">
                 <div className="col-lg-5">
                     <div className="card">
