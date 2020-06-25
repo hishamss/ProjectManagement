@@ -8,8 +8,10 @@ router
 
 router
   .route("/:id")
+  .get(projectsController.findOne)
   .delete(projectsController.delete)
   .put(projectsController.update);
 
+  router.post('/add-user-to-project', projectsController.addUserToProject)
 
 module.exports = router;

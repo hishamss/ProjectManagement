@@ -1,6 +1,6 @@
 
 module.exports = function (sequelize, DataTypes) {
-    var Issues = sequelize.define("Issues", {
+    const Issues = sequelize.define("Issues", {
 
         id: {
             type: DataTypes.INTEGER,
@@ -12,10 +12,10 @@ module.exports = function (sequelize, DataTypes) {
         },
         userId: {
             type: DataTypes.INTEGER
-        }
+        },
     });
 
-    Issues.associate = function(models) {
+    Issues.associate = function (models) {
         models.Issues.belongsTo(models.Projects);
     }
 
