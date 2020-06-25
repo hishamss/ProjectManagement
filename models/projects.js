@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
       models.Projects.hasMany(models.UserProjects, {
         onDelete: "cascade"
       })
-      models.Projects.hasMany(models.Messages, {
+      models.Projects.hasMany(models.Issues, {
         onDelete: "cascade"
       })
     }

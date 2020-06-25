@@ -9,8 +9,22 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
+//   app.post("/api/new/blog", function (req, res) {
+//     db.Blog.create({
+//         blogTitle: req.body.blogTitle,
+//         blogText: req.body.blogText,
+//         UserId: req.body.userId
+//     }).then(function (result) {
+//         console.log("Inserted into Blog table");
+//         res.json(result);
+//     })
+// })
   create: function (req, res) {
-    db.Projects.create(req.body)
+    db.Projects.create({
+      projectTitle: req.body.projectTitle,
+      projectDescription:req.body.projectDescription,
+      UserId: req.body.userId
+    })
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },

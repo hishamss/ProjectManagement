@@ -6,4 +6,5 @@ const projectsRoute = require("./projects");
 router.use("/charge", chargeRoute);
 router.use("/test", testRoute);
 router.use("/projects", projectsRoute);
+router.use("/issues", projectsRoute);
 module.exports = router;

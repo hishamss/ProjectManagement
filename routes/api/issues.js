@@ -1,10 +1,15 @@
 const router = require("express").Router();
-const issuesController = require("../../controllers/issuesController");
-// router : api/projects
+const issuesController = require("../../controllers/issuesControllers");
+// router : api/issues
 router
-  .route("/")
-  .get(issuesController.findAll)
-  .post(issuesController.create)
-  .delete(issuesController.delete);
+    .route("/")
+
+    .post(issuesController.create)
+
+router
+    .route("/:id")
+    .get(issuesController.findAll)
+    .delete(issuesController.delete)
+    .put(issuesController.update);
 
 module.exports = router;
