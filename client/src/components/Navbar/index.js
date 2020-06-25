@@ -19,6 +19,11 @@ function Navbar() {
         >
           <ul className="navbar-nav">
             <li>
+              <button type="button" class="btn btn-success">
+                Upgrade Now
+              </button>
+            </li>
+            <li>
               <span className="fa-stack">
                 <span className="fas fa-circle fa-stack-2x"></span>
 

@@ -24,3 +24,8 @@ nav {
 .fa-stack-1x {
   color: white;
 }
+
+.btn-success {
+  background-color: #2dd881;
+  margin-right: 20px;
+}
