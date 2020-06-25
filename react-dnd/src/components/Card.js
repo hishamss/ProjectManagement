@@ -17,6 +17,10 @@ function Card(props) {
         e.stopPropagation();
     }
 
+    const content = e => {
+        
+    }
+
 
     return (
         <div

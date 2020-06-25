@@ -1,12 +1,15 @@
 import React from 'react';
 import Board from './components/Board';
 import Card from './components/Card';
+import Form from './components/addNewCard';
 
 
 function App() {
   return (
     <div className="App">
       <main className="flexbox">
+     
+  
         <Board id="board-1" className="Board">
           <Card id="card-1" className="Card" draggable="true">
             <p>card 1</p>
@@ -31,7 +34,7 @@ function App() {
           </Card>
         </Board>
 
-        
+        <Form></Form>
 
       </main>
     </div>
