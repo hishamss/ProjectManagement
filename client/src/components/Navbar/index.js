@@ -45,16 +45,22 @@ function Navbar() {
                 id="UserDropMenu"
                 aria-labelledby="navbarDropdown"
               >
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
+                <span className="fa-stack">
+                  <span className="fas fa-circle fa-stack-2x"></span>
+
+                  <strong className="fa-stack-1x">HS</strong>
+                </span>
+                <Link id="profileDropDown" className="dropdown-item" to="#">
+                  Hisham Saymeh
+                </Link>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
+                <Link
+                  className="dropdown-item"
+                  style={{ paddingLeft: "0.5rem" }}
+                  to="#"
+                >
+                  Change Password
+                </Link>
               </div>
             </li>
 

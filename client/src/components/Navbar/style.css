@@ -29,3 +29,11 @@ nav {
   background-color: #2dd881;
   margin-right: 20px;
 }
+
+#profileDropDown {
+  padding: 0;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  display: inline-block;
+  width: auto;
+}
