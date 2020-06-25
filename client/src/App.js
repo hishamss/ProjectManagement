@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Checkout from "./components/Checkout";
-import Landing from "./components/Landing";
+import Landing from "./pages/Landing";
 
 function App() {
   return(
