@@ -2,17 +2,57 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import "./style.css";
 function Navbar() {
+  // render navbar for all pages except the landing page
   if (useLocation().pathname !== "/") {
     return (
       <nav className="navbar navbar-expand-lg">
         {/* <Link className="navbar-brand" to="/">
                 Google Books
               </Link> */}
+        <Link className="navbar-brand" to="/home">
+          <img id="logo" src="Done.png" alt="logo" loading="lazy" />
+        </Link>
+
         <div
           className="collapse navbar-collapse justify-content-end"
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav">
+            <li>
+              <span className="fa-stack">
+                <span className="fas fa-circle fa-stack-2x"></span>
+
+                <strong className="fa-stack-1x">HS</strong>
+              </span>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              ></a>
+              <div
+                className="dropdown-menu"
+                id="UserDropMenu"
+                aria-labelledby="navbarDropdown"
+              >
+                <a className="dropdown-item" href="#">
+                  Action
+                </a>
+                <a className="dropdown-item" href="#">
+                  Another action
+                </a>
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </div>
+            </li>
+
             {/* <li className="nav-item">
                     <Link
                       style={{ marginRight: "20px" }}

@@ -1,3 +1,26 @@
 nav {
   background-color: #1d1c39;
 }
+
+#logo {
+  width: 40px;
+  height: 40px;
+}
+
+#UserDropMenu {
+  left: auto;
+  right: 0px;
+}
+
+#navbarDropdown {
+  color: #4bb3fd;
+}
+
+.fa-circle {
+  color: #4bb3fd;
+  font-size: 35px;
+}
+
+.fa-stack-1x {
+  color: white;
+}
