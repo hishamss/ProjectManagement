@@ -71,11 +71,12 @@ $(document).ready(function () {
     newAcct("full");
   });
 
-  $("#signOut").on("click", function (event) {
+  $("#logoutBtn").on("click", function (event) {
     event.preventDefault();
 
     auth.signOut().then(function () {
       console.log("user signed out");
+      window.location.href = "/";
     });
   });
 
@@ -110,7 +111,8 @@ $(document).ready(function () {
         }
 
         console.log(cred);
-        alert("Sign in Successful!");
+
+        window.location.href = "/checkout";
       });
   });
 

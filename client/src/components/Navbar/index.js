@@ -60,6 +60,14 @@ function Navbar() {
                   >
                     Change Password
                   </Link>
+                  <Link
+                    className="dropdown-item"
+                    style={{ paddingLeft: "0.5rem" }}
+                    to="#"
+                    id="logoutBtn"
+                  >
+                    Log Out
+                  </Link>
                 </div>
               </li>
             </ul>
