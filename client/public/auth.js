@@ -79,63 +79,6 @@ function newAcct(type) {
 
 //create new account click funciton to grab email and pw
 $(document).ready(function () {
- 
-
-    $("#add-btn-free").on("click", function (event) {
-
-        newAcct("free")
-
-    });
-    $("#add-btn-full").on("click", function (event) {
-
-        newAcct("full")
-
-    });
-
-
-    $("#signOut").on("click", function (event) {
-        event.preventDefault()
-
-        auth.signOut().then(function () {
-            console.log("user signed out")
-        })
-
-    });
-
-
-    $("#login").on("click", function (event) {
-        event.preventDefault()
-        event.stopPropagation()
-        console.log("clicked")
-
-        const email = $("#loginEmail").val()
-        const password = $("#loginPassword").val()
-        auth.signInWithEmailAndPassword(email, password).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-
-            console.log(errorCode + " " + errorMessage)
-            if (errorCode === "auth/user-not-found") {
-                alert("There is no account linked to that email. Please go to the Create a Login page to sign up.")
-
-            }
-            else if (errorCode === "auth/wrong-password") {
-                alert("Your password is incorrect. Click forgot password for assistance.")
-
-            }
-
-
-        }).then(function (cred) {
-
-            if (!cred) {
-                return;
-            }
-
-            console.log(cred)
-            alert("Sign in Successful!")
-
-
   $("#changePasswordBtn").on("click", () => {
     $(".changeMsg").text("");
     $(".changePassModal").modal("show");
@@ -188,7 +131,6 @@ $(document).ready(function () {
 
         console.log(cred);
 
-
         window.location.href = "/home";
       });
   });
@@ -231,44 +173,20 @@ $(document).ready(function () {
     }
   };
 
-
-    })
-
-
-    $("#forgotPW").on("click", function (event) {
-        event.preventDefault()
-
-        var emailAddress = $("#loginEmail").val().trim();
-
-        if (!emailAddress) {
-            alert("Please enter an email address")
-        } else {
-
-            auth.sendPasswordResetEmail(emailAddress).then(function () {
-                // Email sent.
-                console.log("email sent")
-            }).catch(function (error) {
-                // An error happened.
-            });
-        }
-    });
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in.
-            console.log("user is signed in")
-            console.log(user)
-
-        } else {
-            // User is signed out.
-            // ...
-
-            console.log("user is signed out")
-        }
-    });
-
-    
-})
-
-
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      // User is signed in.
+      // console.log("Current Path :", window.location.pathname);
+      console.log("user is signed in");
+      console.log(user);
+    } else {
+      // User is signed out.
+      // ...
+      // if (window.location.pathname !== "/") {
+      //   window.location.href = "/";
+      // }
+      // console.log("Current Path :", window.location.pathname);
+      console.log("user is signed out");
+    }
+  });
 });
-
