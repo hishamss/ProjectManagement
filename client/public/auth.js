@@ -6,87 +6,87 @@ var firebaseConfig = {
     storageBucket: "project3-9a5b0.appspot.com",
     messagingSenderId: "828265317184",
     appId: "1:828265317184:web:623c24ba65f1528d6db0a5"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 //make and store firestore references 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-function newAcct(type){
-    
+function newAcct(type) {
+
     event.preventDefault()
     event.stopPropagation()
     const email = $("#email").val().trim()
     const password = $("#signup-password").val()
     const confirm = $("#confirm").val()
-console.log(type)
-  if(password===confirm){
-    //pass info to firebase
+    console.log(type)
+    if (password === confirm) {
+        //pass info to firebase
         auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
 
-        if (errorCode === "auth/email-already-in-use") {
-            alert("email already in use")
-            
-            
-        }
+            if (errorCode === "auth/email-already-in-use") {
+                alert("email already in use")
 
-    }).then(function (cred) {
 
-        console.log(cred)
-        
-        if(!cred){
-            return;
-        }
-  
-        
-        
-        
-       
-        //  $.ajax({
-        //      url: "/api/org",
-        //      method: "POST",
-        //       data : 
-        //  }).then(function(data){
-        //      console.log(data)
-         //})
-        alert("Account Creation Successful!")
-         if(type==="full"){
-             window.location.href="/checkout"
-         }
-        
-    })
-}else{
-    alert("Passwords do not match")
-}
+            }
+
+        }).then(function (cred) {
+
+            console.log(cred)
+
+            if (!cred) {
+                return;
+            }
+
+
+
+
+
+            //  $.ajax({
+            //      url: "/api/org",
+            //      method: "POST",
+            //       data : 
+            //  }).then(function(data){
+            //      console.log(data)
+            //})
+            alert("Account Creation Successful!")
+            if (type === "full") {
+                window.location.href = "/checkout"
+            }
+
+        })
+    } else {
+        alert("Passwords do not match")
+    }
 }
 
 //create new account click funciton to grab email and pw
-$(document).ready(function(){
-$("#add-btn-free").on("click", function (event) {
-  
-    newAcct("free")
+$(document).ready(function () {
+    $("#add-btn-free").on("click", function (event) {
 
-});
-$("#add-btn-full").on("click", function (event) {
-  
-    newAcct("full")
+        newAcct("free")
 
-});
+    });
+    $("#add-btn-full").on("click", function (event) {
+
+        newAcct("full")
+
+    });
 
 
-$("#signOut").on("click", function (event) {
-    event.preventDefault()
+    $("#signOut").on("click", function (event) {
+        event.preventDefault()
 
-    auth.signOut().then(function () {
-        console.log("user signed out")
-    })
+        auth.signOut().then(function () {
+            console.log("user signed out")
+        })
 
-});
+    });
 
 
     $("#login").on("click", function (event) {
@@ -102,60 +102,63 @@ $("#signOut").on("click", function (event) {
             var errorMessage = error.message;
 
             console.log(errorCode + " " + errorMessage)
-            if(errorCode==="auth/user-not-found"){
-                alert("There is no account linked to that email. Please go to the Create a Login page to sign up.") 
+            if (errorCode === "auth/user-not-found") {
+                alert("There is no account linked to that email. Please go to the Create a Login page to sign up.")
 
             }
-            else if(errorCode==="auth/wrong-password"){
+            else if (errorCode === "auth/wrong-password") {
                 alert("Your password is incorrect. Click forgot password for assistance.")
-                
+
             }
 
 
         }).then(function (cred) {
 
-            if(!cred){
+            if (!cred) {
                 return;
             }
 
             console.log(cred)
             alert("Sign in Successful!")
-            
+
 
         })
 
     })
 
 
-$("#forgotPW").on("click", function (event) {
-    event.preventDefault()
+    $("#forgotPW").on("click", function (event) {
+        event.preventDefault()
 
-var emailAddress = $("#loginEmail").val().trim();
+        var emailAddress = $("#loginEmail").val().trim();
 
-if(!emailAddress){
-    alert("Please enter an email address")
-}else{
-
-auth.sendPasswordResetEmail(emailAddress).then(function() {
-  // Email sent.
-  console.log("email sent")
-}).catch(function(error) {
-  // An error happened.
-});
-}
-});
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          console.log("user is signed in")
-          console.log(user)
-          
+        if (!emailAddress) {
+            alert("Please enter an email address")
         } else {
-          // User is signed out.
-          // ...
 
-          console.log("user is signed out")
+            auth.sendPasswordResetEmail(emailAddress).then(function () {
+                // Email sent.
+                console.log("email sent")
+            }).catch(function (error) {
+                // An error happened.
+            });
         }
-      });
+    });
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            console.log("user is signed in")
+            console.log(user)
 
-    })
+        } else {
+            // User is signed out.
+            // ...
+
+            console.log("user is signed out")
+        }
+    });
+
+    
+})
+
+
