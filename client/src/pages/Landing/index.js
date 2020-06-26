@@ -7,9 +7,11 @@ import ex3 from "./ex3.png"
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Carousel from 'react-bootstrap/Carousel'
+import "./style.css";
 
 
 function Landing() {
+
     return (
         <div>
             <div className="jumbotron " id="tron">
@@ -110,6 +112,7 @@ function Landing() {
             </div>
         </div>
     )
+
 }
 
-export default Landing
+export default Landing;
