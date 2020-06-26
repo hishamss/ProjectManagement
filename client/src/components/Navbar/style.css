@@ -1,0 +1,59 @@
+nav {
+  background-color: #1d1c39;
+}
+
+#logo {
+  width: 40px;
+  height: 40px;
+}
+
+#UserDropMenu {
+  left: auto;
+  right: 0px;
+}
+
+#navbarDropdown {
+  color: #4bb3fd;
+}
+
+.fa-circle {
+  color: #4bb3fd;
+  font-size: 35px;
+}
+
+.fa-stack-1x {
+  color: white;
+}
+
+.btn-success {
+  background-color: #2dd881;
+  margin-right: 20px;
+}
+
+#profileDropDown {
+  padding: 0;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  display: inline-block;
+  width: auto;
+}
+
+.submitChangePassBtn {
+  background-color: #2dd881;
+}
+
+.pagesLinks {
+  color: #f4f4f9;
+}
+
+.pagesLinks:hover {
+  color: lightgrey;
+}
+
+.clicked {
+  color: #ff22b1;
+}
+
+.clicked:hover {
+  color: #ff22b1;
+}
