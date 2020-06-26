@@ -1,5 +1,5 @@
 var firebaseConfig = {
-<<<<<<< HEAD
+
     apiKey: "AIzaSyAqo3WdF_RkKrfhRi_5GcfdIpehsTRcxrk",
     authDomain: "project3-9a5b0.firebaseapp.com",
     databaseURL: "https://project3-9a5b0.firebaseio.com",
@@ -7,37 +7,27 @@ var firebaseConfig = {
     storageBucket: "project3-9a5b0.appspot.com",
     messagingSenderId: "828265317184",
     appId: "1:828265317184:web:623c24ba65f1528d6db0a5"
-=======
-  apiKey: "AIzaSyAqo3WdF_RkKrfhRi_5GcfdIpehsTRcxrk",
-  authDomain: "project3-9a5b0.firebaseapp.com",
-  databaseURL: "https://project3-9a5b0.firebaseio.com",
-  projectId: "project3-9a5b0",
-  storageBucket: "project3-9a5b0.appspot.com",
-  messagingSenderId: "828265317184",
-  appId: "1:828265317184:web:623c24ba65f1528d6db0a5",
->>>>>>> 733d3b69f5033985cdc3669388de267326c47d2b
+
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-<<<<<<< HEAD
-//make and store firestore references 
-=======
-//make and store firestore references
->>>>>>> 733d3b69f5033985cdc3669388de267326c47d2b
 const auth = firebase.auth();
 const db = firebase.firestore();
 
 function newAcct(type) {
-<<<<<<< HEAD
+
 
     event.preventDefault()
     event.stopPropagation()
     const email = $("#email").val().trim()
     const password = $("#signup-password").val()
     const confirm = $("#confirm").val()
+    let data={}
     console.log(type)
     if (password === confirm) {
+        
+
         //pass info to firebase
         auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
             // Handle Errors here.
@@ -52,8 +42,14 @@ function newAcct(type) {
 
         }).then(function (cred) {
 
-            console.log(cred)
+          data={
+            name:$("#name").val().trim(),
+            email: email,
+            firebaseId: cred.user.uid
+            
+          }
 
+           
             if (!cred) {
                 return;
             }
@@ -62,13 +58,13 @@ function newAcct(type) {
 
 
 
-            //  $.ajax({
-            //      url: "/api/org",
-            //      method: "POST",
-            //       data : 
-            //  }).then(function(data){
-            //      console.log(data)
-            //})
+             $.ajax({
+                 url: "/api/users",
+                 method: "POST",
+                  data : data
+             }).then(function(data){
+                 console.log(data)
+            })
             alert("Account Creation Successful!")
             if (type === "full") {
                 window.location.href = "/checkout"
@@ -78,54 +74,13 @@ function newAcct(type) {
     } else {
         alert("Passwords do not match")
     }
-=======
-  event.preventDefault();
-  event.stopPropagation();
-  const email = $("#email").val().trim();
-  const password = $("#signup-password").val();
-  const confirm = $("#confirm").val();
-  console.log(type);
-  if (password === confirm) {
-    //pass info to firebase
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
 
-        if (errorCode === "auth/email-already-in-use") {
-          alert("email already in use");
-        }
-      })
-      .then(function (cred) {
-        console.log(cred);
-
-        if (!cred) {
-          return;
-        }
-
-        //  $.ajax({
-        //      url: "/api/org",
-        //      method: "POST",
-        //       data :
-        //  }).then(function(data){
-        //      console.log(data)
-        //})
-        alert("Account Creation Successful!");
-        if (type === "full") {
-          window.location.href = "/checkout";
-        }
-      });
-  } else {
-    alert("Passwords do not match");
   }
->>>>>>> 733d3b69f5033985cdc3669388de267326c47d2b
-}
 
 //create new account click funciton to grab email and pw
 $(document).ready(function () {
-<<<<<<< HEAD
+ 
+
     $("#add-btn-free").on("click", function (event) {
 
         newAcct("free")
@@ -180,7 +135,7 @@ $(document).ready(function () {
             console.log(cred)
             alert("Sign in Successful!")
 
-=======
+
   $("#changePasswordBtn").on("click", () => {
     $(".changeMsg").text("");
     $(".changePassModal").modal("show");
@@ -232,7 +187,7 @@ $(document).ready(function () {
         }
 
         console.log(cred);
->>>>>>> 733d3b69f5033985cdc3669388de267326c47d2b
+
 
         window.location.href = "/home";
       });
@@ -276,7 +231,7 @@ $(document).ready(function () {
     }
   };
 
-<<<<<<< HEAD
+
     })
 
 
@@ -315,22 +270,5 @@ $(document).ready(function () {
 })
 
 
-=======
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      // User is signed in.
-      // console.log("Current Path :", window.location.pathname);
-      console.log("user is signed in");
-      console.log(user);
-    } else {
-      // User is signed out.
-      // ...
-      // if (window.location.pathname !== "/") {
-      //   window.location.href = "/";
-      // }
-      // console.log("Current Path :", window.location.pathname);
-      console.log("user is signed out");
-    }
-  });
 });
->>>>>>> 733d3b69f5033985cdc3669388de267326c47d2b
+

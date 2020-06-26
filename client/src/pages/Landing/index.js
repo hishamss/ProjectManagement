@@ -88,7 +88,7 @@ function Landing() {
                                         <form>
                                         <div className="form-group">
                                                 <label for="exampleInputEmail1">Name:</label>
-                                                <input type="email" className="form-control" id="name" />
+                                                <input type="text" className="form-control" id="name" />
                                             </div>
                                             <div className="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
