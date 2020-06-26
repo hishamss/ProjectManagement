@@ -43,9 +43,9 @@ function Navbar() {
           >
             <ul className="navbar-nav">
               <li>
-                <button type="button" className="btn btn-success">
+                <Link className="btn btn-success" to="/checkout" role="button">
                   Upgrade Now
-                </button>
+                </Link>
               </li>
               <li>
                 <span className="fa-stack">
