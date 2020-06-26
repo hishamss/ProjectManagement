@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css"
+import logo from "./logo.png"
 
 
 // handleSubmit = event => {
@@ -11,7 +12,7 @@ function Landing() {
     return (
         <div>
             <div className="jumbotron" id="tron">
-            <h1 className="display-4 text-center">Whatever it is... Get. It. Done.</h1>
+            <h1 className="display-4 text-center">Whatever it is... Get. It. <img src={logo} alt="Done." /></h1>
             </div>
             <div >
             <div className="row">
