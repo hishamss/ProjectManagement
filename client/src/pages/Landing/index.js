@@ -19,7 +19,7 @@ function Landing() {
             </div>
             <div >
                 <div className="row">
-                    <div className="offset-1 col-lg-4">
+                    <div className=" offset-1 col-lg-5">
                         <Carousel>
                             <Carousel.Item>
                                 <img
@@ -58,14 +58,13 @@ function Landing() {
                             </Carousel.Item>
                         </Carousel>
                     </div>
-                    <div className="offset-2 col-lg-4">
+                    <div className="offset-1 col-lg-4">
                         <Tabs defaultActiveKey="profile" >
                             <Tab eventKey="home" title="Log In" id="tab1">
                                 <div className="card crd  shadow-lg ">
-                                    <div className="card-header  cardHead">
-                                        <h3 className="text-center text-white">Login to Manage Projects</h3>
-                                    </div>
+                                   
                                     <div className="card-body cbody  bg-secondary">
+                                        <h3 className="cardHead text-center">log in to manage projects</h3>
                                         <form>
                                             <div className="form-group">
                                                 <label>Email address</label>
@@ -83,11 +82,14 @@ function Landing() {
                             </Tab>
                             <Tab eventKey="profile" title="Sign Up" id="tab2">
                                 <div className="card shadow-lg crd ">
-                                    <div className="card-header cardHead">
-                                        <h3 className="text-center text-white">Create Account</h3>
-                                    </div>
+                                    
                                     <div className="card-body cbody bg-secondary">
+                                    <h3 className="cardHead text-center">create an account</h3>
                                         <form>
+                                        <div className="form-group">
+                                                <label for="exampleInputEmail1">Name:</label>
+                                                <input type="email" className="form-control" id="name" />
+                                            </div>
                                             <div className="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
                                                 <input type="email" className="form-control" id="email" />
