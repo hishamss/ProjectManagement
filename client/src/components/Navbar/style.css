@@ -41,3 +41,19 @@ nav {
 .submitChangePassBtn {
   background-color: #2dd881;
 }
+
+.pagesLinks {
+  color: #f4f4f9;
+}
+
+.pagesLinks:hover {
+  color: lightgrey;
+}
+
+.clicked {
+  color: #ff22b1;
+}
+
+.clicked:hover {
+  color: #ff22b1;
+}

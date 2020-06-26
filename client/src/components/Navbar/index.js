@@ -3,14 +3,40 @@ import { useLocation, Link } from "react-router-dom";
 import "./style.css";
 function Navbar() {
   // render navbar for all pages except the landing page
-  if (useLocation().pathname !== "/") {
+  const location = useLocation().pathname;
+  if (location !== "/") {
     return (
       <div>
         <nav className="navbar navbar-expand-lg">
           <Link className="navbar-brand" to="/home">
             <img id="logo" src="Done.png" alt="logo" loading="lazy" />
           </Link>
-
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <Link
+                to="/home"
+                className={
+                  location === "/home"
+                    ? "nav-link clicked"
+                    : "nav-link pagesLinks"
+                }
+              >
+                Home <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link
+                to="/projects"
+                className={
+                  location === "/projects"
+                    ? "nav-link clicked"
+                    : "nav-link pagesLinks"
+                }
+              >
+                Projects <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+          </ul>
           <div
             className="collapse navbar-collapse justify-content-end"
             id="navbarSupportedContent"
@@ -29,15 +55,15 @@ function Navbar() {
                 </span>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to="#"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                ></a>
+                ></Link>
                 <div
                   className="dropdown-menu"
                   id="UserDropMenu"

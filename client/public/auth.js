@@ -112,7 +112,7 @@ $(document).ready(function () {
 
         console.log(cred);
 
-        window.location.href = "/checkout";
+        window.location.href = "/home";
       });
   });
 
@@ -149,7 +149,7 @@ $(document).ready(function () {
           $(".changeMsg").text("Reset link has been sent!");
         })
         .catch(function (error) {
-          $(".changeMsg").text("Error, Try Again");
+          $(".changeMsg").text(error.message.split(".")[0]);
         });
     }
   };
@@ -157,12 +157,16 @@ $(document).ready(function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
+      // console.log("Current Path :", window.location.pathname);
       console.log("user is signed in");
       console.log(user);
     } else {
       // User is signed out.
       // ...
-
+      // if (window.location.pathname !== "/") {
+      //   window.location.href = "/";
+      // }
+      // console.log("Current Path :", window.location.pathname);
       console.log("user is signed out");
     }
   });
