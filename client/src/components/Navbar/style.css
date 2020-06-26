@@ -37,3 +37,7 @@ nav {
   display: inline-block;
   width: auto;
 }
+
+.submitChangePassBtn {
+  background-color: #2dd881;
+}

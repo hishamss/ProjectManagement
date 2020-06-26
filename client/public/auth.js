@@ -60,7 +60,10 @@ function newAcct(type) {
 
 //create new account click funciton to grab email and pw
 $(document).ready(function () {
-  console.log("auth.js");
+  $("#changePasswordBtn").on("click", () => {
+    $(".changeMsg").text("");
+    $(".changePassModal").modal("show");
+  });
   $("#add-btn-free").on("click", function (event) {
     newAcct("free");
   });
@@ -111,11 +114,28 @@ $(document).ready(function () {
       });
   });
 
-  $("#forgotPW").on("click", function (event) {
+  // $("#forgotPW").on("click", function (event) {
+  //   event.preventDefault();
+
+  //   var emailAddress = $("#loginEmail").val().trim();
+  //   resetPassword(emailAddress);
+  // });
+
+  $(".submitChangePassBtn").on("click", function (event) {
+    event.preventDefault();
+    $(".changeMsg").text("");
+    var emailAddress = $("#emailAddress").val().trim();
+    resetPassword(emailAddress);
+  });
+
+  $("#changeBtn").on("click", function (event) {
     event.preventDefault();
 
     var emailAddress = $("#loginEmail").val().trim();
+    resetPassword(emailAddress);
+  });
 
+  resetPassword = (emailAddress) => {
     if (!emailAddress) {
       alert("Please enter an email address");
     } else {
@@ -124,12 +144,14 @@ $(document).ready(function () {
         .then(function () {
           // Email sent.
           console.log("email sent");
+          $(".changeMsg").text("Reset link has been sent!");
         })
         .catch(function (error) {
-          // An error happened.
+          $(".changeMsg").text("Error, Try Again");
         });
     }
-  });
+  };
+
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
