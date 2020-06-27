@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function Board(props) {
     const drop = e => {
         e.preventDefault();
@@ -23,8 +24,12 @@ function Board(props) {
         onDragOver = {dragOver}
         
         >
+            
             {props.children}
+            
+            <button onClick={props.handleFormSubmit} className="btn btn-primary mt-3">Create New Card</button>
         </div>
+        //Need to connect button with addNewCard
     )
 }
 
