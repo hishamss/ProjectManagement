@@ -16,11 +16,11 @@ function App() {
       <div>
         <Navbar />
         <Switch>
-          <PrivateRoute exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/projects" component={Projects} />
-          <Route component={Home} />
+          <Route exact path="/" component={Landing} />
+          <PrivateRoute exact path="/home" component={Home} />
+          <PrivateRoute exact path="/checkout" component={Checkout} />
+          <PrivateRoute exact path="/projects" component={Projects} />
+          <PrivateRoute component={Home} />
         </Switch>
       </div>
     </Router>

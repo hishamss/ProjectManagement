@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { withRouter } from "react-router";
 import "./style.css"
 import logo from "./logo.png"
 import ex from "./ex.jpg"
@@ -8,7 +9,7 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Carousel from 'react-bootstrap/Carousel'
 import "./style.css";
-import { withRouter } from "react-router";
+import Login from "../../components/Login"
 import app from "../../Base";
 
 
@@ -16,7 +17,7 @@ import app from "../../Base";
 
 
 
-function Landing() {
+const Landing = ({history}) => {
     const handleSignUp = useCallback(async event => {
         event.preventDefault();
         const { email, password } = event.target.elements;
@@ -24,11 +25,27 @@ function Landing() {
           await app
             .auth()
             .createUserWithEmailAndPassword(email.value, password.value);
-          
+          history.push("/");
         } catch (error) {
           alert(error);
         }
-    });
+      }, [history]);
+
+    const handleLogin = useCallback(
+        async event => {
+          event.preventDefault();
+          const { email, password } = event.target.elements;
+          try {
+            await app
+              .auth()
+              .signInWithEmailAndPassword(email.value, password.value);
+            history.push("/");
+          } catch (error) {
+            alert(error);
+          }
+        },
+        [history]
+      );
 
     return (
         
@@ -82,29 +99,18 @@ function Landing() {
                             <Tab eventKey="home" title="Log In" id="tab1">
                                 <div className="card crd  shadow-lg ">
                                    
-                                    <div className="card-body cbody  bg-secondary">
+                                    <div className="card-body cbody">
                                         <h3 className="cardHead text-center">log in to manage projects</h3>
-                                        <form>
-                                            <div className="form-group">
-                                                <label>Email address</label>
-                                                <input type="email" className="form-control" id="loginEmail" aria-describedby="emailHelp" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" className="form-control" id="loginPassword" />
-                                            </div>
-                                            <button type="submit" className="btn btns w-25 mx-5 px-4" id="login">Login</button>
-                                            <button type="submit" className="btn btns w-50">Forgot Password</button>
-                                        </form>
+                                        <Login />
                                     </div>
                                 </div>
                             </Tab>
                             <Tab eventKey="profile" title="Sign Up" id="tab2">
                                 <div className="card shadow-lg crd ">
                                     
-                                    <div className="card-body cbody bg-secondary">
+                                    <div className="card-body cbody">
                                     <h3 className="cardHead text-center">create an account</h3>
-                                        <form onSubmit={handleSignUp}>
+                                        <form>
                                         <div className="form-group">
                                                 <label for="exampleInputEmail1">Name:</label>
                                                 <input type="text" className="form-control" id="name" />
@@ -121,8 +127,8 @@ function Landing() {
                                                 <label for="exampleInputPassword1">Confirm</label>
                                                 <input type="password" className="form-control" id="confirm" />
                                             </div>
-                                            <button type="submit" className="btn btns w-25 px-4" id="add-btn-free" style={{ marginLeft: 100 }}>Free</button>
-                                            <button type="submit" className="btn btns w-25 mx-5 px-4" id="add-btn-full">Full</button>
+                                            <button type="submit" className="btn btns w-25 px-4" id="add-btn-free" style={{ marginLeft: 100 }} onClick={handleSignUp}>Free</button>
+                                            <button type="submit" className="btn btns w-25 mx-5 px-4" id="add-btn-full" onClick={handleSignUp}>Full</button>
                                         </form>
                                     </div>
                                 </div>
@@ -136,4 +142,4 @@ function Landing() {
 
 }
 
-export default Landing;
+export default withRouter(Landing);

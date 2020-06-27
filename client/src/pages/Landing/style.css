@@ -22,6 +22,8 @@ body{
 
 .cbody{
     border-radius: 0px 0px 30px 30px;
+    background: #1D1C39;
+    color: #f4f4f9;
     
 }
 
@@ -39,33 +41,33 @@ body{
 
 
 #tab1{ 
-    color: #ff22b1;
+    color: #1D1C39;
     border:solid 1px #ff22b1; 
     border-bottom: 0; 
-    background-color:#1D1C39; 
-    padding-left: 8.1em; 
-    padding-right: 8.1em;
+    background-color:#ff22b1; 
+    padding-left: 8.2em; 
+    padding-right: 8.2em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #tab2{ 
-    color: #ff22b1;
+    color: #1D1C39;
     border:solid 1px #ff22b1; 
     border-bottom: 0; 
-    background-color:#1D1C39; 
+    background-color:#ff22b1; 
     padding-left: 8.1em; 
     padding-right: 8.1em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #tab1.active{
-    color: #1D1C39;
-    background:#ff22b1
+    color: #ff22b1;
+    background:#1D1C39
 }
 
 #tab2.active{
-    color: #1D1C39;
-    background:#ff22b1
+    color: #ff22b1;
+    background:#1D1C39
 }
 
 
