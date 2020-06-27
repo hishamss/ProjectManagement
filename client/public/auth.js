@@ -1,62 +1,81 @@
 var firebaseConfig = {
-  apiKey: "AIzaSyAqo3WdF_RkKrfhRi_5GcfdIpehsTRcxrk",
-  authDomain: "project3-9a5b0.firebaseapp.com",
-  databaseURL: "https://project3-9a5b0.firebaseio.com",
-  projectId: "project3-9a5b0",
-  storageBucket: "project3-9a5b0.appspot.com",
-  messagingSenderId: "828265317184",
-  appId: "1:828265317184:web:623c24ba65f1528d6db0a5",
+
+    apiKey: "AIzaSyAqo3WdF_RkKrfhRi_5GcfdIpehsTRcxrk",
+    authDomain: "project3-9a5b0.firebaseapp.com",
+    databaseURL: "https://project3-9a5b0.firebaseio.com",
+    projectId: "project3-9a5b0",
+    storageBucket: "project3-9a5b0.appspot.com",
+    messagingSenderId: "828265317184",
+    appId: "1:828265317184:web:623c24ba65f1528d6db0a5"
+
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-//make and store firestore references
 const auth = firebase.auth();
 const db = firebase.firestore();
 
 function newAcct(type) {
-  event.preventDefault();
-  event.stopPropagation();
-  const email = $("#email").val().trim();
-  const password = $("#signup-password").val();
-  const confirm = $("#confirm").val();
-  console.log(type);
-  if (password === confirm) {
-    //pass info to firebase
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
 
-        if (errorCode === "auth/email-already-in-use") {
-          alert("email already in use");
-        }
-      })
-      .then(function (cred) {
-        console.log(cred);
 
-        if (!cred) {
-          return;
-        }
+    event.preventDefault()
+    event.stopPropagation()
+    const email = $("#email").val().trim()
+    const password = $("#signup-password").val()
+    const confirm = $("#confirm").val()
+    let data={}
+    console.log(type)
+    if (password === confirm) {
+        
 
-        //  $.ajax({
-        //      url: "/api/org",
-        //      method: "POST",
-        //       data :
-        //  }).then(function(data){
-        //      console.log(data)
-        //})
-        alert("Account Creation Successful!");
-        if (type === "full") {
-          window.location.href = "/checkout";
-        }
-      });
-  } else {
-    alert("Passwords do not match");
+        //pass info to firebase
+        auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            if (errorCode === "auth/email-already-in-use") {
+                alert("email already in use")
+
+
+            }
+
+        }).then(function (cred) {
+
+          data={
+            name:$("#name").val().trim(),
+            email: email,
+            firebaseId: cred.user.uid
+            
+          }
+
+           
+            if (!cred) {
+                return;
+            }
+
+
+
+
+
+             $.ajax({
+                 url: "/api/users",
+                 method: "POST",
+                  data : data
+             }).then(function(data){
+                 console.log(data)
+            })
+            alert("Account Creation Successful!")
+            if (type === "full") {
+                window.location.href = "/checkout"
+            }
+
+        })
+    } else {
+        alert("Passwords do not match")
+    }
+
   }
-}
 
 //create new account click funciton to grab email and pw
 $(document).ready(function () {
