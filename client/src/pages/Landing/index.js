@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./style.css"
 import logo from "./logo.png"
 import ex from "./ex.jpg"
@@ -8,11 +8,30 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Carousel from 'react-bootstrap/Carousel'
 import "./style.css";
+import { withRouter } from "react-router";
+import app from "../../Base";
+
+
+   
+
 
 
 function Landing() {
+    const handleSignUp = useCallback(async event => {
+        event.preventDefault();
+        const { email, password } = event.target.elements;
+        try {
+          await app
+            .auth()
+            .createUserWithEmailAndPassword(email.value, password.value);
+          
+        } catch (error) {
+          alert(error);
+        }
+    });
 
     return (
+        
         <div>
             <div className="jumbotron " id="tron">
                 <h1 className="display-2 text-center">Whatever it is... Get. It. <img style={{ width: 300, height: 300 }} src={logo} alt="Done." /></h1>
@@ -85,18 +104,18 @@ function Landing() {
                                     
                                     <div className="card-body cbody bg-secondary">
                                     <h3 className="cardHead text-center">create an account</h3>
-                                        <form>
+                                        <form onSubmit={handleSignUp}>
                                         <div className="form-group">
                                                 <label for="exampleInputEmail1">Name:</label>
                                                 <input type="text" className="form-control" id="name" />
                                             </div>
                                             <div className="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" className="form-control" id="email" />
+                                                <input type="email" className="form-control" name="email" />
                                             </div>
                                             <div className="form-group">
                                                 <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" className="form-control" id="signup-password" />
+                                                <input type="password" className="form-control" name="password" />
                                             </div>
                                             <div className="form-group">
                                                 <label for="exampleInputPassword1">Confirm</label>
