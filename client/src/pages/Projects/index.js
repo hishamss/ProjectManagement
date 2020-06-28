@@ -3,10 +3,16 @@ import API from "../../utils/API";
 
 function Projects() {
   const [email, setEmail] = useState("");
-
+  const [message, setMessage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.sendEmail(email);
+    API.sendEmail(email)
+      .then(() => {
+        setMessage("Sent");
+      })
+      .catch(() => {
+        setMessage("Error, try again!");
+      });
   };
 
   const handleInputChange = (event) => {
@@ -31,6 +37,7 @@ function Projects() {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+      <p>{message}</p>
     </form>
   );
 }
