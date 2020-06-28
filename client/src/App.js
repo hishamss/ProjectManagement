@@ -6,6 +6,7 @@ import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 function App() {
+  console.log(process.env.REACT_APP_TEST_KEY);
   return (
     <Router>
       <div>
