@@ -1,23 +1,24 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { withRouter, Redirect } from "react-router";
 import app from "../../Base";
-import { AuthContext } from "../../Auth.js";
+
 
 
 const Login = ({ history }) => {
-
+   
+    
     const [Email, setEmail] = useState('');
     const isInvalid = Email ===''
 
     const handleSubmit = useCallback(
         async event => {
             event.preventDefault();
-            const { email, password } = event.target.elements;
+            const { password } = event.target.elements;
             try {
                 
                 await app
                     .auth()
-                    .signInWithEmailAndPassword(email.value, password.value)
+                    .signInWithEmailAndPassword(Email, password.value)
                     .then(()=>{
                         if({history}){
                         history.push("/");
@@ -25,12 +26,18 @@ const Login = ({ history }) => {
                            return <Redirect to="/home" />
                         }
                     })
+
+                    
                 
             } catch (error) {
                 switch (error){
                     case "auth/invalid-email":
                        alert("Please enter a valid email address")
                         break;
+                    default:
+                    alert("An unknown error occured")
+                    break;
+
             }
             } 
         },
@@ -58,11 +65,7 @@ const Login = ({ history }) => {
     );
 
 
-    const { currentUser } = useContext(AuthContext);
-
-    if (currentUser) {
-        return <Redirect to="/home" />;
-    }
+   
 
     return (
         <div>

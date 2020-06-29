@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { withRouter } from "react-router";
+import React, { useContext } from "react";
+import { withRouter, Redirect } from "react-router";
 import "./style.css"
 import logo from "./logo.png"
 import ex from "./ex.jpg"
@@ -10,27 +10,20 @@ import Tab from 'react-bootstrap/Tab'
 import Carousel from 'react-bootstrap/Carousel'
 import "./style.css";
 import Login from "../../components/Login"
-import app from "../../Base";
-
+import SignUp from "../../components/SignUp"
+import { AuthContext } from "../../Auth.js";
 
    
 
 
 
 const Landing = ({history}) => {
-    const handleSignUp = useCallback(async event => {
-        event.preventDefault();
-        const { email, password } = event.target.elements;
-        try {
-          await app
-            .auth()
-            .createUserWithEmailAndPassword(email.value, password.value);
-          history.push("/");
-        } catch (error) {
-          alert(error);
-        }
-      }, [history]);
+    
+    const { currentUser } = useContext(AuthContext);
 
+    if (currentUser) {
+        return <Redirect to="/home" />;
+    }
     
 
     return (
@@ -96,26 +89,7 @@ const Landing = ({history}) => {
                                     
                                     <div className="card-body cbody">
                                     <h3 className="cardHead text-center">create an account</h3>
-                                        <form>
-                                        <div className="form-group">
-                                                <label for="exampleInputEmail1">Name:</label>
-                                                <input type="text" className="form-control" id="name" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" className="form-control" name="email" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" className="form-control" name="password" />
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="exampleInputPassword1">Confirm</label>
-                                                <input type="password" className="form-control" id="confirm" />
-                                            </div>
-                                            <button type="submit" className="btn btns w-25 px-4" id="add-btn-free" style={{ marginLeft: 100 }} onClick={handleSignUp}>Free</button>
-                                            <button type="submit" className="btn btns w-25 mx-5 px-4" id="add-btn-full" onClick={handleSignUp}>Full</button>
-                                        </form>
+                                       <SignUp />
                                     </div>
                                 </div>
                             </Tab>
