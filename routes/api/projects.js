@@ -6,6 +6,7 @@ router
   .get(projectsController.findAll)
   .post(projectsController.create);
 
+// Email router for adding users to projects
 router.route("/adduser/:user").get((req, res) => {
   console.log(`from Email: ${req.params.user}`);
   res.send("you have been Added");
