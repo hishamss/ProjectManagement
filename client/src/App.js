@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
+import CreateProject from "./pages/Create_Project";
+
 function App() {
   return (
     <Router>
@@ -13,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/create-project" component={CreateProject} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/projects" component={Projects} />
           <Route component={Home} />
