@@ -7,7 +7,7 @@ router.route("/:email").get((req, res) => {
   //     <h1>You have been added to project {Project Title} on Email:${req.params.email}</h1>
   //     <p>Click on the link below to login/sign up to be able to access the project</p>
   //     `;
-  let link = `http://913f24072e94.ngrok.io/api/projects/adduser/${req.params.email}`;
+  let link = `http://c1958cefb1b8.ngrok.io/api/projects/adduser/${req.params.email}`;
   let PM = "Hisham Saymeh";
   let ProjectTitle = "Project3";
   const output = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
