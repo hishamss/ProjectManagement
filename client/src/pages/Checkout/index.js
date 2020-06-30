@@ -78,12 +78,13 @@ const stripePromise = loadStripe(
 function FormMsg(props) {
   return <p>{props.msg}</p>;
 }
-function Checkout() {
+function Checkout({ currentUser }) {
   const [status, setStatus] = React.useState("");
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
       <FormMsg msg={status} />
+      <p>{currentUser.uid}</p>
     </Elements>
   );
 }
