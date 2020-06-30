@@ -7,8 +7,8 @@ import app from "../../Base";
 
 
 const SignUp = ({ history }) => {
-    const [name,setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [name,setName] = useState('');
+    const [email, setEmail] = useState('');
     const [firebaseId,setfirebaseId] = useState("")
     const [password,setPassword] = useState("");
     const [passConfirm, setPassConfirm] = useState("");
@@ -40,6 +40,7 @@ const SignUp = ({ history }) => {
 
                     history.push("/");
                     setfirebaseId(cred.user.uid);
+                    console.log (firebaseId)
 
                     const user = {
                         name: name,
@@ -54,7 +55,7 @@ const SignUp = ({ history }) => {
         } catch (error) {
             alert(error);
         }
-    }, [history]);
+    }, [history, email, password, firebaseId, name]);
 
 
     return (
@@ -62,12 +63,12 @@ const SignUp = ({ history }) => {
         <div>
             <form onSubmit={handleSignUp}>
                 <div className="form-group">
-                    <label for="exampleInputEmail1">Name</label>
+                    <label >Name</label>
                     <input type="text" className="form-control" id="name" onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" name="email" onChange={e => setEmail(e.target.value), console.log(email)} />
+                    <label >Email address</label>
+                    <input type="email" className="form-control" name="email" onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label for="exampleInputPassword1">Password</label>
