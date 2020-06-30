@@ -9,7 +9,6 @@ module.exports = {
         db.User.findByPk(id, {
             //Including the db.user model
             //The through key is a way to access the join table (userprojects)
-            // We are setting the userprojects table is set to blank, its more organized
             include: [
                 {
                     model: db.Projects,
