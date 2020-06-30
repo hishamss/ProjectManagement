@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
+import app from "../../Base";
 import "./style.css";
 function Navbar() {
   // render navbar for all pages except the landing page
@@ -91,6 +92,7 @@ function Navbar() {
                     style={{ paddingLeft: "0.5rem" }}
                     to="#"
                     id="logoutBtn"
+                    onClick={() => app.auth().signOut()}
                   >
                     Log Out
                   </Link>

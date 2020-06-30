@@ -1,6 +1,5 @@
 const db = require("../models");
 
-
 module.exports = {
     //This is finding a specified user by the primary key
     // and including the projects associated with that user
