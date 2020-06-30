@@ -8,22 +8,21 @@ import Projects from "./pages/Projects";
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 
-
 function App() {
   return (
     <AuthProvider>
-    <Router>
-      <div>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <PrivateRoute exact path="/home" component={Home} />
-          <PrivateRoute exact path="/checkout" component={Checkout} />
-          <PrivateRoute exact path="/projects" component={Projects} />
-          <PrivateRoute component={Home} />
-        </Switch>
-      </div>
-    </Router>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <PrivateRoute exact path="/home" component={Home} />
+            <PrivateRoute exact path="/checkout" component={Checkout} />
+            <PrivateRoute exact path="/projects" component={Projects} />
+            <PrivateRoute component={Home} />
+          </Switch>
+        </div>
+      </Router>
     </AuthProvider>
   );
 }
