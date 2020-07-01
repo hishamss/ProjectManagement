@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const nodemailer = require("nodemailer");
-
+require("dotenv").config();
 router.route("/:email").get((req, res) => {
   console.log(req.params.email);
   //   const output = `
   //     <h1>You have been added to project {Project Title} on Email:${req.params.email}</h1>
   //     <p>Click on the link below to login/sign up to be able to access the project</p>
   //     `;
-  let link = `http://c1958cefb1b8.ngrok.io/api/projects/adduser/${req.params.email}`;
+  let link = `http://20ecf077912c.ngrok.io/api/projects/adduser/${req.params.email}`;
   let PM = "Hisham Saymeh";
   let ProjectTitle = "Project3";
   const output = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -267,7 +267,7 @@ router.route("/:email").get((req, res) => {
       service: "gmail",
       auth: {
         user: "getitdone992@gmail.com", // generated ethereal user
-        pass: "bootcamp@2020", // generated ethereal password
+        pass: process.env.GMAIL_PASS, // generated ethereal password
       },
     });
 
