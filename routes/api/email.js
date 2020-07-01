@@ -267,7 +267,7 @@ router.route("/:email").get((req, res) => {
       service: "gmail",
       auth: {
         user: "getitdone992@gmail.com", // generated ethereal user
-        pass: "22h6m1990", // generated ethereal password
+        pass: "bootcamp@2020", // generated ethereal password
       },
     });
 

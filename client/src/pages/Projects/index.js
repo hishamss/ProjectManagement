@@ -1,8 +1,9 @@
+
 import React, { useState } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects() {
+function Projects({ currentUser }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -41,6 +42,7 @@ function Projects() {
 
   return (
     <div>
+      <p> Projects Page, Coming Soon....., {currentUser.uid}</p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User
       </button>
@@ -83,5 +85,6 @@ function Projects() {
       </Modal>
     </div>
   );
+
 }
 export default Projects;
