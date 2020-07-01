@@ -1,5 +1,5 @@
 const db = require("../models");
-
+const usersController = require("./usersController")
 
 module.exports = {
   //This is finding a specified project by the primary key
@@ -34,7 +34,13 @@ module.exports = {
   },
   create: function (req, res) {
     db.Projects.create(req.body)
-      .then((project) => res.send(project))
+      .then(async (project) => {
+        const { firebaseId } = req.body;
+        console.log('Getting here....')
+        await usersController.addProjectToUser(firebaseId, project.id)
+
+        res.send(project)
+      })
       .catch((err) => res.status(422).json(err));
   },
   delete: function (req, res) {
@@ -60,18 +66,19 @@ module.exports = {
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },
+
   //Find the project with the corresponding primary key
   //Add the user to the project. 
-  addUserToProject: (req, res) => {
-    const { userId, projectId } = req.body;
-    db.Projects.findByPk(projectId)
-      .then(project => {
-        project.addUser(userId).then(() => {
-          res.send({ success: 'User added to Project' })
-        }).catch((err) => res.status(422).json(err));
-      })
-      .catch((err) => res.status(422).json(err));
-  }
+  // addUserToProject: (req, res) => {
+  //   const { userId, projectId } = req.body;
+  //   db.Projects.findByPk(projectId)
+  //     .then(project => {
+  //       project.addUser(userId).then(() => {
+  //         res.send({ success: 'User added to Project' })
+  //       }).catch((err) => res.status(422).json(err));
+  //     })
+  //     .catch((err) => res.status(422).json(err));
+  // }
 };
 
 

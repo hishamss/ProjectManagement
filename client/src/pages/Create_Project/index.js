@@ -25,12 +25,13 @@ class CreateProject extends Component {
         //Using the destructuring to avoid redundancy (projectTitle: this.state.projectData.title, projectLinks: this.state.projectData.links)
         const { title, links } = this.state.projectData;
 
-        fetch("http://localhost:3001/api/projects", {
+        fetch("/api/projects", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
+                firebaseId: this.props.currentUser.uid,
                 projectTitle: title,
                 projectLinks: links
             })

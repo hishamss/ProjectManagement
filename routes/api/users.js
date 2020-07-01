@@ -12,6 +12,10 @@ router
   .delete(usersController.delete)
   .put(usersController.update);
 
+  router
+    .route("/addproject")
+    .put(usersController.addProject)
+
   router.post('/add-project-to-user', usersController.addProjectToUser)
 
 module.exports = router;

@@ -12,6 +12,6 @@ router
   .delete(projectsController.delete)
   .put(projectsController.update);
 
-  router.post('/add-user-to-project', projectsController.addUserToProject)
+  // router.post('/add-user-to-project', projectsController.addUserToProject)
 
 module.exports = router;

@@ -1,9 +1,8 @@
 const express = require("express");
 const routes = require("./routes");
-const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 const app = express();
-app.use(cors())
+
 var db = require("./models");
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

@@ -43,35 +43,38 @@ module.exports = {
                 id: req.params.id
             }
         })
-            .then(() => res.send({success: 'User deleted'}))
+            .then(() => res.send({ success: 'User deleted' }))
             .catch((err) => res.status(422).json(err));
     },
     //Updating the user information and then 
     // returning back the updated user information
     update: function (req, res) {
         db.User.update(req.body, {
-                where: {
-                    id: req.params.id
-                }
-            })
+            where: {
+                id: req.params.id
+            }
+        })
             .then(() => {
-                db.User.findOne({where: {id: req.params.id}}).then(user => {
+                db.User.findOne({ where: { id: req.params.id } }).then(user => {
                     res.send(user);
                 }).catch((err) => res.status(422).json(err));
             })
             .catch((err) => res.status(422).json(err));
     },
+    addProject: async (req, res) => {
+        const { firebaseId, projectId } = req.body
+        await this.addProjectToUser(firebaseId, projectId);
+        res.send({ message: 'Project added sucessfully...'})
+    },
     //Find the user with the corresponding primary key
     //Add the project to the user. 
-    addProjectToUser: (req, res) => {
-        const { userId, projectId } = req.body;
-        db.User.findByPk(userId)
-            .then(user => {
-                user.addProject(projectId).then(() => {
-                    res.send({ success: 'Project added to User' })
-                }).catch((err) => res.status(422).json(err));
-
-            })
-            .catch((err) => res.status(422).json(err));
+    addProjectToUser: async (firebaseId, projectId) => {
+        try {
+            const user = await db.User.findOne({ where: { firebaseId } });
+            await user.addProject(projectId)
+        } catch (err) {
+            return err;
+        };
+    
     }
 };
