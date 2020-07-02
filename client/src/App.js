@@ -13,16 +13,23 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
+  const [email, setEmail] = useState();
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
         API.getUserInfo(user.uid).then(({ data }) => {
-          let Initial = data.name
-            .split(" ")
-            .map((elem) => elem[0].toUpperCase());
-          setInitial(Initial.join(""));
-          setName(data.name);
-          console.log("from APP ", Initial.join(""));
+          if (data) {
+            let Initial = data.name
+              .split(" ")
+              .map((elem) => elem[0].toUpperCase());
+            setInitial(Initial.join(""));
+            setName(data.name);
+            setEmail(data.email);
+            console.log("from APP ", Initial.join(""));
+          } else {
+            setInitial("NA");
+            setName("NA");
+          }
         });
       }
     });
@@ -32,7 +39,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div>
-          <Navbar Name={name} Initial={initial} />
+          <Navbar Name={name} Initial={initial} Email={email} />
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute exact path="/home" component={Home} />
