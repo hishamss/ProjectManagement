@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
+import app from "../../Base";
 import "./style.css";
 function Navbar() {
+  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const handleClose = () => setShow(false);
+  const forgotPw = useCallback(async (event) => {
+    event.preventDefault();
+    if (email) {
+      try {
+        await app
+          .auth()
+          .sendPasswordResetEmail(email)
+          .then(setMessage("Reset link has been sent to " + email));
+        setEmail("");
+      } catch (error) {
+        setMessage(error);
+      }
+    } else {
+      setMessage("please provide email address");
+    }
+  });
   // render navbar for all pages except the landing page
   const location = useLocation().pathname;
   if (location !== "/") {
@@ -83,6 +105,10 @@ function Navbar() {
                     style={{ paddingLeft: "0.5rem" }}
                     to="#"
                     id="changePasswordBtn"
+                    onClick={() => {
+                      setMessage("");
+                      setShow(true);
+                    }}
                   >
                     Change Password
                   </Link>
@@ -91,6 +117,7 @@ function Navbar() {
                     style={{ paddingLeft: "0.5rem" }}
                     to="#"
                     id="logoutBtn"
+                    onClick={() => app.auth().signOut()}
                   >
                     Log Out
                   </Link>
@@ -99,43 +126,30 @@ function Navbar() {
             </ul>
           </div>
         </nav>
-        <div className="modal changePassModal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Change Password</h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Change Password</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <form onSubmit={forgotPw}>
+              <div className="form-group">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-control"
+                  aria-describedby="emailHelp"
+                  placeholder="Please enter the email address Associated with your account"
+                />
               </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="emailAddress"
-                    aria-describedby="emailHelp"
-                    placeholder="Please enter the email address Associated with your account"
-                  />
-                </div>
-                <p className="changeMsg"></p>
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-success submitChangePassBtn"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              <p>{message}</p>
+              <button type="submit" className="btn btn-success">
+                Submit
+              </button>
+            </form>
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
