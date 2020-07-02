@@ -24,7 +24,7 @@ const CARD_OPTIONS = {
   style: {
     base: {
       iconColor: '#c4f0ff',
-      color: '#fff',
+      color: 'black',
       fontWeight: 500,
       fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
       fontSize: '16px',
@@ -84,17 +84,19 @@ const CheckoutForm = (props) => {
 
   return (
     <div className="container">
-    <div className="jumbotron">
+    <div className="jumbotron tron">
     <form onSubmit={handleSubmit} style={styles.formStyle}>
       <div className="form-group">
-      <label>Name on Card</label>
-      <input type="text" className="form-control" />
+        <h1 className=" head text-center">Payment Information</h1>
+      <input type="text" placeholder="Name on Card" className="form-control" />
       </div>
       <div className="form-group">
-      <label>Billing Address</label>
-      <input type="text" className="form-control" />
+      
+      <input type="text" placeholder="Billing Address" className="form-control" />
       </div>
-      <CardElement options={CARD_OPTIONS} onReady={(e) => setRef(e)} />
+      <div className="form-group">
+      <CardElement className="form-control" options={CARD_OPTIONS} onReady={(e) => setRef(e)} />
+      </div>
       <button className= "btns" type="submit" disabled={!stripe}>
         Pay
       </button>
@@ -116,7 +118,6 @@ function Checkout({ currentUser }) {
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
       <FormMsg msg={status} />
-      <p>{currentUser.uid}</p>
     </Elements>
     
   );
