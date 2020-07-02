@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { withRouter, Redirect } from "react-router";
+import { withRouter } from "react-router";
 import axios from "axios";
 import app from "../../Base";
 

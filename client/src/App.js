@@ -10,7 +10,6 @@ import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 import API from "./utils/API";
 function App() {
-  const [currentUser, setCurrentUser] = useState();
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
   const [email, setEmail] = useState();
