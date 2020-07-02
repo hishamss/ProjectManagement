@@ -9,12 +9,15 @@ const SignUp = ({ history }) => {
   const [firebaseId, setfirebaseId] = useState("");
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
+  const [type, setType] = useState();
   const [post, setPost] = useState("redux");
   const isInvalid = password !== passConfirm || password === "";
 
   useEffect(() => {
     const postUser = async () => {
-      axios.post("/api/users", post).then((res) => console.log(res));
+      axios
+        .post("/api/users", post)
+        .then(() => console.log("User Added Successfully to DB"));
     };
     if (post !== "redux") {
       postUser();
@@ -24,8 +27,7 @@ const SignUp = ({ history }) => {
   const handleSignUp = useCallback(
     async (event) => {
       event.preventDefault();
-      console.log(email);
-      console.log(name);
+
       try {
         await app
           .auth()
@@ -36,14 +38,14 @@ const SignUp = ({ history }) => {
             }
 
             history.push("/");
-            console.log("current UID :", cred.user.uid);
+
             setfirebaseId(cred.user.uid);
-            console.log(firebaseId);
 
             const user = {
               name: name,
               email: email,
               firebaseId: cred.user.uid,
+              type: type,
             };
 
             setPost(user);
@@ -53,7 +55,7 @@ const SignUp = ({ history }) => {
         alert(error);
       }
     },
-    [history, email, password, firebaseId, name]
+    [history, email, password, firebaseId, name, type]
   );
 
   return (
@@ -94,19 +96,23 @@ const SignUp = ({ history }) => {
           />
         </div>
         <button
+          value="Free"
           type="submit"
           className="btn btns w-25 px-4"
           id="add-btn-free"
           style={{ marginLeft: 100 }}
           disabled={isInvalid}
+          onClick={(e) => setType(e.target.value)}
         >
           Free
         </button>
         <button
+          value="Full"
           type="submit"
           className="btn btns w-25 mx-5 px-4"
           id="add-btn-full"
           disabled={isInvalid}
+          onClick={(e) => setType(e.target.value)}
         >
           Full
         </button>
