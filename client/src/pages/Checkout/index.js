@@ -7,13 +7,39 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import style from "./style.css";
 // require("dotenv").config();
 // console.log(process.env.PUBLIC_KEY);
 const styles = {
   formStyle: {
     marginTop: 20,
-    maxWidth: 400,
+    maxWidth: 600,
     margin: "0 auto",
+  },
+  
+};
+
+const CARD_OPTIONS = {
+  iconStyle: 'solid',
+  style: {
+    base: {
+      iconColor: '#c4f0ff',
+      color: '#fff',
+      fontWeight: 500,
+      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+      fontSize: '16px',
+      fontSmoothing: 'antialiased',
+      ':-webkit-autofill': {
+        color: '#fce883',
+      },
+      '::placeholder': {
+        color: '#87bbfd',
+      },
+    },
+    invalid: {
+      iconColor: '#ffc7ee',
+      color: '#ffc7ee',
+    },
   },
 };
 
@@ -57,18 +83,24 @@ const CheckoutForm = (props) => {
   };
 
   return (
+    <div className="container">
+    <div className="jumbotron">
     <form onSubmit={handleSubmit} style={styles.formStyle}>
-      <h2>Price: $199.99</h2>
-      <img
-        src="https://images-na.ssl-images-amazon.com/images/I/71hZZPRLxOL._AC_SX425_.jpg"
-        alt="kids Car"
-        style={{ width: "200px" }}
-      />
-      <CardElement onReady={(e) => setRef(e)} />
-      <button type="submit" disabled={!stripe}>
+      <div className="form-group">
+      <label>Name on Card</label>
+      <input type="text" className="form-control" />
+      </div>
+      <div className="form-group">
+      <label>Billing Address</label>
+      <input type="text" className="form-control" />
+      </div>
+      <CardElement options={CARD_OPTIONS} onReady={(e) => setRef(e)} />
+      <button className= "btns" type="submit" disabled={!stripe}>
         Pay
       </button>
     </form>
+    </div>
+    </div>
   );
 };
 const stripePromise = loadStripe(
@@ -86,6 +118,7 @@ function Checkout({ currentUser }) {
       <FormMsg msg={status} />
       <p>{currentUser.uid}</p>
     </Elements>
+    
   );
 }
 
