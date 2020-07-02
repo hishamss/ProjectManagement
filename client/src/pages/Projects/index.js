@@ -1,9 +1,11 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
 function Projects({ currentUser }) {
+  useEffect(() => {
+    document.body.style.backgroundColor = "#f4f4f9";
+  }, []);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -85,6 +87,5 @@ function Projects({ currentUser }) {
       </Modal>
     </div>
   );
-
 }
 export default Projects;
