@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { withRouter, Redirect } from "react-router";
 import "./style.css";
 import logo from "./logo.png";
@@ -15,7 +15,9 @@ import { AuthContext } from "../../Auth.js";
 
 const Landing = ({ history }) => {
   const { currentUser } = useContext(AuthContext);
-
+  useEffect(() => {
+    document.body.style.backgroundColor = "#4bb3fd";
+  }, []);
   if (currentUser) {
     return <Redirect to="/home" />;
   }

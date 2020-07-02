@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -80,6 +80,10 @@ function FormMsg(props) {
 }
 function Checkout({ currentUser }) {
   const [status, setStatus] = React.useState("");
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#f4f4f9";
+  }, []);
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
