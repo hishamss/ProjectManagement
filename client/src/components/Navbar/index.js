@@ -3,22 +3,22 @@ import { Modal } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 import app from "../../Base";
 import "./style.css";
-function Navbar({ Name, Initial }) {
+function Navbar({ Initial, Name, Email }) {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const handleClose = () => setShow(false);
 
   const forgotPw = useCallback(async (event) => {
     event.preventDefault();
-    if (email) {
+    if (Email) {
       try {
         await app
           .auth()
-          .sendPasswordResetEmail(email)
-          .then(setMessage("Reset link has been sent to " + email));
-        setEmail("");
+          .sendPasswordResetEmail(Email)
+          .then(setMessage("Reset link has been sent to " + Email));
+        setShow(true);
       } catch (error) {
+        console.log("change Pass: ", error);
         setMessage(error);
       }
     } else {
@@ -106,10 +106,7 @@ function Navbar({ Name, Initial }) {
                     style={{ paddingLeft: "0.5rem" }}
                     to="#"
                     id="changePasswordBtn"
-                    onClick={() => {
-                      setMessage("");
-                      setShow(true);
-                    }}
+                    onClick={forgotPw}
                   >
                     Change Password
                   </Link>
@@ -133,22 +130,7 @@ function Navbar({ Name, Initial }) {
           </Modal.Header>
 
           <Modal.Body>
-            <form onSubmit={forgotPw}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="form-control"
-                  aria-describedby="emailHelp"
-                  placeholder="Please enter the email address Associated with your account"
-                />
-              </div>
-              <p>{message}</p>
-              <button type="submit" className="btn btn-success">
-                Submit
-              </button>
-            </form>
+            <p>{message}</p>
           </Modal.Body>
         </Modal>
       </div>

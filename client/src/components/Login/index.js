@@ -30,6 +30,9 @@ const Login = ({ history }) => {
         case "auth/wrong-password":
           alert("Wrong Email/Password");
           break;
+        case "auth/user-not-found":
+          alert("Wrong Email/Password");
+          break;
         default:
           alert("An unknown error occured");
           break;

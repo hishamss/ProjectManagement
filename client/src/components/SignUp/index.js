@@ -9,7 +9,7 @@ const SignUp = ({ history }) => {
   const [firebaseId, setfirebaseId] = useState("");
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
-  const [type, setType] = useState();
+
   const [post, setPost] = useState("redux");
   const isInvalid = password !== passConfirm || password === "";
 
@@ -45,17 +45,17 @@ const SignUp = ({ history }) => {
               name: name,
               email: email,
               firebaseId: cred.user.uid,
-              type: type,
             };
 
             setPost(user);
+            app.auth().signOut();
             alert("Account creation successful");
           });
       } catch (error) {
         alert(error);
       }
     },
-    [history, email, password, firebaseId, name, type]
+    [history, email, password, firebaseId, name]
   );
 
   return (
@@ -95,27 +95,16 @@ const SignUp = ({ history }) => {
             onChange={(e) => setPassConfirm(e.target.value)}
           />
         </div>
-        <button
-          value="Free"
-          type="submit"
-          className="btn btns w-25 px-4"
-          id="add-btn-free"
-          style={{ marginLeft: 100 }}
-          disabled={isInvalid}
-          onClick={(e) => setType(e.target.value)}
-        >
-          Free
-        </button>
-        <button
-          value="Full"
-          type="submit"
-          className="btn btns w-25 mx-5 px-4"
-          id="add-btn-full"
-          disabled={isInvalid}
-          onClick={(e) => setType(e.target.value)}
-        >
-          Full
-        </button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="btn btns w-25 px-4"
+            id="add-btn-free"
+            disabled={isInvalid}
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </div>
   );
