@@ -5,19 +5,20 @@ module.exports = {
   // and including the projects associated with that user
   findOne: function (req, res) {
     const { id } = req.params;
-    db.User.findByPk(id, {
+    db.User.findOne({
+      where: { firebaseId: id },
       //Including the db.user model
       //The through key is a way to access the join table (userprojects)
       // We are setting the userprojects table is set to blank, its more organized
-      include: [
-        {
-          model: db.Projects,
-          as: "projects",
-          through: {
-            attributes: [],
-          },
-        },
-      ],
+      //   include: [
+      //     {
+      //       model: db.Projects,
+      //       as: "projects",
+      //       through: {
+      //         attributes: [],
+      //       },
+      //     },
+      //   ],
     })
       .then((user) => {
         res.send(user);

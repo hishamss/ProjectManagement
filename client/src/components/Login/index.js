@@ -22,9 +22,16 @@ const Login = ({ history }) => {
           }
         });
     } catch (error) {
+      console.log(error);
       switch (error.code) {
         case "auth/invalid-email":
           alert("Please enter a valid email address");
+          break;
+        case "auth/wrong-password":
+          alert("Wrong Email/Password");
+          break;
+        case "auth/user-not-found":
+          alert("Wrong Email/Password");
           break;
         default:
           alert("An unknown error occured");
