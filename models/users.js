@@ -1,7 +1,8 @@
 module.exports = function (sequelize, DataTypes) {
-  const User = sequelize.define("User", {
+  const Users = sequelize.define("Users", {
     firebaseId: {
       type: DataTypes.STRING,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -21,13 +22,12 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   //The through is the intermediary table (userprojects)
-  User.associate = function (models) {
-    models.User.belongsToMany(models.Projects, {
-      through: "userprojects",
-      as: "projects",
-      foreignKey: "userId",
+  Users.associate = function (models) {
+    models.Users.hasMany(models.Projects, {});
+    models.Users.hasMany(models.Messages, {});
+    models.Users.hasMany(models.UserProjects, {
       onDelete: "cascade",
     });
   };
-  return User;
+  return Users;
 };
