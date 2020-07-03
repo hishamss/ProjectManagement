@@ -78,7 +78,7 @@ const stripePromise = loadStripe(
 function FormMsg(props) {
   return <p>{props.msg}</p>;
 }
-function Checkout({ currentUser }) {
+function Checkout({ currentUser, LocalId }) {
   const [status, setStatus] = React.useState("");
 
   useEffect(() => {
@@ -88,7 +88,9 @@ function Checkout({ currentUser }) {
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
       <FormMsg msg={status} />
-      <p>{currentUser.uid}</p>
+      <p>
+        FirebaseID: {currentUser.uid}, LocalID: {LocalId}
+      </p>
     </Elements>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects({ currentUser }) {
+function Projects({ currentUser, LocalId }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -44,7 +44,11 @@ function Projects({ currentUser }) {
 
   return (
     <div>
-      <p> Projects Page, Coming Soon....., {currentUser.uid}</p>
+      <p>
+        {" "}
+        Projects Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
+        {LocalId}
+      </p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User
       </button>
