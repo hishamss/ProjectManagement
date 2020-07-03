@@ -9,4 +9,7 @@ export default {
   getUserInfo: function (firebaseId) {
     return axios.get(`/api/users/${firebaseId}`);
   },
+  getUsersToAdd: function (excludeUser) {
+    return axios.get(`/api/users/Add/${excludeUser}`);
+  },
 };

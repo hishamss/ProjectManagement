@@ -10,11 +10,16 @@ function Projects({ currentUser, LocalId }) {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    setMessage("");
-    setShow(true);
+    API.getUsersToAdd(LocalId).then(({ data }) => {
+      setUsers(data.map((user) => `${user.email}- ${user.name}`));
+      setMessage("");
+      setShow(true);
+    });
   };
+
   const handleSubmit = (event) => {
     setMessage("");
     event.preventDefault();
@@ -24,7 +29,7 @@ function Projects({ currentUser, LocalId }) {
       API.sendEmail(email)
         .then(() => {
           setLoading(false);
-          setMessage("Sent");
+          setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
         })
         .catch(() => {
@@ -39,6 +44,7 @@ function Projects({ currentUser, LocalId }) {
 
   const handleInputChange = (event) => {
     const { value } = event.target;
+    console.log("selected value", value);
     setEmail(value);
   };
 
@@ -60,8 +66,7 @@ function Projects({ currentUser, LocalId }) {
         <Modal.Body>
           <form onSubmit={handleSubmit}>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label>Add your team</label>
-              <input
+              {/* <input
                 value={email}
                 name="email"
                 type="email"
@@ -70,7 +75,21 @@ function Projects({ currentUser, LocalId }) {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Email address for user"
-              />
+              /> */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <label className="input-group-text">Select User</label>
+                </div>
+
+                <select className="custom-select" onChange={handleInputChange}>
+                  <option value="">Add user by email</option>
+                  {users.map((user, index) => (
+                    <option key={index} value={user.split("-")[0]}>
+                      {user}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <img
               style={{ width: "70px" }}

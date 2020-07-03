@@ -1,5 +1,5 @@
 const db = require("../models");
-
+const { Op } = require("sequelize");
 module.exports = {
   //This is finding a specified user by the primary key
   // and including the projects associated with that user
@@ -29,6 +29,15 @@ module.exports = {
   },
   findAll: function (req, res) {
     db.Users.findAll({})
+      .then((users) => res.send(users))
+      .catch((err) => res.status(422).json(err));
+  },
+
+  findAllToAdd: function (req, res) {
+    db.Users.findAll({
+      attributes: ["name", "email"],
+      where: { id: { [Op.ne]: req.params.exclude } },
+    })
       .then((users) => res.send(users))
       .catch((err) => res.status(422).json(err));
   },
