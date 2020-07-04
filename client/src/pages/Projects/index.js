@@ -32,9 +32,11 @@ function Projects({ currentUser, LocalId }) {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
-          API.addPendingUser(1, userToAdd).then((res) =>
-            console.log("in userProjects: ", res)
-          );
+          API.addPendingUser(1, userToAdd).then(({ data }) => {
+            if (data === "SequelizeUniqueConstraintError") {
+              alert("this user has been added previously to this project!!");
+            }
+          });
         })
         .catch(() => {
           setLoading(false);
@@ -86,7 +88,11 @@ function Projects({ currentUser, LocalId }) {
                   <label className="input-group-text">Select User</label>
                 </div>
 
-                <select className="custom-select" onChange={handleInputChange}>
+                <select
+                  value={email}
+                  className="custom-select"
+                  onChange={handleInputChange}
+                >
                   <option value="">Add user by email</option>
                   {users.map((user) => {
                     let UserToAdd = user.split("-");

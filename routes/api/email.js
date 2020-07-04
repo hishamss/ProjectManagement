@@ -258,7 +258,6 @@ router.route("/:email").get((req, res) => {
   
   </html>`;
 
-  console.log(output);
   async function main() {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing

@@ -11,6 +11,8 @@ module.exports = {
       UserId: userId,
     })
       .then((response) => res.send(response))
-      .catch((err) => res.status(422).json(err));
+      .catch((err) => {
+        res.send(err.name);
+      });
   },
 };

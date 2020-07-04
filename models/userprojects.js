@@ -4,6 +4,14 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       defaultValue: "Pending",
     },
+    UserId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+    ProjectId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
   });
 
   UserProjects.associate = function (models) {
