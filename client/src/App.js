@@ -56,6 +56,7 @@ function App() {
               component={Checkout}
             />
             <PrivateRoute
+              Name={name}
               LocalId={localId}
               exact
               path="/projects"

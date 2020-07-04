@@ -2,8 +2,8 @@ import axios from "axios";
 
 export default {
   // Add User By Email
-  sendEmail: function (email, projectId, AddUserId) {
-    return axios.get(`/api/email/${email}-${projectId}-${AddUserId}`);
+  sendEmail: function (email, projectId, AddUserId, PM) {
+    return axios.get(`/api/email/${email}-${projectId}-${AddUserId}-${PM}`);
   },
   // get current user full name
   getUserInfo: function (firebaseId) {

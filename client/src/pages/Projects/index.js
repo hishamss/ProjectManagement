@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects({ currentUser, LocalId }) {
+function Projects({ currentUser, LocalId, Name }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -27,7 +27,7 @@ function Projects({ currentUser, LocalId }) {
     if (email) {
       setLoading(true);
 
-      API.sendEmail(email, 2, userToAdd)
+      API.sendEmail(email, 2, userToAdd, Name)
         .then(() => {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
@@ -60,7 +60,7 @@ function Projects({ currentUser, LocalId }) {
       <p>
         {" "}
         Projects Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
-        {LocalId}
+        {LocalId}, Name: {Name}
       </p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User

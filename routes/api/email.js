@@ -7,13 +7,9 @@ router.route("/:Info").get((req, res) => {
   const Email = Info[0];
   const ProjectId = Info[1];
   const AddUserId = Info[2];
-  //   const output = `
-  //     <h1>You have been added to project {Project Title} on Email:${req.params.email}</h1>
-  //     <p>Click on the link below to login/sign up to be able to access the project</p>
-  //     `;
-  let link = `http://2fde0ef5690a.ngrok.io/api/projects/adduser/${ProjectId}-${AddUserId}`;
-  let PM = "Hisham Saymeh";
-  let ProjectTitle = "Project3";
+  const PM = Info[3];
+  const link = `http://2fde0ef5690a.ngrok.io/api/projects/adduser/${ProjectId}-${AddUserId}`;
+  const ProjectTitle = "Project3";
   const output = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   
@@ -276,7 +272,7 @@ router.route("/:Info").get((req, res) => {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: "'Don't Reply' <getitdone992@gmail.com>", // sender address
+      from: "Don't Reply <getitdone992@gmail.com>", // sender address
       to: `${Email}`, // list of receivers
       subject:
         "You have been added by {current User} to collborate on {Project title}", // Subject line
