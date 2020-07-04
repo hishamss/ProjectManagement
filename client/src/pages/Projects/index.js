@@ -11,10 +11,11 @@ function Projects({ currentUser, LocalId }) {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [userToAdd, setUserToAdd] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => {
     API.getUsersToAdd(LocalId).then(({ data }) => {
-      setUsers(data.map((user) => `${user.email}- ${user.name}`));
+      setUsers(data.map((user) => `${user.email}-${user.name}-${user.id}`));
       setMessage("");
       setShow(true);
     });
@@ -31,6 +32,9 @@ function Projects({ currentUser, LocalId }) {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
+          API.addPendingUser(1, userToAdd).then((res) =>
+            console.log("in userProjects: ", res)
+          );
         })
         .catch(() => {
           setLoading(false);
@@ -44,7 +48,8 @@ function Projects({ currentUser, LocalId }) {
 
   const handleInputChange = (event) => {
     const { value } = event.target;
-    console.log("selected value", value);
+    const selectedIndex = event.target.options.selectedIndex;
+    setUserToAdd(event.target.options[selectedIndex].getAttribute("data-key"));
     setEmail(value);
   };
 
@@ -83,11 +88,18 @@ function Projects({ currentUser, LocalId }) {
 
                 <select className="custom-select" onChange={handleInputChange}>
                   <option value="">Add user by email</option>
-                  {users.map((user, index) => (
-                    <option key={index} value={user.split("-")[0]}>
-                      {user}
-                    </option>
-                  ))}
+                  {users.map((user) => {
+                    let UserToAdd = user.split("-");
+                    return (
+                      <option
+                        key={UserToAdd[2]}
+                        data-key={UserToAdd[2]}
+                        value={UserToAdd[0]}
+                      >
+                        {`${UserToAdd[0]}- ${UserToAdd[1]}`}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>

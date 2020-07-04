@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const projectsController = require("../../controllers/projectController");
+const UserProjectsController = require("../../controllers/userprojecsControllers");
 // router : api/projects
 router
   .route("/")
@@ -17,6 +18,6 @@ router
   .delete(projectsController.delete)
   .put(projectsController.update);
 
-router.post("/add-user-to-project", projectsController.addUserToProject);
+router.get("/userProjects/:addInfo", UserProjectsController.addUserToProject);
 
 module.exports = router;

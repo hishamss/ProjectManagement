@@ -35,7 +35,7 @@ module.exports = {
 
   findAllToAdd: function (req, res) {
     db.Users.findAll({
-      attributes: ["name", "email"],
+      attributes: ["name", "email", "id"],
       where: { id: { [Op.ne]: req.params.exclude } },
     })
       .then((users) => res.send(users))

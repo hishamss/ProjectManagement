@@ -12,4 +12,7 @@ export default {
   getUsersToAdd: function (excludeUser) {
     return axios.get(`/api/users/Add/${excludeUser}`);
   },
+  addPendingUser: function (projectId, AddedUserId) {
+    return axios.get(`api/projects/userProjects/${projectId},${AddedUserId}`);
+  },
 };
