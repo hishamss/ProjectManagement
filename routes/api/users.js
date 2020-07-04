@@ -16,6 +16,6 @@ router
     .route("/addproject")
     .put(usersController.addProject)
 
-  router.post('/add-project-to-user', usersController.addProjectToUser)
+  // router.post('/add-project-to-user', usersController.addProjectToUser)
 
 module.exports = router;

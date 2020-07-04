@@ -66,8 +66,7 @@ module.exports = {
         await this.addProjectToUser(firebaseId, projectId);
         res.send({ message: 'Project added sucessfully...'})
     },
-    //Find the user with the corresponding primary key
-    //Add the project to the user. 
+    
     addProjectToUser: async (firebaseId, projectId) => {
         try {
             const user = await db.User.findOne({ where: { firebaseId } });
