@@ -20,7 +20,6 @@ function App() {
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/checkout" component={Checkout} />
             <PrivateRoute exact path="/projects" component={Projects} />
-            <PrivateRoute exact path="/create_project" component={CreateProject} />
             <PrivateRoute component={Home} />
           </Switch>
         </div>

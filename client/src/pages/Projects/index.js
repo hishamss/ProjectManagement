@@ -1,48 +1,53 @@
 import React, { Component, useState } from 'react';
 import "./index.css";
+import CreateProject from '../Create_Project';
 
 class Projects extends Component {
   state = {
-    projectData: {
-      title: ""
-    }
-
+    projects: [],
+    show: false
   }
 
-  fetchFunction = () => {
-    fetch("/api/projects" + this.props.currentUser.uid, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json"
-    },
-    body: JSON.stringify({
-      projectTitle: title
-    })
-    })
+  handleClose = () => this.setState({ show: false });
+  handleShow = () => this.setState({ show: true });
+
+  componentDidMount() {
+    const { uid } = this.props.currentUser;
+
+    fetch(`/api/users/${uid}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("data", data);
+        const { projects } = data;
+        this.setState({ projects });
+      })
   }
 
   render() {
-    return (<div className="container">
-      <div className="row">
-        <div className="column">
-          <div className="card">Create New Project+</div>
+    const { projects, show } = this.state;
+    const { uid } = this.props.currentUser;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="card" onClick={this.handleShow}>Create New Project+</div>
+          </div>
         </div>
-        <div className="column">
-          <div className="card">{title}</div>
+        <div className="row">
+          {projects.map((p, i) => {
+            const { projectTitle } = p;
+            return (
+              <div className="column col-6" key={i}>
+                <div className="card">{projectTitle}</div>
+              </div>
+            )
+          })}
         </div>
+        <div>
+          <button>Upgrade to Full</button>
+        </div>
+        <CreateProject show={show} handleClose={this.handleClose} uid={uid} />
       </div>
-      <div className="row">
-        <div className="column">
-          <div className="card">Project B</div>
-        </div>
-        <div className="column">
-          <div className="card">Project C</div>
-        </div>
-      </div>
-      <div>
-        <button>Upgrade to Full</button>
-      </div>
-    </div>
     )
   }
 
