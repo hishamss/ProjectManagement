@@ -27,12 +27,12 @@ function Projects({ currentUser, LocalId }) {
     if (email) {
       setLoading(true);
 
-      API.sendEmail(email)
+      API.sendEmail(email, 2, userToAdd)
         .then(() => {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
-          API.addPendingUser(1, userToAdd).then(({ data }) => {
+          API.addPendingUser(2, userToAdd).then(({ data }) => {
             if (data === "SequelizeUniqueConstraintError") {
               alert("this user has been added previously to this project!!");
             }
