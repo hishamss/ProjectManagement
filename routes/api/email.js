@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-router.route("/:email").get((req, res) => {
-  console.log(req.params.email);
-  //   const output = `
-  //     <h1>You have been added to project {Project Title} on Email:${req.params.email}</h1>
-  //     <p>Click on the link below to login/sign up to be able to access the project</p>
-  //     `;
-  let link = `http://20ecf077912c.ngrok.io/api/projects/adduser/${req.params.email}`;
-  let PM = "Hisham Saymeh";
-  let ProjectTitle = "Project3";
+router.route("/:Info").get((req, res) => {
+  console.log(req.params.Info);
+  const Info = req.params.Info.split("-");
+  const Email = Info[0];
+  const ProjectId = Info[1];
+  const AddUserId = Info[2];
+  const PM = Info[3];
+  const link = `http://2695753b925d.ngrok.io/api/projects/adduser/${ProjectId}-${AddUserId}`;
+  const ProjectTitle = "Project3";
   const output = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   
@@ -258,7 +258,6 @@ router.route("/:email").get((req, res) => {
   
   </html>`;
 
-  console.log(output);
   async function main() {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
@@ -273,8 +272,8 @@ router.route("/:email").get((req, res) => {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"DoNotReply" <getitdone992@gmail.com>', // sender address
-      to: `${req.params.email}`, // list of receivers
+      from: "Don't Reply <getitdone992@gmail.com>", // sender address
+      to: `${Email}`, // list of receivers
       subject:
         "You have been added by {current User} to collborate on {Project title}", // Subject line
       text: "Hello world?", // plain text body

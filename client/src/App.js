@@ -13,6 +13,7 @@ function App() {
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
   const [email, setEmail] = useState();
+  const [localId, setLocalId] = useState();
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -24,6 +25,7 @@ function App() {
             setInitial(Initial.join(""));
             setName(data.name);
             setEmail(data.email);
+            setLocalId(data.id);
             console.log("from APP ", Initial.join(""));
           } else {
             setInitial("NA");
@@ -41,10 +43,26 @@ function App() {
           <Navbar Name={name} Initial={initial} Email={email} />
           <Switch>
             <Route exact path="/" component={Landing} />
-            <PrivateRoute exact path="/home" component={Home} />
-            <PrivateRoute exact path="/checkout" component={Checkout} />
-            <PrivateRoute exact path="/projects" component={Projects} />
-            <PrivateRoute component={Home} />
+            <PrivateRoute
+              LocalId={localId}
+              exact
+              path="/home"
+              component={Home}
+            />
+            <PrivateRoute
+              LocalId={localId}
+              exact
+              path="/checkout"
+              component={Checkout}
+            />
+            <PrivateRoute
+              Name={name}
+              LocalId={localId}
+              exact
+              path="/projects"
+              component={Projects}
+            />
+            <PrivateRoute CurrentID={localId} component={Home} />
           </Switch>
         </div>
       </Router>

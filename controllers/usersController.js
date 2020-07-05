@@ -1,11 +1,11 @@
 const db = require("../models");
-
+const { Op } = require("sequelize");
 module.exports = {
   //This is finding a specified user by the primary key
   // and including the projects associated with that user
   findOne: function (req, res) {
     const { id } = req.params;
-    db.User.findOne({
+    db.Users.findOne({
       where: { firebaseId: id },
       //Including the db.user model
       //The through key is a way to access the join table (userprojects)
@@ -28,7 +28,16 @@ module.exports = {
       });
   },
   findAll: function (req, res) {
-    db.User.findAll({})
+    db.Users.findAll({})
+      .then((users) => res.send(users))
+      .catch((err) => res.status(422).json(err));
+  },
+
+  findAllToAdd: function (req, res) {
+    db.Users.findAll({
+      attributes: ["name", "email", "id"],
+      where: { id: { [Op.ne]: req.params.exclude } },
+    })
       .then((users) => res.send(users))
       .catch((err) => res.status(422).json(err));
   },
@@ -36,29 +45,29 @@ module.exports = {
   // the firebase ID from the client
   create: function (req, res) {
     console.log("from UsersController: ", req.body);
-    db.User.create(req.body)
+    db.Users.create(req.body)
       .then((user) => res.send(user))
       .catch((err) => res.status(422).json(err));
   },
   delete: function (req, res) {
-    db.User.destroy({
+    db.Users.destroy({
       where: {
         id: req.params.id,
       },
     })
-      .then(() => res.send({ success: "User deleted" }))
+      .then(() => res.send({ success: "Users deleted" }))
       .catch((err) => res.status(422).json(err));
   },
   //Updating the user information and then
   // returning back the updated user information
   update: function (req, res) {
-    db.User.update(req.body, {
+    db.Users.update(req.body, {
       where: {
         id: req.params.id,
       },
     })
       .then(() => {
-        db.User.findOne({ where: { id: req.params.id } })
+        db.Users.findOne({ where: { id: req.params.id } })
           .then((user) => {
             res.send(user);
           })
@@ -70,12 +79,12 @@ module.exports = {
   //Add the project to the user.
   addProjectToUser: (req, res) => {
     const { userId, projectId } = req.body;
-    db.User.findByPk(userId)
+    db.Users.findByPk(userId)
       .then((user) => {
         user
           .addProject(projectId)
           .then(() => {
-            res.send({ success: "Project added to User" });
+            res.send({ success: "Project added to Users" });
           })
           .catch((err) => res.status(422).json(err));
       })

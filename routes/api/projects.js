@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const projectsController = require("../../controllers/projectController");
+const UserProjectsController = require("../../controllers/userprojecsControllers");
 // router : api/projects
 router
   .route("/")
@@ -7,16 +8,13 @@ router
   .post(projectsController.create);
 
 // Email router for adding users to projects
-router.route("/adduser/:user").get((req, res) => {
-  console.log(`from Email: ${req.params.user}`);
-  res.send("you have been Added");
-});
+router.get("/adduser/:addInfo", UserProjectsController.updateStaus);
 router
   .route("/:id")
   .get(projectsController.findOne)
   .delete(projectsController.delete)
   .put(projectsController.update);
 
-router.post("/add-user-to-project", projectsController.addUserToProject);
+router.get("/userProjects/:addInfo", UserProjectsController.addUserToProject);
 
 module.exports = router;
