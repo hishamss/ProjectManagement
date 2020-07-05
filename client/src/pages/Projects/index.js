@@ -8,7 +8,9 @@ class Projects extends Component {
     show: false
   }
 
+  //this is for closing the modal
   handleClose = () => this.setState({ show: false });
+  //this is for showing the modal
   handleShow = () => this.setState({ show: true });
 
   componentDidMount() {
