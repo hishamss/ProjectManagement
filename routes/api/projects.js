@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const projectsController = require("../../controllers/projectController");
+const UserProjectsController = require("../../controllers/userprojecsControllers");
 // router : api/projects
 router
   .route("/")
   .get(projectsController.findAll)
-  .post(projectsController.create)
+  .post(projectsController.create);
 
+// Email router for adding users to projects
+router.get("/adduser/:addInfo", UserProjectsController.updateStaus);
 router
   .route("/:id")
   .get(projectsController.findOne)

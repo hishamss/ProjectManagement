@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 import app from "../../Base";
 import "./style.css";
-function Navbar() {
+function Navbar({ Initial, Name, Email }) {
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
+  const handleClose = () => setShow(false);
+
+  const forgotPw = useCallback(async (event) => {
+    event.preventDefault();
+    if (Email) {
+      try {
+        await app
+          .auth()
+          .sendPasswordResetEmail(Email)
+          .then(setMessage("Reset link has been sent to " + Email));
+        setShow(true);
+      } catch (error) {
+        console.log("change Pass: ", error);
+        setMessage(error);
+      }
+    } else {
+      setMessage("please provide email address");
+    }
+  });
   // render navbar for all pages except the landing page
   const location = useLocation().pathname;
   if (location !== "/") {
@@ -52,7 +74,7 @@ function Navbar() {
                 <span className="fa-stack">
                   <span className="fas fa-circle fa-stack-2x"></span>
 
-                  <strong className="fa-stack-1x">HS</strong>
+                  <strong className="fa-stack-1x">{Initial}</strong>
                 </span>
               </li>
               <li className="nav-item dropdown">
@@ -73,10 +95,10 @@ function Navbar() {
                   <span className="fa-stack">
                     <span className="fas fa-circle fa-stack-2x"></span>
 
-                    <strong className="fa-stack-1x">HS</strong>
+                    <strong className="fa-stack-1x">{Initial}</strong>
                   </span>
                   <Link id="profileDropDown" className="dropdown-item" to="#">
-                    Hisham Saymeh
+                    {Name}
                   </Link>
                   <div className="dropdown-divider"></div>
                   <Link
@@ -84,6 +106,7 @@ function Navbar() {
                     style={{ paddingLeft: "0.5rem" }}
                     to="#"
                     id="changePasswordBtn"
+                    onClick={forgotPw}
                   >
                     Change Password
                   </Link>
@@ -101,43 +124,15 @@ function Navbar() {
             </ul>
           </div>
         </nav>
-        <div className="modal changePassModal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Change Password</h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="emailAddress"
-                    aria-describedby="emailHelp"
-                    placeholder="Please enter the email address Associated with your account"
-                  />
-                </div>
-                <p className="changeMsg"></p>
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-success submitChangePassBtn"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Change Password</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <p>{message}</p>
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
