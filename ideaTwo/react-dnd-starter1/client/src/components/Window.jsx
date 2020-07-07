@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import Modal from "react-modal";
+
 
 Modal.setAppElement("#app");
 
 const Window = ({show, onClose, item, isNew, status, setItems, items}) => {
+    const [content, setContent] = useState("");
     const handleSubmit = () => {
+        const cardNum = items.length + 1;
         const newItem =  {id: 5,
         icon: "⭕️",
         status: "open",
-        title: "hello",
-        content: "test"}
+        title: "Card " + cardNum,
+        content}
         setItems([...items, newItem])
         onClose();
+    }
+    
+    const handleChange = (e) => {
+        setContent(e.target.value);
     }
     if (isNew){
         return(
@@ -29,7 +36,7 @@ const Window = ({show, onClose, item, isNew, status, setItems, items}) => {
                 <div>
                     <h2>Description</h2>
                     <p>Add New Description</p>
-                    <input className="descriptionInput"/>
+                    <input className="descriptionInput" onChange={handleChange}/>
                     <h2>Status</h2>
                     <p>
                         {status}
