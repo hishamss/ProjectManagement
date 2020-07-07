@@ -1,0 +1,12 @@
+const router = require("express").Router();
+const chargeRoute = require("./charge");
+const projectsRoute = require("./projects");
+const issuesRoute = require("./issues");
+const usersRoute = require("./users");
+const emailRoute = require("./email");
+router.use("/charge", chargeRoute);
+router.use("/projects", projectsRoute);
+router.use("/issues", issuesRoute);
+router.use("/users", usersRoute);
+router.use("/email", emailRoute);
+module.exports = router;
