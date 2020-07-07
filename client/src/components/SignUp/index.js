@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { withRouter, Redirect } from "react-router";
+import { withRouter } from "react-router";
 import axios from "axios";
 import app from "../../Base";
 
@@ -9,12 +9,15 @@ const SignUp = ({ history }) => {
   const [firebaseId, setfirebaseId] = useState("");
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
+
   const [post, setPost] = useState("redux");
   const isInvalid = password !== passConfirm || password === "";
 
   useEffect(() => {
     const postUser = async () => {
-      axios.post("/api/users", post).then((res) => console.log(res));
+      axios
+        .post("/api/users", post)
+        .then(() => console.log("User Added Successfully to DB"));
     };
     if (post !== "redux") {
       postUser();
@@ -24,8 +27,7 @@ const SignUp = ({ history }) => {
   const handleSignUp = useCallback(
     async (event) => {
       event.preventDefault();
-      console.log(email);
-      console.log(name);
+
       try {
         await app
           .auth()
@@ -36,9 +38,8 @@ const SignUp = ({ history }) => {
             }
 
             history.push("/");
-            console.log("current UID :", cred.user.uid);
+
             setfirebaseId(cred.user.uid);
-            console.log(firebaseId);
 
             const user = {
               name: name,
@@ -47,6 +48,7 @@ const SignUp = ({ history }) => {
             };
 
             setPost(user);
+            app.auth().signOut();
             alert("Account creation successful");
           });
       } catch (error) {
@@ -93,23 +95,16 @@ const SignUp = ({ history }) => {
             onChange={(e) => setPassConfirm(e.target.value)}
           />
         </div>
-        <button
-          type="submit"
-          className="btn btns w-25 px-4"
-          id="add-btn-free"
-          style={{ marginLeft: 100 }}
-          disabled={isInvalid}
-        >
-          Free
-        </button>
-        <button
-          type="submit"
-          className="btn btns w-25 mx-5 px-4"
-          id="add-btn-full"
-          disabled={isInvalid}
-        >
-          Full
-        </button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="btn btns w-25 px-4"
+            id="add-btn-free"
+            disabled={isInvalid}
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </div>
   );
