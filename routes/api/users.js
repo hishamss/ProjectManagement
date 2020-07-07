@@ -1,10 +1,7 @@
 const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
 
-router
-  .route("/")
-  .get(usersController.findAll)
-  .post(usersController.create)
+router.route("/").get(usersController.findAll).post(usersController.create);
 
 router
   .route("/:id")
@@ -18,4 +15,7 @@ router
 
   // router.post('/add-project-to-user', usersController.addProjectToUser)
 
+router.post("/add-project-to-user", usersController.addProjectToUser);
+// users option to add to project
+router.route("/Add/:exclude").get(usersController.findAllToAdd);
 module.exports = router;
