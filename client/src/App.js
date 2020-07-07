@@ -64,10 +64,16 @@ function App() {
               component={Projects}
             />
             <PrivateRoute CurrentID={localId} component={Home} />
+            <PrivateRoute exact path="/home" component={Home} />
+            <PrivateRoute exact path="/checkout" component={Checkout} />
+            <PrivateRoute exact path="/projects" component={Projects} />
+            <PrivateRoute exact path="/create-project" component={CreateProject} />
+            <PrivateRoute component={Home} />
           </Switch>
         </div>
       </Router>
     </AuthProvider>
+
   );
 }
 

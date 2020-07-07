@@ -11,6 +11,7 @@ module.exports = {
             where: {
               firebaseId: id 
             },
+            
             include: [
                 {
                     model: db.Projects,
@@ -18,6 +19,7 @@ module.exports = {
                     through: {
                         attributes: []
                     }
+                    
                 }
             ]
         })
@@ -25,6 +27,7 @@ module.exports = {
                 res.send(user);
             })
             .catch((err) => {
+                console.log("findone ==>>>>>>", err )
                 res.status(422).json(err)
             });
     },
@@ -36,7 +39,7 @@ module.exports = {
     //This is where the req.body needs to include
     // the firebase ID from the client
     create: function (req, res) {
-        db.User.create(req.body)
+        db.Users.create(req.body)
             .then((user) => res.send(user))
             .catch((err) => res.status(422).json(err));
     },
@@ -67,9 +70,9 @@ module.exports = {
     addProject: async (req, res) => {
         const { firebaseId, projectId } = req.body
         await this.addProjectToUser(firebaseId, projectId);
-        res.send({ message: 'Project added sucessfully...'})
+        res.send({ message: 'Project added sucessfully...' })
     },
-    
+
     addProjectToUser: async (firebaseId, projectId) => {
         try {
             const user = await db.User.findOne({ where: { firebaseId } });
@@ -77,6 +80,6 @@ module.exports = {
         } catch (err) {
             return err;
         };
-    
+
     }
 };
