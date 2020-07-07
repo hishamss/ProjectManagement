@@ -5,7 +5,7 @@ module.exports = {
     // and including the projects associated with that user
     findOne: function (req, res) {
         const { id } = req.params;
-        db.User.findOne({
+        db.Users.findOne({
             //Including the db.user model
             //The through key is a way to access the join table (userprojects)
             where: {
@@ -15,7 +15,6 @@ module.exports = {
             include: [
                 {
                     model: db.Projects,
-                    as: 'projects',
                     through: {
                         attributes: []
                     }
@@ -32,7 +31,7 @@ module.exports = {
             });
     },
     findAll: function (req, res) {
-        db.User.findAll({})
+        db.Users.findAll({})
             .then(users => res.send(users))
             .catch((err) => res.status(422).json(err));
     },
@@ -44,7 +43,7 @@ module.exports = {
             .catch((err) => res.status(422).json(err));
     },
     delete: function (req, res) {
-        db.User.destroy({
+        db.Users.destroy({
             where: {
                 id: req.params.id
             }
@@ -55,13 +54,13 @@ module.exports = {
     //Updating the user information and then 
     // returning back the updated user information
     update: function (req, res) {
-        db.User.update(req.body, {
+        db.Users.update(req.body, {
             where: {
                 id: req.params.id
             }
         })
             .then(() => {
-                db.User.findOne({ where: { id: req.params.id } }).then(user => {
+                db.Users.findOne({ where: { id: req.params.id } }).then(user => {
                     res.send(user);
                 }).catch((err) => res.status(422).json(err));
             })
@@ -75,7 +74,7 @@ module.exports = {
 
     addProjectToUser: async (firebaseId, projectId) => {
         try {
-            const user = await db.User.findOne({ where: { firebaseId } });
+            const user = await db.Users.findOne({ where: { firebaseId } });
             await user.addProject(projectId)
         } catch (err) {
             return err;

@@ -15,11 +15,13 @@ class Projects extends Component {
 
   componentDidMount() {
     const { uid } = this.props.currentUser;
-
+    
     fetch(`/api/users/${uid}`)
       .then(res => res.json())
       .then(data => {
-        console.log("data", data);
+        console.log("data =======> ", data);
+        console.log("this is the ID =======>", uid )
+        console.log("data =======> ", data.projects);
         const { projects } = data;
         this.setState({ projects });
       })

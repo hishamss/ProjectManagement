@@ -12,7 +12,7 @@ module.exports = {
       // We are setting the userprojects table is set to blank, its more organized
       include: [
         {
-          model: db.User,
+          model: db.Users,
           as: "users",
           through: {
             attributes: [],
