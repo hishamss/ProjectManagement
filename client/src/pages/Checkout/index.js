@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -8,6 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import style from "./style.css";
+
 // require("dotenv").config();
 // console.log(process.env.PUBLIC_KEY);
 const styles = {
@@ -45,10 +46,10 @@ const CARD_OPTIONS = {
 
 const CheckoutForm = (props) => {
   // toclear the stripe form after submit
-  const [ref, setRef] = React.useState(null);
+  const [ref, setRef] = useState(null);
+  const [userId, setUserId] = useState()
   const stripe = useStripe();
   const elements = useElements();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -60,7 +61,7 @@ const CheckoutForm = (props) => {
     if (!error) {
       const { id } = paymentMethod;
       console.log(id);
-
+     
       await axios
         .post("/api/charge/", {
           id,
@@ -70,8 +71,9 @@ const CheckoutForm = (props) => {
           console.log(response.data);
           if (response.data === "success") {
             props.response(response.data);
+            axios.put("/api/users/"+ LocalId, {type: "Full"})
           } else {
-            props.response(response.data);
+            props.response("payment failed: "+response.data);
           }
         })
         .catch((err) => {
@@ -114,7 +116,7 @@ function FormMsg(props) {
 }
 function Checkout({ currentUser, LocalId }) {
   const [status, setStatus] = React.useState("");
-
+  
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
