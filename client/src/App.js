@@ -26,7 +26,6 @@ function App() {
             setName(data.name);
             setEmail(data.email);
             setLocalId(data.id);
-            console.log("from APP ", Initial.join(""));
           } else {
             setInitial("NA");
             setName("NA");

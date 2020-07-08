@@ -4,34 +4,54 @@ import { Modal } from "react-bootstrap";
 import "./style.css";
 function Home({ currentUser, LocalId }) {
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState();
-  const [link, setLink] = useState();
+  const [title, setTitle] = useState("");
+  const [link, setLink] = useState("");
+  const [message, setMessage] = useState("");
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setMessage("");
+    setShow(true);
+  };
 
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMessage("");
+    setTitle("");
+    setLink("");
+    if (title && link) {
+      API.createProject({
+        projectTitle: title,
+        projectLink: link,
+        UserId: LocalId,
+      })
+        .then((res) => {
+          setMessage("Created");
+        })
+        .catch(() => setMessage("Error, Try again"));
+    }
+  };
 
   return (
     <div className="projectsContainer">
       <div className="row">
         <div className="col">
-          <div className="card" onClick={handleShow}>
+          <div className="card projectsCard" onClick={handleShow}>
             Create Project +
           </div>
         </div>
         <div className="col">
-          <div className="card">Create Project</div>
+          <div className="card projectsCard">Create Project</div>
         </div>
         <div className="w-100"></div>
         <br />
         <div className="col">
-          <div className="card">Create Project</div>
+          <div className="card projectsCard">Create Project</div>
         </div>
         <div className="col">
-          <div className="card">Create Project</div>
+          <div className="card projectsCard">Create Project</div>
         </div>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -59,6 +79,7 @@ function Home({ currentUser, LocalId }) {
                 placeholder="Project Link"
               />
             </div>
+            <p style={{ marginTop: "1rem" }}>{message}</p>
             <button
               type="submit"
               className="btn btn-primary"

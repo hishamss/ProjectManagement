@@ -5,19 +5,19 @@
   height: calc(100% - 66px);
 }
 
-.card {
+.projectsCard {
   text-align: center;
   font-size: 2em;
   border-radius: 1rem;
   border: 1px solid #4bb3fd;
 }
 
-.card:hover {
+.projectsCard:hover {
   background-color: #2dd881;
   color: white;
   cursor: pointer;
 }
 
-.card:active {
+.projectsCard:active {
   background-color: #4bb3fd;
 }

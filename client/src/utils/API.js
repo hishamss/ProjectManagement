@@ -15,4 +15,7 @@ export default {
   addPendingUser: function (projectId, AddedUserId) {
     return axios.get(`api/projects/userProjects/${projectId},${AddedUserId}`);
   },
+  createProject: function (project) {
+    return axios.post(`api/projects/`, project);
+  },
 };
