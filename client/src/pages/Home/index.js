@@ -6,7 +6,22 @@ function Home({ currentUser, LocalId }) {
   }, []);
   return (
     <div className="projectsContainer">
-      <div class="card">Create Project</div>
+      <div className="row">
+        <div className="col">
+          <div className="card">Create Project +</div>
+        </div>
+        <div className="col">
+          <div className="card">Create Project</div>
+        </div>
+        <div className="w-100"></div>
+        <br />
+        <div className="col">
+          <div className="card">Create Project</div>
+        </div>
+        <div className="col">
+          <div className="card">Create Project</div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -39,7 +39,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div>
+        <div style={{ height: "100%" }}>
           <Navbar Name={name} Initial={initial} Email={email} />
           <Switch>
             <Route exact path="/" component={Landing} />
