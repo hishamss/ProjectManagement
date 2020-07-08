@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100% - 66px);
+  height: calc(100% - 144px);
 }
 
 .projectsCard {
@@ -20,4 +20,8 @@
 
 .projectsCard:active {
   background-color: #4bb3fd;
+}
+
+.smallCol {
+  margin-bottom: 10px;
 }

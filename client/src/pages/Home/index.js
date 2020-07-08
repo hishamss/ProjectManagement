@@ -9,7 +9,10 @@ function Home({ currentUser, LocalId, Projects }) {
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    window.location.reload();
+  };
   const handleShow = () => {
     setMessage("");
     setShow(true);
@@ -38,33 +41,28 @@ function Home({ currentUser, LocalId, Projects }) {
   };
 
   return (
-    <div className="projectsContainer">
-      <div className="row">
-        <div className="col">
-          <div className="card projectsCard" onClick={handleShow}>
-            Create Project +
-          </div>
-        </div>
+    <>
+      <div
+        style={{ display: "flex", justifyContent: "flex-end", padding: "20px" }}
+      >
+        <button className="btn btn-success" onClick={handleShow}>
+          <span>
+            <strong>+</strong>
+          </span>{" "}
+          Add Project
+        </button>
       </div>
-      <div className="row">
-        {Projects.map((row, index) => {
-          if (index % 2 === 0 && index !== 0) {
+
+      <div className="projectsContainer">
+        <div className="row">
+          {Projects.map((row, index) => {
             return (
-              <div>
-                <div className="col">
-                  <div className="card projectsCard">{row.projectTitle}</div>
-                </div>
-                <div className="w-100"></div>
-              </div>
-            );
-          } else {
-            return (
-              <div className="col">
+              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 smallCol">
                 <div className="card projectsCard">{row.projectTitle}</div>
               </div>
             );
-          }
-        })}
+          })}
+        </div>
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -102,7 +100,7 @@ function Home({ currentUser, LocalId, Projects }) {
           </form>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 }
 export default Home;
