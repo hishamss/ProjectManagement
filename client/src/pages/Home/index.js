@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Home({ currentUser, LocalId }) {
+import Projects from "../Projects";
+function Home({ currentUser, LocalId, Projects }) {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
-  const [projects, setProjects] = useState([]);
+
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setMessage("");
@@ -17,14 +18,6 @@ function Home({ currentUser, LocalId }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
-
-  const getProjects = () => {
-    if (LocalId) {
-      API.getProjects(LocalId).then(({ data }) =>
-        console.log("projects for this user ", data)
-      );
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,22 +41,30 @@ function Home({ currentUser, LocalId }) {
     <div className="projectsContainer">
       <div className="row">
         <div className="col">
-          {getProjects()}
           <div className="card projectsCard" onClick={handleShow}>
             Create Project +
           </div>
         </div>
-        <div className="col">
-          <div className="card projectsCard">Create Project</div>
-        </div>
-        <div className="w-100"></div>
-        <br />
-        <div className="col">
-          <div className="card projectsCard">Create Project</div>
-        </div>
-        <div className="col">
-          <div className="card projectsCard">Create Project</div>
-        </div>
+      </div>
+      <div className="row">
+        {Projects.map((row, index) => {
+          if (index % 2 === 0 && index !== 0) {
+            return (
+              <div>
+                <div className="col">
+                  <div className="card projectsCard">{row.projectTitle}</div>
+                </div>
+                <div className="w-100"></div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="col">
+                <div className="card projectsCard">{row.projectTitle}</div>
+              </div>
+            );
+          }
+        })}
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

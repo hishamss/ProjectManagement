@@ -6,6 +6,7 @@ const PrivateRoute = ({
   component: RouteComponent,
   LocalId,
   Name,
+  Projects,
   ...rest
 }) => {
   const { currentUser } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const PrivateRoute = ({
             Name={Name}
             LocalId={LocalId}
             currentUser={currentUser}
+            Projects={Projects}
             {...routeProps}
           />
         ) : (

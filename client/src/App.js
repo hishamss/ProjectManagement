@@ -14,6 +14,7 @@ function App() {
   const [initial, setInitial] = useState();
   const [email, setEmail] = useState();
   const [localId, setLocalId] = useState();
+  const [projects, setProjects] = useState([]);
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -30,6 +31,7 @@ function App() {
             setInitial("NA");
             setName("NA");
           }
+          API.getProjects(data.id).then(({ data }) => setProjects(data));
         });
       } else {
         setLocalId(undefined);
@@ -45,6 +47,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute
+              Projects={projects}
               LocalId={localId}
               exact
               path="/home"
