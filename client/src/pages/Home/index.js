@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
-
+import "./style.css";
 function Home({ currentUser, LocalId }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
   return (
-    <p>
-      {" "}
-      Home Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
-      {LocalId}
-    </p>
+    <div className="projectsContainer">
+      <div class="card">Create Project</div>
+    </div>
   );
 }
 export default Home;
