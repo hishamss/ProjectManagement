@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const projectsController = require("../../controllers/projectController");
 const UserProjectsController = require("../../controllers/userprojecsControllers");
+const projectController = require("../../controllers/projectController");
 // router : api/projects
 router
   .route("/")

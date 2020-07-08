@@ -7,6 +7,7 @@ function Home({ currentUser, LocalId }) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
+  const [projects, setProjects] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setMessage("");
@@ -16,6 +17,15 @@ function Home({ currentUser, LocalId }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
+
+  const getProjects = () => {
+    if (LocalId) {
+      API.getProjects(LocalId).then(({ data }) =>
+        console.log("projects for this user ", data)
+      );
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setMessage("");
@@ -38,6 +48,7 @@ function Home({ currentUser, LocalId }) {
     <div className="projectsContainer">
       <div className="row">
         <div className="col">
+          {getProjects()}
           <div className="card projectsCard" onClick={handleShow}>
             Create Project +
           </div>

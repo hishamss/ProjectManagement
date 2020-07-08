@@ -5,19 +5,11 @@ module.exports = {
   // and including the users associated with that project
   findOne: function (req, res) {
     const { id } = req.params;
-    db.Projects.findByPk(id, {
+    db.Projects.findAll({
       //Including the db.user model
       //The through key is a way to access the join table (userprojects)
       // We are setting the userprojects table is set to blank, its more organized
-      include: [
-        {
-          model: db.User,
-          as: "users",
-          through: {
-            attributes: [],
-          },
-        },
-      ],
+      where: { UserId: id },
     })
       .then((project) => {
         res.send(project);
@@ -31,6 +23,7 @@ module.exports = {
       .then((dbModel) => res.json(dbModel.map((row) => row.dataValues)))
       .catch((err) => res.status(422).json(err));
   },
+
   create: function (req, res) {
     db.Projects.create(req.body)
       .then((project) => res.send(project))

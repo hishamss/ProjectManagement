@@ -18,4 +18,9 @@ export default {
   createProject: function (project) {
     return axios.post(`api/projects/`, project);
   },
+
+  getProjects: function (UserId) {
+    console.log("USERUESR", UserId);
+    return axios.get(`api/projects/${UserId}`);
+  },
 };

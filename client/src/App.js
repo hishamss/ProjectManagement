@@ -31,6 +31,8 @@ function App() {
             setName("NA");
           }
         });
+      } else {
+        setLocalId(undefined);
       }
     });
   }, []);
