@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects({ currentUser, LocalId, Name }) {
+// function Projects({ currentUser, LocalId, Name, id, title}) {
+function Projects({ Name, LocalId, id, title, isclicked }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
+  const ProjectID = id;
+  const ProjectTitle = title;
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -27,12 +30,12 @@ function Projects({ currentUser, LocalId, Name }) {
     if (email) {
       setLoading(true);
 
-      API.sendEmail(email, 2, userToAdd, Name)
+      API.sendEmail(email, ProjectID, ProjectTitle, userToAdd, Name)
         .then(() => {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
-          API.addPendingUser(2, userToAdd).then(({ data }) => {
+          API.addPendingUser(ProjectID, userToAdd).then(({ data }) => {
             if (data === "SequelizeUniqueConstraintError") {
               alert("this user has been added previously to this project!!");
             }
@@ -59,8 +62,8 @@ function Projects({ currentUser, LocalId, Name }) {
     <div>
       <p>
         {" "}
-        Projects Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
-        {LocalId}, Name: {Name}
+        Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
+        {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User
@@ -126,6 +129,7 @@ function Projects({ currentUser, LocalId, Name }) {
           </form>
         </Modal.Body>
       </Modal>
+      <button onClick={() => isclicked(false)}>return</button>
     </div>
   );
 }

@@ -14,6 +14,7 @@ function App() {
   const [initial, setInitial] = useState();
   const [email, setEmail] = useState();
   const [localId, setLocalId] = useState();
+  const [projects, setProjects] = useState([]);
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -26,12 +27,14 @@ function App() {
             setName(data.name);
             setEmail(data.email);
             setLocalId(data.id);
-            console.log("from APP ", Initial.join(""));
           } else {
             setInitial("NA");
             setName("NA");
           }
+          API.getProjects(data.id).then(({ data }) => setProjects(data));
         });
+      } else {
+        setLocalId(undefined);
       }
     });
   }, []);
@@ -39,11 +42,13 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div>
+        <div style={{ height: "100%" }}>
           <Navbar Name={name} Initial={initial} Email={email} />
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute
+              Name={name}
+              Projects={projects}
               LocalId={localId}
               exact
               path="/home"
@@ -56,10 +61,9 @@ function App() {
               component={Checkout}
             />
             <PrivateRoute
-              Name={name}
               LocalId={localId}
               exact
-              path="/projects"
+              path="/projects/"
               component={Projects}
             />
             <PrivateRoute CurrentID={localId} component={Home} />

@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
         len: [1],
       },
     },
-    projectDescription: {
+    projectLink: {
       type: DataTypes.STRING,
       allowNull: false,
     },

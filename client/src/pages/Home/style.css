@@ -1,0 +1,29 @@
+.projectsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 144px);
+}
+
+.projectsCard {
+  color: black;
+  text-align: center;
+  font-size: 2em;
+  border-radius: 1rem;
+  border: 1px solid #4bb3fd;
+  padding: 10px;
+}
+
+.projectsCard:hover {
+  background-color: #2dd881;
+  color: white;
+  cursor: pointer;
+}
+
+.projectsCard:active {
+  background-color: #4bb3fd;
+}
+
+.smallCol {
+  margin-bottom: 10px;
+}
