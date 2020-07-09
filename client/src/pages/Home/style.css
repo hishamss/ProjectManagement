@@ -11,6 +11,7 @@
   font-size: 2em;
   border-radius: 1rem;
   border: 1px solid #4bb3fd;
+  padding: 10px;
 }
 
 .projectsCard:hover {
