@@ -90,10 +90,11 @@ const CheckoutForm = (props) => {
           if (response.data === "success") {
             props.response(response.data);
             axios.put("/api/users/"+ userId, {type: "Full"})
-            alert("Payment Successful")
-            return <Redirect to="/home" />
+            alert("Payment Successful");
+            window.location.replace("http://localhost:3000/home")
           } else {
             props.response("payment failed: "+response.data);
+            alert(response.data)
           }
         })
         .catch((err) => {
