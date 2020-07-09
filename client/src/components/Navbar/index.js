@@ -47,18 +47,6 @@ function Navbar({ Initial, Name, Email }) {
                 Home <span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item active">
-              <Link
-                to="/projects"
-                className={
-                  location === "/projects"
-                    ? "nav-link clicked"
-                    : "nav-link pagesLinks"
-                }
-              >
-                Projects <span className="sr-only">(current)</span>
-              </Link>
-            </li>
           </ul>
           <div
             className="collapse navbar-collapse justify-content-end"

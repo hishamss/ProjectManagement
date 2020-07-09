@@ -16,6 +16,4 @@ router
   .delete(projectsController.delete)
   .put(projectsController.update);
 
-router.get("/userProjects/:addInfo", UserProjectsController.addUserToProject);
-
 module.exports = router;

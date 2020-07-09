@@ -7,6 +7,7 @@ const PrivateRoute = ({
   LocalId,
   Name,
   Projects,
+
   ...rest
 }) => {
   const { currentUser } = useContext(AuthContext);

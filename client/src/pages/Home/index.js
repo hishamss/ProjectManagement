@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-import Projects from "../Projects";
 function Home({ currentUser, LocalId, Projects }) {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("");
@@ -41,7 +41,7 @@ function Home({ currentUser, LocalId, Projects }) {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div
         style={{ display: "flex", justifyContent: "flex-end", padding: "20px" }}
       >
@@ -57,8 +57,20 @@ function Home({ currentUser, LocalId, Projects }) {
         <div className="row">
           {Projects.map((row, index) => {
             return (
-              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 smallCol">
-                <div className="card projectsCard">{row.projectTitle}</div>
+              <div
+                key={index}
+                className="col-lg-6 col-md-6 col-sm-6 col-xs-12 smallCol"
+              >
+                {/* <Link style={{ textDecoration: "none" }} to="/projects">
+                  <div className="card projectsCard">{row.projectTitle}</div>
+                </Link>
+              </div> */}
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/projects/${row.id}-${row.projectTitle}`}
+                >
+                  <div className="card projectsCard">{row.projectTitle}</div>
+                </Link>
               </div>
             );
           })}
@@ -100,7 +112,7 @@ function Home({ currentUser, LocalId, Projects }) {
           </form>
         </Modal.Body>
       </Modal>
-    </>
+    </React.Fragment>
   );
 }
 export default Home;

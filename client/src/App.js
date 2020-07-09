@@ -63,7 +63,7 @@ function App() {
               Name={name}
               LocalId={localId}
               exact
-              path="/projects"
+              path="/projects/:ProjectId"
               component={Projects}
             />
             <PrivateRoute CurrentID={localId} component={Home} />
