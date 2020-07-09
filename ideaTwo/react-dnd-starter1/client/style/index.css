@@ -1,14 +1,14 @@
 :root {
-    --primary-color: rgb(62, 100, 255);
+    --primary-color: #1d1c39;
     --complete-color: #27aa80;
-    --text-color: #172b4d;
+    --text-color: #4bb3fd;
     --disabled-color: #fad6d6;
     --background-color: #f5eaea;
 }
 
 html {
     background: rgb(0,73,191);
-    background: linear-gradient(90deg, rgba(0,73,191,1) 0%, rgba(190,190,255,1) 46%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, #1d1c39 , #ff22b1 50%, #1d1c39 100%);
 }
 
 body {
@@ -133,11 +133,11 @@ select {
 }
 
 .highlight-region {
-    background-color: yellow;
+    background-color: #2dd881;
 }
 
 .page-header {
-    background-color: #054F7C;
+    background-color: #1d1c39;
     padding: 20px;
     color: white;
     font-size: 30px;
@@ -147,7 +147,7 @@ select {
 }
 
 .modal {
-    background-color: #F4F5F7;
+    background-color: #F4F5F9;
     border-radius: 2px;
     margin: 48px 0 80px;
     min-height: 450px;
@@ -175,7 +175,7 @@ select {
     height: 40px;
     width: 35px;
     font-size: 20px;
-    color: #031D2C;
+    color: #2dd881;
     border: none;
     border-radius: 25px;
 }
