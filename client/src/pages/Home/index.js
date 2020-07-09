@@ -84,7 +84,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
           </div>
 
           <div className="projectsContainer">
-            <div className="row">
+            <div className="row" style={{ minWidth: "500px" }}>
               {Projects.map((row, index) => {
                 return (
                   <div

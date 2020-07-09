@@ -98,7 +98,7 @@ const SignUp = ({ history }) => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btns w-25 px-4"
+            className="btn btnss w-25 px-4"
             id="add-btn-free"
             disabled={isInvalid}
           >
