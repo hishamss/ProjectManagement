@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { withRouter, Redirect } from "react-router";
 import { loadStripe } from "@stripe/stripe-js";
+import API from "../../utils/API";
+import app from "../../Base";
 import {
   Elements,
   CardElement,
@@ -47,12 +50,27 @@ const CARD_OPTIONS = {
 const CheckoutForm = (props) => {
   // toclear the stripe form after submit
   const [ref, setRef] = useState(null);
-  const [userId, setUserId] = useState()
   const stripe = useStripe();
   const elements = useElements();
+  const [userId, setUserId] = useState();
+  useEffect(() => {
+    app.auth().onAuthStateChanged((user) => {
+      if (user) {
+        API.getUserInfo(user.uid).then(({ data }) => {
+          if (data) {
+            setUserId(data.id);
+          } else {
+            return
+          }
+        });
+      }
+    });
+  }, []);
+  
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -65,13 +83,15 @@ const CheckoutForm = (props) => {
       await axios
         .post("/api/charge/", {
           id,
-          amount: 19999,
+          amount: 1199,
         })
         .then((response) => {
           console.log(response.data);
           if (response.data === "success") {
             props.response(response.data);
-            axios.put("/api/users/"+ LocalId, {type: "Full"})
+            axios.put("/api/users/"+ userId, {type: "Full"})
+            alert("Payment Successful")
+            return <Redirect to="/home" />
           } else {
             props.response("payment failed: "+response.data);
           }
@@ -87,9 +107,11 @@ const CheckoutForm = (props) => {
   return (
     <div className="container">
     <div className="jumbotron tron">
+    <h1 className=" head text-center">Payment Information</h1>
+    <h3 className="text-center"> Manage unlimited projects for $11.99/mo!</h3>
+    <br />
     <form onSubmit={handleSubmit} style={styles.formStyle}>
-      <div className="form-group">
-        <h1 className=" head text-center">Payment Information</h1>
+      <div className="form-group"> 
       <input type="text" placeholder="Name on Card" className="form-control" />
       </div>
       <div className="form-group">
@@ -115,18 +137,19 @@ function FormMsg(props) {
   return <p>{props.msg}</p>;
 }
 function Checkout({ currentUser, LocalId }) {
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = useState("");
   
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
+    
   }, []);
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
-      <FormMsg msg={status} />
+      <FormMsg  />
     </Elements>
     
   );
 }
 
-export default Checkout;
+export default withRouter(Checkout);
