@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects({ currentUser, LocalId, Name, ...props }) {
+// function Projects({ currentUser, LocalId, Name, id, title}) {
+function Projects({ Name, LocalId, id, title, isclicked }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
-  const ProjectID = props.location.pathname.split("-")[0].slice(-1);
-  const ProjectTitle = props.location.pathname.split("-")[1];
+  const ProjectID = id;
+  const ProjectTitle = title;
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -61,8 +62,8 @@ function Projects({ currentUser, LocalId, Name, ...props }) {
     <div>
       <p>
         {" "}
-        Projects Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
-        {LocalId}, Name: {Name}, clicked Project: {ProjectID}
+        Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
+        {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User
@@ -128,6 +129,7 @@ function Projects({ currentUser, LocalId, Name, ...props }) {
           </form>
         </Modal.Body>
       </Modal>
+      <button onClick={() => isclicked(false)}>return</button>
     </div>
   );
 }

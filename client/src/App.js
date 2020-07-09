@@ -47,6 +47,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute
+              Name={name}
               Projects={projects}
               LocalId={localId}
               exact
@@ -60,10 +61,9 @@ function App() {
               component={Checkout}
             />
             <PrivateRoute
-              Name={name}
               LocalId={localId}
               exact
-              path="/projects/:ProjectId"
+              path="/projects/"
               component={Projects}
             />
             <PrivateRoute CurrentID={localId} component={Home} />

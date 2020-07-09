@@ -34,20 +34,7 @@ function Navbar({ Initial, Name, Email }) {
           <Link className="navbar-brand" to="/home">
             <img id="logo" src="Done.png" alt="logo" loading="lazy" />
           </Link>
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link
-                to="/home"
-                className={
-                  location === "/home"
-                    ? "nav-link clicked"
-                    : "nav-link pagesLinks"
-                }
-              >
-                Home <span className="sr-only">(current)</span>
-              </Link>
-            </li>
-          </ul>
+
           <div
             className="collapse navbar-collapse justify-content-end"
             id="navbarSupportedContent"
