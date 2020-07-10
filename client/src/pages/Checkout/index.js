@@ -20,29 +20,28 @@ const styles = {
     maxWidth: 600,
     margin: "0 auto",
   },
-  
 };
 
 const CARD_OPTIONS = {
-  iconStyle: 'solid',
+  iconStyle: "solid",
   style: {
     base: {
-      iconColor: '#c4f0ff',
-      color: 'black',
+      iconColor: "#c4f0ff",
+      color: "black",
       fontWeight: 500,
-      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-      fontSize: '16px',
-      fontSmoothing: 'antialiased',
-      ':-webkit-autofill': {
-        color: '#fce883',
+      fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+      fontSize: "16px",
+      fontSmoothing: "antialiased",
+      ":-webkit-autofill": {
+        color: "#fce883",
       },
-      '::placeholder': {
-        color: '#87bbfd',
+      "::placeholder": {
+        color: "#87bbfd",
       },
     },
     invalid: {
-      iconColor: '#ffc7ee',
-      color: '#ffc7ee',
+      iconColor: "#ffc7ee",
+      color: "#ffc7ee",
     },
   },
 };
@@ -60,17 +59,16 @@ const CheckoutForm = (props) => {
           if (data) {
             setUserId(data.id);
           } else {
-            return
+            return;
           }
         });
       }
     });
   }, []);
-  
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -79,7 +77,7 @@ const CheckoutForm = (props) => {
     if (!error) {
       const { id } = paymentMethod;
       console.log(id);
-     
+
       await axios
         .post("/api/charge/", {
           id,
@@ -89,12 +87,13 @@ const CheckoutForm = (props) => {
           console.log(response.data);
           if (response.data === "success") {
             props.response(response.data);
-            axios.put("/api/users/"+ userId, {type: "Full"})
+            axios.put("/api/users/" + userId, { type: "Full" });
             alert("Payment Successful");
-            window.location.replace("http://localhost:3000/home")
+            // window.location.replace("http://localhost:3000/home")
+            window.location.href = "/";
           } else {
-            props.response("payment failed: "+response.data);
-            alert(response.data)
+            props.response("payment failed: " + response.data);
+            alert(response.data);
           }
         })
         .catch((err) => {
@@ -107,26 +106,40 @@ const CheckoutForm = (props) => {
 
   return (
     <div className="container">
-    <div className="jumbotron tron">
-    <h1 className=" head text-center">Payment Information</h1>
-    <h3 className="text-center"> Manage unlimited projects for $11.99/mo!</h3>
-    <br />
-    <form onSubmit={handleSubmit} style={styles.formStyle}>
-      <div className="form-group"> 
-      <input type="text" placeholder="Name on Card" className="form-control" />
+      <div className="jumbotron tron">
+        <h1 className=" head text-center">Payment Information</h1>
+        <h3 className="text-center">
+          {" "}
+          Manage unlimited projects for $11.99/mo!
+        </h3>
+        <br />
+        <form onSubmit={handleSubmit} style={styles.formStyle}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Name on Card"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Billing Address"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <CardElement
+              className="form-control"
+              options={CARD_OPTIONS}
+              onReady={(e) => setRef(e)}
+            />
+          </div>
+          <button className="btns" type="submit" disabled={!stripe}>
+            Pay
+          </button>
+        </form>
       </div>
-      <div className="form-group">
-      
-      <input type="text" placeholder="Billing Address" className="form-control" />
-      </div>
-      <div className="form-group">
-      <CardElement className="form-control" options={CARD_OPTIONS} onReady={(e) => setRef(e)} />
-      </div>
-      <button className= "btns" type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
-    </div>
     </div>
   );
 };
@@ -139,17 +152,15 @@ function FormMsg(props) {
 }
 function Checkout({ currentUser, LocalId }) {
   const [status, setStatus] = useState("");
-  
+
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
-    
   }, []);
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
-      <FormMsg  />
+      <FormMsg />
     </Elements>
-    
   );
 }
 

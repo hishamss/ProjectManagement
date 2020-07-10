@@ -15,6 +15,7 @@ function App() {
   const [email, setEmail] = useState();
   const [localId, setLocalId] = useState();
   const [projects, setProjects] = useState([]);
+  const [type, setType] = useState("");
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -27,6 +28,7 @@ function App() {
             setName(data.name);
             setEmail(data.email);
             setLocalId(data.id);
+            setType(data.type);
           } else {
             setInitial("NA");
             setName("NA");
@@ -43,7 +45,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div style={{ height: "100%" }}>
-          <Navbar Name={name} Initial={initial} Email={email} />
+          <Navbar Type={type} Name={name} Initial={initial} Email={email} />
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute
