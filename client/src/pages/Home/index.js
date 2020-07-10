@@ -12,6 +12,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   const [isclicked, setIsclicked] = useState(false);
   const [clickedProject, setClickedProject] = useState("");
   const [ProjectTitle, setClickedProjectTitle] = useState("");
+  const [privilege, setPrivilege] = useState(false);
   const handleClose = () => {
     setShow(false);
     window.location.reload();
@@ -21,10 +22,11 @@ function Home({ currentUser, Name, LocalId, Projects }) {
     setShow(true);
   };
 
-  const renderProject = (Projectid, ProjectTitle) => {
+  const renderProject = (Projectid, ProjectTitle, privilege) => {
     console.log("clicked ", Projectid);
     setClickedProject(Projectid);
     setClickedProjectTitle(ProjectTitle);
+    setPrivilege(privilege);
     setIsclicked(true);
   };
 
@@ -63,6 +65,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
           isclicked={(val) => updateIsClicked(val)}
           LocalId={LocalId}
           Name={Name}
+          PM={privilege}
         ></ProjectsComponent>
       );
     } else {
@@ -98,9 +101,15 @@ function Home({ currentUser, Name, LocalId, Projects }) {
 
                     <div
                       className="card projectsCard"
-                      onClick={() => renderProject(row.id, row.projectTitle)}
+                      onClick={() =>
+                        renderProject(
+                          row.Project.id,
+                          row.Project.projectTitle,
+                          row.UserId === row.Project.UserId ? true : false
+                        )
+                      }
                     >
-                      {row.projectTitle}
+                      {row.Project.projectTitle}
                     </div>
                   </div>
                 );

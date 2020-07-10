@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
 // function Projects({ currentUser, LocalId, Name, id, title}) {
-function Projects({ Name, LocalId, id, title, isclicked }) {
+function Projects({ Name, LocalId, id, title, isclicked, PM }) {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -72,10 +72,18 @@ function Projects({ Name, LocalId, id, title, isclicked }) {
         Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
         {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
-      <button className="btn btn-success" onClick={handleShow}>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={handleShow}
+      >
         Add User
       </button>
-      <button className="btn btn-success" onClick={DeleteProject}>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={DeleteProject}
+      >
         Delete Project
       </button>
       <Modal show={show} onHide={handleClose}>

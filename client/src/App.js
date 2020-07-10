@@ -33,7 +33,10 @@ function App() {
             setInitial("NA");
             setName("NA");
           }
-          API.getProjects(data.id).then(({ data }) => setProjects(data));
+          API.getProjects(data.id).then(({ data }) => {
+            setProjects(data);
+            console.log("pppp", data);
+          });
         });
       } else {
         setLocalId(undefined);

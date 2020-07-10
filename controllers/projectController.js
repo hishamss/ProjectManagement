@@ -1,15 +1,21 @@
 const db = require("../models");
-
+const { Op } = require("sequelize");
 module.exports = {
   //This is finding a specified project by the primary key
   // and including the users associated with that project
   findOne: function (req, res) {
     const { id } = req.params;
-    db.Projects.findAll({
+    db.UserProjects.findAll({
       //Including the db.user model
       //The through key is a way to access the join table (userprojects)
       // We are setting the userprojects table is set to blank, its more organized
-      where: { UserId: id },
+      where: { [Op.and]: [{ UserId: id }, { status: "Active" }] },
+
+      include: [
+        {
+          model: db.Projects,
+        },
+      ],
     })
       .then((project) => {
         res.send(project);
@@ -26,7 +32,15 @@ module.exports = {
 
   create: function (req, res) {
     db.Projects.create(req.body)
-      .then((project) => res.send(project))
+      .then(({ dataValues }) => {
+        db.UserProjects.create({
+          ProjectId: dataValues.id,
+          UserId: dataValues.UserId,
+          status: "Active",
+        })
+          .then(() => res.send(true))
+          .catch(() => res.send(false));
+      })
       .catch((err) => res.status(422).json(err));
   },
   delete: function (req, res) {
