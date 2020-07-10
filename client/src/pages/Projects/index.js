@@ -58,6 +58,13 @@ function Projects({ Name, LocalId, id, title, isclicked }) {
     setEmail(value);
   };
 
+  const DeleteProject = () => {
+    API.deleteProject(ProjectID).then(() => {
+      alert("Project has been deleted");
+      window.location.href = "/";
+    });
+  };
+
   return (
     <div>
       <p>
@@ -67,6 +74,9 @@ function Projects({ Name, LocalId, id, title, isclicked }) {
       </p>
       <button className="btn btn-success" onClick={handleShow}>
         Add User
+      </button>
+      <button className="btn btn-success" onClick={DeleteProject}>
+        Delete Project
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

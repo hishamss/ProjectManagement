@@ -26,4 +26,8 @@ export default {
     console.log("USERUESR", UserId);
     return axios.get(`api/projects/${UserId}`);
   },
+
+  deleteProject: function (projectId) {
+    return axios.delete(`api/projects/${projectId}`);
+  },
 };
