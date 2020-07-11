@@ -34,7 +34,11 @@ export default {
     return axios.put(`api/user-projects/${projectId}-${userId}`);
   },
 
-  whoIsAdded: function (projectId) {
-    return axios.get(`api/user-projects/WhoIsAdded/${projectId}`);
+  whoIsAdded: function (projectId, UserId) {
+    return axios.get(`api/user-projects/WhoIsAdded/${projectId}-${UserId}`);
+  },
+
+  removeFromProject: function (UserId, ProjectID) {
+    return axios.delete(`api/user-projects/${UserId}-${ProjectID}`);
   },
 };

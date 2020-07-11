@@ -52,6 +52,14 @@ function Projects({ Name, LocalId, id, title, isclicked, PM, Users }) {
     }
   };
 
+  const deleteUser = (UserId, index) => {
+    API.removeFromProject(UserId, ProjectID).then((res) => {
+      if (res) {
+        document.getElementById(index).style.display = "none";
+      }
+    });
+  };
+
   const handleInputChange = (event) => {
     const { value } = event.target;
     const selectedIndex = event.target.options.selectedIndex;
@@ -90,9 +98,20 @@ function Projects({ Name, LocalId, id, title, isclicked, PM, Users }) {
         <tbody>
           {Users.map((row, index) => {
             return (
-              <tr key={index}>
+              <tr key={index} id={index}>
                 <td>{row.User.name}</td>
-                <td>{row.status}</td>
+                <td>
+                  <span style={{ marginRight: "20px" }}>{row.status}</span>
+                  <button
+                    className="btn btn-success"
+                    style={
+                      PM ? { display: "inline-block" } : { display: "none" }
+                    }
+                    onClick={() => deleteUser(row.UserId, index)}
+                  >
+                    Delete User
+                  </button>
+                </td>
               </tr>
             );
           })}

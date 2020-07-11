@@ -25,7 +25,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
 
   const renderProject = (Projectid, ProjectTitle, privilege) => {
     console.log("clicked ", Projectid);
-    API.whoIsAdded(Projectid).then(({ data }) => {
+    API.whoIsAdded(Projectid, LocalId).then(({ data }) => {
       setAddedUsers(data);
       setClickedProject(Projectid);
       setClickedProjectTitle(ProjectTitle);

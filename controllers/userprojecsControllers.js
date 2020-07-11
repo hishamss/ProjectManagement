@@ -16,9 +16,15 @@ module.exports = {
       });
   },
   who: (req, res) => {
+    const { info } = req.params;
+    const ProjectId = info.split("-")[0];
+    const UserId = info.split("-")[1];
     db.UserProjects.findAll({
-      where: { ProjectId: req.params.projectId },
-      attributes: ["status"],
+      where: {
+        [Op.and]: [{ UserId: { [Op.ne]: UserId } }, { ProjectId: ProjectId }],
+      },
+
+      attributes: ["status", "UserId"],
       include: [
         {
           model: db.Users,
@@ -301,5 +307,17 @@ module.exports = {
  </body></html>`);
       })
       .catch((err) => console.log(err));
+  },
+  remove: (req, res) => {
+    const { info } = req.params;
+    const UserId = info.split("-")[0];
+    const ProjectId = info.split("-")[1];
+    db.UserProjects.destroy({
+      where: {
+        [Op.and]: [{ UserId: UserId }, { ProjectId: ProjectId }],
+      },
+    })
+      .then(() => res.send(true))
+      .catch(() => res.send(false));
   },
 };
