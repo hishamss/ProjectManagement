@@ -14,14 +14,14 @@ const data = [{
     id: 3,
     icon: "⭕️",
     status: "open",
-    title: "Give up",
-    content: "You can't code, stop"
+    title: "Bug",
+    content: "Work on Slider bug"
 }, {
     id: 4,
     icon: "⭕️",
     status: "open",
-    title: "Please make it stop",
-    content: "I hate react"
+    title: "Meeting",
+    content: "Meet with UX team"
 }];
 
 const statuses = [{
