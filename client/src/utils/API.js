@@ -26,4 +26,19 @@ export default {
     console.log("USERUESR", UserId);
     return axios.get(`api/projects/${UserId}`);
   },
+
+  deleteProject: function (projectId) {
+    return axios.delete(`api/projects/${projectId}`);
+  },
+  leaveProject: function (projectId, userId) {
+    return axios.put(`api/user-projects/${projectId}-${userId}`);
+  },
+
+  whoIsAdded: function (projectId, UserId) {
+    return axios.get(`api/user-projects/WhoIsAdded/${projectId}-${UserId}`);
+  },
+
+  removeFromProject: function (UserId, ProjectID) {
+    return axios.delete(`api/user-projects/${UserId}-${ProjectID}`);
+  },
 };

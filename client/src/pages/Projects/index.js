@@ -3,7 +3,8 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
 // function Projects({ currentUser, LocalId, Name, id, title}) {
-function Projects({ Name, LocalId, id, title, isclicked }) {
+function Projects({ Name, LocalId, id, title, isclicked, PM, Users }) {
+  console.log("userssresfdf", Users);
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -51,11 +52,32 @@ function Projects({ Name, LocalId, id, title, isclicked }) {
     }
   };
 
+  const deleteUser = (UserId, index) => {
+    API.removeFromProject(UserId, ProjectID).then((res) => {
+      if (res) {
+        document.getElementById(index).style.display = "none";
+      }
+    });
+  };
+
   const handleInputChange = (event) => {
     const { value } = event.target;
     const selectedIndex = event.target.options.selectedIndex;
     setUserToAdd(event.target.options[selectedIndex].getAttribute("data-key"));
     setEmail(value);
+  };
+
+  const leaveProject = () => {
+    API.leaveProject(ProjectID, LocalId).then(
+      () => (window.location.href = "/")
+    );
+  };
+
+  const DeleteProject = () => {
+    API.deleteProject(ProjectID).then(() => {
+      alert("Project has been deleted");
+      window.location.href = "/";
+    });
   };
 
   return (
@@ -65,8 +87,56 @@ function Projects({ Name, LocalId, id, title, isclicked }) {
         Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
         {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
-      <button className="btn btn-success" onClick={handleShow}>
+      <h1>Team</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Users.map((row, index) => {
+            return (
+              <tr key={index} id={index}>
+                <td>{row.User.name}</td>
+                <td>
+                  <span style={{ marginRight: "20px" }}>{row.status}</span>
+                  <button
+                    className="btn btn-success"
+                    style={
+                      PM ? { display: "inline-block" } : { display: "none" }
+                    }
+                    onClick={() => deleteUser(row.UserId, index)}
+                  >
+                    Delete User
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={handleShow}
+      >
         Add User
+      </button>
+      <button
+        style={!PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={leaveProject}
+      >
+        Leave Project
+      </button>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={DeleteProject}
+      >
+        Delete Project
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

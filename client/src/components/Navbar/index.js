@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 import app from "../../Base";
 import "./style.css";
-function Navbar({ Initial, Name, Email }) {
+function Navbar({ Initial, Name, Email, Type }) {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
   const handleClose = () => setShow(false);
@@ -41,7 +41,16 @@ function Navbar({ Initial, Name, Email }) {
           >
             <ul className="navbar-nav">
               <li>
-                <Link className="btn btn-success" to="/checkout" role="button">
+                <Link
+                  style={
+                    Type === "Full"
+                      ? { display: "none" }
+                      : { display: "inline-block" }
+                  }
+                  className="btn btn-success"
+                  to="/checkout"
+                  role="button"
+                >
                   Upgrade Now
                 </Link>
               </li>
