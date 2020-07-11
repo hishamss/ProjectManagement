@@ -6,12 +6,10 @@ import Backend, { HTML5Backend } from "react-dnd-html5-backend";
 
 const Main = () => {
   return (
-    <div id="app">
-      <DndProvider backend={HTML5Backend}>
-        <Header />
-        <Homepage />
-      </DndProvider>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <Header />
+      <Homepage />
+    </DndProvider>
   );
 };
 
