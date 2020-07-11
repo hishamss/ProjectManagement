@@ -30,6 +30,7 @@ const DropWrapper = ({ onDrop, children, status, setItems, items }) => {
     <div ref={drop} className={"drop-wrapper"}>
       {React.cloneElement(children, { isOver })}
       {status === "open" && <button onClick={onOpen}>+</button>}
+      {console.log("button click")}
 
       <Window
         isNew={true}

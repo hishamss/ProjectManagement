@@ -3,6 +3,7 @@ import Item from "./item";
 import DropWrapper from "./DropWrapper";
 import Col from "./col";
 import { data, statuses } from "./data";
+import styles from './main.css';
 
 const Homepage = () => {
   const [items, setItems] = useState(data);

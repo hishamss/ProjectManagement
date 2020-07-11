@@ -26,7 +26,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
       <Modal
         isOpen={show}
         onRequestClose={onClose}
-        className={"modal"}
+        className={"modal-new"}
         overlayClassName={"overlay"}
       >
         <div className={"close-btn-ctn"}>
@@ -56,7 +56,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
     <Modal
       isOpen={show}
       onRequestClose={onClose}
-      className={"modal"}
+      className={"modal-new"}
       overlayClassName={"overlay"}
     >
       <div className={"close-btn-ctn"}>
