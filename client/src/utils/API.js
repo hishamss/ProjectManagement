@@ -30,4 +30,11 @@ export default {
   deleteProject: function (projectId) {
     return axios.delete(`api/projects/${projectId}`);
   },
+  leaveProject: function (projectId, userId) {
+    return axios.put(`api/user-projects/${projectId}-${userId}`);
+  },
+
+  whoIsAdded: function (projectId) {
+    return axios.get(`api/user-projects/WhoIsAdded/${projectId}`);
+  },
 };

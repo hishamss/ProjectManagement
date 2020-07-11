@@ -15,6 +15,34 @@ module.exports = {
         res.send(err.name);
       });
   },
+  who: (req, res) => {
+    db.UserProjects.findAll({
+      where: { ProjectId: req.params.projectId },
+      attributes: ["status"],
+      include: [
+        {
+          model: db.Users,
+          attributes: ["name"],
+        },
+      ],
+    }).then((response) => res.send(response));
+  },
+
+  leave: (req, res) => {
+    const { info } = req.params;
+    const projectId = info.split("-")[0];
+    const userId = info.split("-")[1];
+    db.UserProjects.update(
+      { status: "pending" },
+      {
+        where: {
+          [Op.and]: [{ UserId: userId }, { ProjectId: projectId }],
+        },
+      }
+    )
+      .then(() => res.send(true))
+      .catch(() => res.send(false));
+  },
   updateStaus: (req, res) => {
     const AddInfo = req.params.addInfo.split("-");
     console.log(`from Email Info: ${AddInfo[0]}, ${AddInfo[1]}`);

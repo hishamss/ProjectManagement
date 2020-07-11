@@ -13,6 +13,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   const [clickedProject, setClickedProject] = useState("");
   const [ProjectTitle, setClickedProjectTitle] = useState("");
   const [privilege, setPrivilege] = useState(false);
+  const [addedUsers, setAddedUsers] = useState([]);
   const handleClose = () => {
     setShow(false);
     window.location.reload();
@@ -24,10 +25,13 @@ function Home({ currentUser, Name, LocalId, Projects }) {
 
   const renderProject = (Projectid, ProjectTitle, privilege) => {
     console.log("clicked ", Projectid);
-    setClickedProject(Projectid);
-    setClickedProjectTitle(ProjectTitle);
-    setPrivilege(privilege);
-    setIsclicked(true);
+    API.whoIsAdded(Projectid).then(({ data }) => {
+      setAddedUsers(data);
+      setClickedProject(Projectid);
+      setClickedProjectTitle(ProjectTitle);
+      setPrivilege(privilege);
+      setIsclicked(true);
+    });
   };
 
   const updateIsClicked = (val) => {
@@ -66,6 +70,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
           LocalId={LocalId}
           Name={Name}
           PM={privilege}
+          Users={addedUsers}
         ></ProjectsComponent>
       );
     } else {

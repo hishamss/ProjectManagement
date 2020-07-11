@@ -3,7 +3,8 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
 // function Projects({ currentUser, LocalId, Name, id, title}) {
-function Projects({ Name, LocalId, id, title, isclicked, PM }) {
+function Projects({ Name, LocalId, id, title, isclicked, PM, Users }) {
+  console.log("userssresfdf", Users);
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -58,6 +59,12 @@ function Projects({ Name, LocalId, id, title, isclicked, PM }) {
     setEmail(value);
   };
 
+  const leaveProject = () => {
+    API.leaveProject(ProjectID, LocalId).then(
+      () => (window.location.href = "/")
+    );
+  };
+
   const DeleteProject = () => {
     API.deleteProject(ProjectID).then(() => {
       alert("Project has been deleted");
@@ -72,12 +79,38 @@ function Projects({ Name, LocalId, id, title, isclicked, PM }) {
         Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
         {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
+      <h1>Team</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Users.map((row, index) => {
+            return (
+              <tr key={index}>
+                <td>{row.User.name}</td>
+                <td>{row.status}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
       <button
         style={PM ? { display: "inline-block" } : { display: "none" }}
         className="btn btn-success"
         onClick={handleShow}
       >
         Add User
+      </button>
+      <button
+        style={!PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={leaveProject}
+      >
+        Leave Project
       </button>
       <button
         style={PM ? { display: "inline-block" } : { display: "none" }}
