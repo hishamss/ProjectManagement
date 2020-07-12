@@ -21,6 +21,11 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
   const handleChange = (e) => {
     setContent(e.target.value);
   };
+
+  const deleteItem = () => {
+    alert("DELETE!");
+  }
+
   if (isNew) {
     return (
       <Modal
@@ -28,6 +33,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
         onRequestClose={onClose}
         className={"modal-new"}
         overlayClassName={"overlay"}
+        // onDelete={this.deleteItem}
       >
         <div className={"close-btn-ctn"}>
           <h1 style={{ flex: "1 90%" }}>Add New Card</h1>
@@ -58,6 +64,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
       onRequestClose={onClose}
       className={"modal-new"}
       overlayClassName={"overlay"}
+      onDelete={deleteItem}
     >
       <div className={"close-btn-ctn"}>
         <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
@@ -74,6 +81,13 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
           {item.icon}{" "}
           {`${item.status.charAt(0).toUpperCase()}${item.status.slice(1)}`}
         </p>
+      </div>
+
+      <div className={"delete-btn-ctn"}>
+        <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
+        <button className={"delete-btn"}  onClick={deleteItem}>
+          Delete This Card
+        </button>
       </div>
     </Modal>
   );
