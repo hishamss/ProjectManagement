@@ -6,6 +6,7 @@ import DropWrapper from "./DropWrapper";
 import Col from "./col";
 import { data, statuses } from "./data";
 import styles from "./main.css";
+import { AuthContext } from "../../Auth";
 
 const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
   useEffect(() => {
@@ -116,9 +117,13 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Dropdown button
+              <i class="fas fa-bars"></i>
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div
+              className="dropdown-menu"
+              id="ProjectDropMenu"
+              aria-labelledby="dropdownMenuButton"
+            >
               <a
                 className="dropdown-item"
                 href="#"
@@ -127,10 +132,29 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
               >
                 Add User
               </a>
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                style={PM ? { display: "inline-block" } : { display: "none" }}
+                onClick={DeleteProject}
+              >
                 Delete Project
               </a>
-              <a className="dropdown-item" href="#">
+
+              <a
+                className="dropdown-item"
+                href="#"
+                style={!PM ? { display: "inline-block" } : { display: "none" }}
+                onClick={leaveProject}
+              >
+                Leave Project
+              </a>
+
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => isclicked(false)}
+              >
                 Back to Home
               </a>
             </div>

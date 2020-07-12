@@ -205,3 +205,14 @@ select {
 .projectControlMenu {
   background-color: #4bb3fd;
 }
+
+.projectControlMenu:hover,
+.projectControlMenu:active,
+.projectControlMenu:focus {
+  background-color: #4bb3fd !important;
+  font-weight: bold;
+}
+#ProjectDropMenu {
+  left: auto;
+  right: 0px;
+}
