@@ -41,4 +41,8 @@ export default {
   removeFromProject: function (UserId, ProjectID) {
     return axios.delete(`api/user-projects/${UserId}-${ProjectID}`);
   },
+
+  addMessage: function (data) {
+    return axios.post("api/messages/", data);
+  },
 };

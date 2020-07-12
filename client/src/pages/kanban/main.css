@@ -192,10 +192,6 @@ select {
   display: none;
 }
 
-.aboveKanban {
-  height: 60vh;
-}
-
 .projectControl {
   display: flex;
   justify-content: space-between;

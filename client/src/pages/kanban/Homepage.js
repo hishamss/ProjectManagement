@@ -74,10 +74,21 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
 
   const postMessage = () => {
     const pTag = document.createElement("p");
+    pTag.innerHTML = `<strong>${Name}</strong>: ${userMessage} (now)`;
 
-    pTag.innerHTML = `<strong>${Name}</strong>: userMessage (now)`;
-    document.getElementsByClassName("messageArea")[0].appendChild(pTag);
-    setUserMessage("");
+    const data = {
+      message: userMessage,
+      projectId: ProjectID,
+      userId: LocalId,
+    };
+    API.addMessage(data).then((res) => {
+      if (res) {
+        document.getElementsByClassName("messageArea")[0].appendChild(pTag);
+        setUserMessage("");
+      } else {
+        setUserMessage("Error, try again");
+      }
+    });
   };
 
   const leaveProject = () => {
