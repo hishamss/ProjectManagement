@@ -108,6 +108,13 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
     <React.Fragment>
       <div className="aboveKanban">
         <div className="projectControl">
+          <p></p>
+          <h1
+            className="display-3"
+            style={{ color: "black", fontWeight: "bold" }}
+          >
+            {ProjectTitle}
+          </h1>
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle projectControlMenu"
@@ -210,29 +217,6 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
               </form>
             </Modal.Body>
           </Modal>
-          {/* <button
-            style={PM ? { display: "inline-block" } : { display: "none" }}
-            className="btn btn-success"
-            onClick={handleShow}
-          >
-            Add User
-          </button>
-          <button
-            style={!PM ? { display: "inline-block" } : { display: "none" }}
-            className="btn btn-success"
-            onClick={leaveProject}
-          >
-            Leave Project
-          </button>
-          <button
-            style={PM ? { display: "inline-block" } : { display: "none" }}
-            className="btn btn-success"
-            onClick={DeleteProject}
-          >
-            Delete Project
-          </button>
-          
-          <button onClick={() => isclicked(false)}>return</button> */}
         </div>
         {/* <p>
           {" "}
