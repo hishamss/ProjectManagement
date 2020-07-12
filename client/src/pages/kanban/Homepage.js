@@ -110,7 +110,7 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
         <div className="projectControl">
           <p></p>
           <h1
-            className="display-3"
+            className="display-5"
             style={{ color: "black", fontWeight: "bold" }}
           >
             {ProjectTitle}
@@ -218,41 +218,56 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
             </Modal.Body>
           </Modal>
         </div>
+        <hr />
         {/* <p>
           {" "}
           Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked
           Project: {ProjectID}, project Title={ProjectTitle}, Name: {Name}
         </p> */}
-        <h1>Team</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Users.map((row, index) => {
-              return (
-                <tr key={index} id={index}>
-                  <td>{row.User.name}</td>
-                  <td>
-                    <span style={{ marginRight: "20px" }}>{row.status}</span>
-                    <button
-                      className="btn btn-success"
-                      style={
-                        PM ? { display: "inline-block" } : { display: "none" }
-                      }
-                      onClick={() => deleteUser(row.UserId, index)}
-                    >
-                      Delete User
-                    </button>
-                  </td>
+        <div className="TeamAndMessages">
+          <p></p>
+          <div className="tableCont">
+            <h4 className="text-center">
+              <strong>Project Team</strong>
+            </h4>
+            <table
+              className="table"
+              style={{ color: "white", marginTop: "25px" }}
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {Users.map((row, index) => {
+                  return (
+                    <tr key={index} id={index}>
+                      <td className="userData">{row.User.name}</td>
+                      <td className="userData">{row.status}</td>
+                      <td className="userData">
+                        <button
+                          className="btn btn-success delUser"
+                          style={
+                            PM
+                              ? { display: "inline-block" }
+                              : { display: "none" }
+                          }
+                          onClick={() => deleteUser(row.UserId, index)}
+                        >
+                          Delete User
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p></p>
+        </div>
       </div>
 
       <div className={"row"}>

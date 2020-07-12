@@ -216,3 +216,23 @@ select {
   left: auto;
   right: 0px;
 }
+
+.TeamAndMessages {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userData {
+  vertical-align: initial !important;
+}
+
+.tableCont {
+  background: #4bb3fd;
+  border-radius: 7px;
+  padding: 20px;
+  color: white;
+}
+
+.delUser {
+  margin-right: 0;
+}
