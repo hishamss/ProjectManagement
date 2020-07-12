@@ -46,6 +46,15 @@ The newly added user will receive and email invite
 <img src="./Readme-Img/invite.png" alt="Invite"
 	 width="300" height="250" />
 
+When the user clicks get started, they will be added to the project and will be able to access it from the home page
+
+#### Adding issues
+
+Once inside a project, users will have access to a responsive kanban board to add and manage issues.
+
+<img src="./Readme-Img/doneKanban.gif" alt="kanban"
+	 width="500" height="300" />
+
 
 
 
