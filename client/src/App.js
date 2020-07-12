@@ -60,27 +60,31 @@ function App() {
               path="/home"
               component={Home}
             />
-            <PrivateRoute
-              Name={name}
-              Projects={projects}
+            {/* <PrivateRoute
               LocalId={localId}
               exact
               path="/kanban"
               component={KanBan}
-            />
+            /> */}
             <PrivateRoute
               LocalId={localId}
               exact
               path="/checkout"
               component={Checkout}
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               LocalId={localId}
               exact
               path="/projects/"
               component={Projects}
+            /> */}
+            <PrivateRoute
+              Name={name}
+              Projects={projects}
+              LocalId={localId}
+              CurrentID={localId}
+              component={Home}
             />
-            <PrivateRoute CurrentID={localId} component={Home} />
           </Switch>
         </div>
       </Router>

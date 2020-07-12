@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
-import ProjectsComponent from "../Projects";
+import ProjectsComponent from "../kanban/main";
 import "./style.css";
 function Home({ currentUser, Name, LocalId, Projects }) {
   const [show, setShow] = useState(false);
