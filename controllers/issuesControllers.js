@@ -13,7 +13,8 @@ module.exports = {
   create: function (req, res) {
     db.Issues.create({
       task: req.body.task,
-      userId: req.body.userId,
+      assignedTo: req.body.assignedTo,
+      status: req.body.status,
       projectId: req.body.projectId
     })
       .then(issue => {
@@ -33,11 +34,11 @@ module.exports = {
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },
-//updating the project information and then
-//returning back the updated project information
+
   update: function (req, res) {
     db.Issues.update({
-      task: req.body.task
+      task: req.body.task,
+      status: req.body.status
     }
       , {
         where: {
