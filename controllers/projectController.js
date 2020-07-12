@@ -68,17 +68,4 @@ module.exports = {
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },
-
-  //Find the project with the corresponding primary key
-  //Add the user to the project. 
-  // addUserToProject: (req, res) => {
-  //   const { userId, projectId } = req.body;
-  //   db.Projects.findByPk(projectId)
-  //     .then(project => {
-  //       project.addUser(userId).then(() => {
-  //         res.send({ success: 'User added to Project' })
-  //       }).catch((err) => res.status(422).json(err));
-  //     })
-  //     .catch((err) => res.status(422).json(err));
-  // }
 };

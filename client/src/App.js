@@ -4,7 +4,6 @@ import Checkout from "./pages/Checkout";
 import Navbar from "./components/Navbar";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
-import CreateProject from "./pages/Create_Project"
 import Projects from "./pages/Projects";
 import app from "./Base.js";
 import { AuthProvider } from "./Auth";
