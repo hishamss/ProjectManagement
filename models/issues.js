@@ -7,6 +7,11 @@ module.exports = function (sequelize, DataTypes) {
     assignedTo: {
       type: DataTypes.STRING,
     },
+
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "Open"
+    }
   });
 
   Issues.associate = function (models) {
