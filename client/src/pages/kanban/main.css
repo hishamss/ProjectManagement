@@ -220,6 +220,7 @@ select {
 .TeamAndMessages {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .userData {
@@ -231,8 +232,30 @@ select {
   border-radius: 7px;
   padding: 20px;
   color: white;
+  min-width: 390px;
 }
 
 .delUser {
   margin-right: 0;
+}
+
+.messages {
+  background-color: white;
+  border-radius: 7px;
+  min-width: 390px;
+  padding: 20px;
+  min-height: 242px;
+}
+
+.TeamAndMessages {
+  padding: 20px;
+}
+
+.messageArea {
+  color: #ff22b1;
+  min-height: 180px;
+}
+
+#postMessage {
+  background-color: #4bb3fd;
 }

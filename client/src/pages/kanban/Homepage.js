@@ -21,6 +21,7 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [userToAdd, setUserToAdd] = useState();
+  const [userMessage, setUserMessage] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => {
     API.getUsersToAdd(LocalId).then(({ data }) => {
@@ -69,6 +70,14 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
     const selectedIndex = event.target.options.selectedIndex;
     setUserToAdd(event.target.options[selectedIndex].getAttribute("data-key"));
     setEmail(value);
+  };
+
+  const postMessage = () => {
+    const pTag = document.createElement("p");
+
+    pTag.innerHTML = `<strong>${Name}</strong>: userMessage (now)`;
+    document.getElementsByClassName("messageArea")[0].appendChild(pTag);
+    setUserMessage("");
   };
 
   const leaveProject = () => {
@@ -225,7 +234,29 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
           Project: {ProjectID}, project Title={ProjectTitle}, Name: {Name}
         </p> */}
         <div className="TeamAndMessages">
-          <p></p>
+          <div>
+            <div className="messages">
+              <div className="messageArea"></div>
+              <hr />
+
+              <div class="form-group">
+                <textarea
+                  value={userMessage}
+                  class="form-control"
+                  rows="3"
+                  placeholder="Leave a message for your team"
+                  onChange={(e) => setUserMessage(e.target.value)}
+                ></textarea>
+              </div>
+              <button
+                className="btn btn-success"
+                id="postMessage"
+                onClick={postMessage}
+              >
+                Post
+              </button>
+            </div>
+          </div>
           <div className="tableCont">
             <h4 className="text-center">
               <strong>Project Team</strong>
@@ -266,7 +297,7 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
               </tbody>
             </table>
           </div>
-          <p></p>
+          <div style={{ minWidth: "390px" }}></div>
         </div>
       </div>
 
