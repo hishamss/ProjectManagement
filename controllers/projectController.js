@@ -68,5 +68,4 @@ module.exports = {
       .then(() => res.send(true))
       .catch((err) => res.status(422).json(err));
   },
-  //Find the project with the corresponding primary key
 };

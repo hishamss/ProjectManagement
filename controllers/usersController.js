@@ -1,6 +1,7 @@
 const db = require("../models");
 const { Op } = require("sequelize");
 module.exports = {
+
   //This is finding a specified user by the primary key
   // and including the projects associated with that user
   findOne: function (req, res) {
