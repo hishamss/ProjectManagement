@@ -83,7 +83,13 @@ const Homepage = ({
 
   const postMessage = () => {
     const pTag = document.createElement("p");
-    pTag.innerHTML = `<strong>${Name}</strong>: ${userMessage} (now)`;
+    const pTag1 = document.createElement("p");
+    const pTag2 = document.createElement("p");
+    pTag2.classList.add("text-right");
+    pTag2.style.color = "#2dd881";
+    pTag.innerHTML = `<strong>${Name}</strong>:`;
+    pTag1.innerHTML = userMessage;
+    pTag2.innerHTML = "now";
 
     const data = {
       message: userMessage,
@@ -93,6 +99,8 @@ const Homepage = ({
     API.addMessage(data).then((res) => {
       if (res) {
         document.getElementsByClassName("messageArea")[0].appendChild(pTag);
+        document.getElementsByClassName("messageArea")[0].appendChild(pTag1);
+        document.getElementsByClassName("messageArea")[0].appendChild(pTag2);
         setUserMessage("");
       } else {
         setUserMessage("Error, try again");
@@ -247,7 +255,7 @@ const Homepage = ({
             </Modal.Body>
           </Modal>
         </div>
-        <hr />
+
         {/* <p>
           {" "}
           Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked
@@ -257,12 +265,18 @@ const Homepage = ({
           <div>
             <div className="messages">
               <div className="messageArea">
-                {Messages.map((message) => {
+                {Messages.map((message, index) => {
                   return (
-                    <p>
-                      <strong>{message.User.name}</strong>: {message.message}{" "}
-                      (now)
-                    </p>
+                    <React.Fragment>
+                      <p key={index}>
+                        <strong>{message.User.name}:</strong>
+                      </p>
+                      <p>{message.message}</p>
+                      <p className="text-right" style={{ color: "#2dd881" }}>
+                        {" "}
+                        now
+                      </p>
+                    </React.Fragment>
                   );
                 })}
 
@@ -278,6 +292,7 @@ const Homepage = ({
                   className="form-control"
                   rows="3"
                   placeholder="Leave a message for your team"
+                  id="leaveMessage"
                   onChange={(e) => setUserMessage(e.target.value)}
                 ></textarea>
               </div>

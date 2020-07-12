@@ -23,7 +23,6 @@ export default {
   },
 
   getProjects: function (UserId) {
-    console.log("USERUESR", UserId);
     return axios.get(`api/projects/${UserId}`);
   },
 

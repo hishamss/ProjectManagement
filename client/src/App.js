@@ -9,7 +9,6 @@ import app from "./Base.js";
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
 import API from "./utils/API";
-import KanBan from "./pages/kanban/main";
 function App() {
   const [name, setName] = useState();
   const [initial, setInitial] = useState();
@@ -60,24 +59,14 @@ function App() {
               path="/home"
               component={Home}
             />
-            {/* <PrivateRoute
-              LocalId={localId}
-              exact
-              path="/kanban"
-              component={KanBan}
-            /> */}
+
             <PrivateRoute
               LocalId={localId}
               exact
               path="/checkout"
               component={Checkout}
             />
-            {/* <PrivateRoute
-              LocalId={localId}
-              exact
-              path="/projects/"
-              component={Projects}
-            /> */}
+
             <PrivateRoute
               Name={name}
               Projects={projects}

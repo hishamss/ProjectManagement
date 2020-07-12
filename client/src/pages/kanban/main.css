@@ -250,8 +250,15 @@ select {
 .messageArea {
   color: #ff22b1;
   min-height: 180px;
+  max-height: 500px;
+  overflow-y: scroll;
+  padding-right: 40px;
 }
 
 #postMessage {
   background-color: #4bb3fd;
+}
+
+#leaveMessage::placeholder {
+  opacity: 0.5;
 }
