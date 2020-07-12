@@ -24,7 +24,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
 
   const deleteItem = () => {
     alert("DELETE!");
-  }
+  };
 
   if (isNew) {
     return (
@@ -85,7 +85,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
 
       <div className={"delete-btn-ctn"}>
         <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
-        <button className={"delete-btn"}  onClick={deleteItem}>
+        <button className={"delete-btn"} onClick={deleteItem}>
           Delete This Card
         </button>
       </div>
