@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 import app from "../../Base";
 import "./style.css";
-function Navbar({ Initial, Name, Email }) {
+function Navbar({ Initial, Name, Email, Type }) {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
   const handleClose = () => setShow(false);
@@ -34,39 +34,23 @@ function Navbar({ Initial, Name, Email }) {
           <Link className="navbar-brand" to="/home">
             <img id="logo" src="Done.png" alt="logo" loading="lazy" />
           </Link>
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link
-                to="/home"
-                className={
-                  location === "/home"
-                    ? "nav-link clicked"
-                    : "nav-link pagesLinks"
-                }
-              >
-                Home <span className="sr-only">(current)</span>
-              </Link>
-            </li>
-            <li className="nav-item active">
-              <Link
-                to="/projects"
-                className={
-                  location === "/projects"
-                    ? "nav-link clicked"
-                    : "nav-link pagesLinks"
-                }
-              >
-                Projects <span className="sr-only">(current)</span>
-              </Link>
-            </li>
-          </ul>
+
           <div
             className="collapse navbar-collapse justify-content-end"
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav">
               <li>
-                <Link className="btn btn-success" to="/checkout" role="button">
+                <Link
+                  style={
+                    Type === "Full"
+                      ? { display: "none" }
+                      : { display: "inline-block" }
+                  }
+                  className="btn btn-success"
+                  to="/checkout"
+                  role="button"
+                >
                   Upgrade Now
                 </Link>
               </li>

@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import "./style.css";
-function Projects({ currentUser, LocalId, Name }) {
+// function Projects({ currentUser, LocalId, Name, id, title}) {
+function Projects({ Name, LocalId, id, title, isclicked, PM, Users }) {
+  console.log("userssresfdf", Users);
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
+  const ProjectID = id;
+  const ProjectTitle = title;
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -27,12 +31,12 @@ function Projects({ currentUser, LocalId, Name }) {
     if (email) {
       setLoading(true);
 
-      API.sendEmail(email, 2, userToAdd, Name)
+      API.sendEmail(email, ProjectID, ProjectTitle, userToAdd, Name)
         .then(() => {
           setLoading(false);
           setMessage(`Invitation has been sent to ${email}`);
           setEmail("");
-          API.addPendingUser(2, userToAdd).then(({ data }) => {
+          API.addPendingUser(ProjectID, userToAdd).then(({ data }) => {
             if (data === "SequelizeUniqueConstraintError") {
               alert("this user has been added previously to this project!!");
             }
@@ -48,6 +52,14 @@ function Projects({ currentUser, LocalId, Name }) {
     }
   };
 
+  const deleteUser = (UserId, index) => {
+    API.removeFromProject(UserId, ProjectID).then((res) => {
+      if (res) {
+        document.getElementById(index).style.display = "none";
+      }
+    });
+  };
+
   const handleInputChange = (event) => {
     const { value } = event.target;
     const selectedIndex = event.target.options.selectedIndex;
@@ -55,15 +67,76 @@ function Projects({ currentUser, LocalId, Name }) {
     setEmail(value);
   };
 
+  const leaveProject = () => {
+    API.leaveProject(ProjectID, LocalId).then(
+      () => (window.location.href = "/")
+    );
+  };
+
+  const DeleteProject = () => {
+    API.deleteProject(ProjectID).then(() => {
+      alert("Project has been deleted");
+      window.location.href = "/";
+    });
+  };
+
   return (
     <div>
       <p>
         {" "}
-        Projects Page, Coming Soon....., FirebaseID: {currentUser.uid}, LocalID:{" "}
-        {LocalId}, Name: {Name}
+        Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked Project:{" "}
+        {ProjectID}, project Title={ProjectTitle}, Name: {Name}
       </p>
-      <button className="btn btn-success" onClick={handleShow}>
+      <h1>Team</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Users.map((row, index) => {
+            return (
+              <tr key={index} id={index}>
+                <td>{row.User.name}</td>
+                <td>
+                  <span style={{ marginRight: "20px" }}>{row.status}</span>
+                  <button
+                    className="btn btn-success"
+                    style={
+                      PM ? { display: "inline-block" } : { display: "none" }
+                    }
+                    onClick={() => deleteUser(row.UserId, index)}
+                  >
+                    Delete User
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={handleShow}
+      >
         Add User
+      </button>
+      <button
+        style={!PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={leaveProject}
+      >
+        Leave Project
+      </button>
+      <button
+        style={PM ? { display: "inline-block" } : { display: "none" }}
+        className="btn btn-success"
+        onClick={DeleteProject}
+      >
+        Delete Project
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -126,6 +199,7 @@ function Projects({ currentUser, LocalId, Name }) {
           </form>
         </Modal.Body>
       </Modal>
+      <button onClick={() => isclicked(false)}>return</button>
     </div>
   );
 }

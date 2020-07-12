@@ -15,6 +15,40 @@ module.exports = {
         res.send(err.name);
       });
   },
+  who: (req, res) => {
+    const { info } = req.params;
+    const ProjectId = info.split("-")[0];
+    const UserId = info.split("-")[1];
+    db.UserProjects.findAll({
+      where: {
+        [Op.and]: [{ UserId: { [Op.ne]: UserId } }, { ProjectId: ProjectId }],
+      },
+
+      attributes: ["status", "UserId"],
+      include: [
+        {
+          model: db.Users,
+          attributes: ["name"],
+        },
+      ],
+    }).then((response) => res.send(response));
+  },
+
+  leave: (req, res) => {
+    const { info } = req.params;
+    const projectId = info.split("-")[0];
+    const userId = info.split("-")[1];
+    db.UserProjects.update(
+      { status: "pending" },
+      {
+        where: {
+          [Op.and]: [{ UserId: userId }, { ProjectId: projectId }],
+        },
+      }
+    )
+      .then(() => res.send(true))
+      .catch(() => res.send(false));
+  },
   updateStaus: (req, res) => {
     const AddInfo = req.params.addInfo.split("-");
     console.log(`from Email Info: ${AddInfo[0]}, ${AddInfo[1]}`);
@@ -273,5 +307,17 @@ module.exports = {
  </body></html>`);
       })
       .catch((err) => console.log(err));
+  },
+  remove: (req, res) => {
+    const { info } = req.params;
+    const UserId = info.split("-")[0];
+    const ProjectId = info.split("-")[1];
+    db.UserProjects.destroy({
+      where: {
+        [Op.and]: [{ UserId: UserId }, { ProjectId: ProjectId }],
+      },
+    })
+      .then(() => res.send(true))
+      .catch(() => res.send(false));
   },
 };

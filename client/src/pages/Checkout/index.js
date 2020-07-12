@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { withRouter, Redirect } from "react-router";
 import { loadStripe } from "@stripe/stripe-js";
+import API from "../../utils/API";
+import app from "../../Base";
 import {
   Elements,
   CardElement,
@@ -7,21 +10,61 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import style from "./style.css";
+
 // require("dotenv").config();
 // console.log(process.env.PUBLIC_KEY);
 const styles = {
   formStyle: {
     marginTop: 20,
-    maxWidth: 400,
+    maxWidth: 600,
     margin: "0 auto",
+  },
+};
+
+const CARD_OPTIONS = {
+  iconStyle: "solid",
+  style: {
+    base: {
+      iconColor: "#c4f0ff",
+      color: "black",
+      fontWeight: 500,
+      fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+      fontSize: "16px",
+      fontSmoothing: "antialiased",
+      ":-webkit-autofill": {
+        color: "#fce883",
+      },
+      "::placeholder": {
+        color: "#87bbfd",
+      },
+    },
+    invalid: {
+      iconColor: "#ffc7ee",
+      color: "#ffc7ee",
+    },
   },
 };
 
 const CheckoutForm = (props) => {
   // toclear the stripe form after submit
-  const [ref, setRef] = React.useState(null);
+  const [ref, setRef] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const [userId, setUserId] = useState();
+  useEffect(() => {
+    app.auth().onAuthStateChanged((user) => {
+      if (user) {
+        API.getUserInfo(user.uid).then(({ data }) => {
+          if (data) {
+            setUserId(data.id);
+          } else {
+            return;
+          }
+        });
+      }
+    });
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,14 +81,19 @@ const CheckoutForm = (props) => {
       await axios
         .post("/api/charge/", {
           id,
-          amount: 19999,
+          amount: 1199,
         })
         .then((response) => {
           console.log(response.data);
           if (response.data === "success") {
             props.response(response.data);
+            axios.put("/api/users/" + userId, { type: "Full" });
+            alert("Payment Successful");
+            // window.location.replace("http://localhost:3000/home")
+            window.location.href = "/";
           } else {
-            props.response(response.data);
+            props.response("payment failed: " + response.data);
+            alert(response.data);
           }
         })
         .catch((err) => {
@@ -57,18 +105,42 @@ const CheckoutForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.formStyle}>
-      <h2>Price: $199.99</h2>
-      <img
-        src="https://images-na.ssl-images-amazon.com/images/I/71hZZPRLxOL._AC_SX425_.jpg"
-        alt="kids Car"
-        style={{ width: "200px" }}
-      />
-      <CardElement onReady={(e) => setRef(e)} />
-      <button type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
+    <div className="container">
+      <div className="jumbotron tron">
+        <h1 className=" head text-center">Payment Information</h1>
+        <h3 className="text-center">
+          {" "}
+          Manage unlimited projects for $11.99/mo!
+        </h3>
+        <br />
+        <form onSubmit={handleSubmit} style={styles.formStyle}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Name on Card"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Billing Address"
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <CardElement
+              className="form-control"
+              options={CARD_OPTIONS}
+              onReady={(e) => setRef(e)}
+            />
+          </div>
+          <button className="btns" type="submit" disabled={!stripe}>
+            Pay
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 const stripePromise = loadStripe(
@@ -79,7 +151,7 @@ function FormMsg(props) {
   return <p>{props.msg}</p>;
 }
 function Checkout({ currentUser, LocalId }) {
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
@@ -87,12 +159,9 @@ function Checkout({ currentUser, LocalId }) {
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm response={(msg) => setStatus(msg)} />
-      <FormMsg msg={status} />
-      <p>
-        FirebaseID: {currentUser.uid}, LocalID: {LocalId}
-      </p>
+      <FormMsg />
     </Elements>
   );
 }
 
-export default Checkout;
+export default withRouter(Checkout);

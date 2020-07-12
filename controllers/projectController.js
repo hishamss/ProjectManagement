@@ -1,22 +1,19 @@
 const db = require("../models");
-const usersController = require("./usersController")
-
+const { Op } = require("sequelize");
 module.exports = {
   //This is finding a specified project by the primary key
   // and including the users associated with that project
   findOne: function (req, res) {
     const { id } = req.params;
-    db.Projects.findByPk(id, {
+    db.UserProjects.findAll({
       //Including the db.user model
       //The through key is a way to access the join table (userprojects)
       // We are setting the userprojects table is set to blank, its more organized
+      where: { [Op.and]: [{ UserId: id }, { status: "Active" }] },
+
       include: [
         {
-          model: db.User,
-          as: "users",
-          through: {
-            attributes: [],
-          },
+          model: db.Projects,
         },
       ],
     })
@@ -32,14 +29,17 @@ module.exports = {
       .then((dbModel) => res.json(dbModel.map((row) => row.dataValues)))
       .catch((err) => res.status(422).json(err));
   },
+
   create: function (req, res) {
     db.Projects.create(req.body)
-      .then(async (project) => {
-        const { firebaseId } = req.body;
-        console.log('Getting here....')
-        await usersController.addProjectToUser(firebaseId, project.id)
-
-        res.send(project)
+      .then(({ dataValues }) => {
+        db.UserProjects.create({
+          ProjectId: dataValues.id,
+          UserId: dataValues.UserId,
+          status: "Active",
+        })
+          .then(() => res.send(true))
+          .catch(() => res.send(false));
       })
       .catch((err) => res.status(422).json(err));
   },

@@ -108,12 +108,12 @@ const Login = ({ history }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btns w-25 mx-5 px-4" id="login">
+        <button type="submit" className="btn btnss w-25 mx-5 px-4" id="login">
           Login
         </button>
         <button
           type="push"
-          className="btn btns w-50"
+          className="btn btnss w-50"
           id="forgot"
           disabled={isInvalid}
           onClick={forgotPw}
