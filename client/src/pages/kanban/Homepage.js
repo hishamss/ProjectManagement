@@ -105,12 +105,116 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
 
   return (
     <React.Fragment>
-      <div>
-        <p>
+      <div className="aboveKanban">
+        <div className="projectControl">
+          <div className="dropdown">
+            <button
+              className="btn btn-secondary dropdown-toggle projectControlMenu"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Dropdown button
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a
+                className="dropdown-item"
+                href="#"
+                style={PM ? { display: "inline-block" } : { display: "none" }}
+                onClick={handleShow}
+              >
+                Add User
+              </a>
+              <a className="dropdown-item" href="#">
+                Delete Project
+              </a>
+              <a className="dropdown-item" href="#">
+                Back to Home
+              </a>
+            </div>
+          </div>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add User</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <form onSubmit={handleSubmit}>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                      <label className="input-group-text">Select User</label>
+                    </div>
+
+                    <select
+                      value={email}
+                      className="custom-select"
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Add user by email</option>
+                      {users.map((user) => {
+                        let UserToAdd = user.split("-");
+                        return (
+                          <option
+                            key={UserToAdd[2]}
+                            data-key={UserToAdd[2]}
+                            value={UserToAdd[0]}
+                          >
+                            {`${UserToAdd[0]}- ${UserToAdd[1]}`}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <img
+                  style={{ width: "70px" }}
+                  src="https://assets.materialup.com/uploads/163595e3-140e-4334-af76-cf7902795c51/preview.gif"
+                  alt="loading"
+                  className={loading ? "showLoading" : "hideLoading"}
+                ></img>
+                <p style={{ marginTop: "1rem" }}>{message}</p>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ background: "#4bb3fd", display: "block" }}
+                >
+                  Invite
+                </button>
+              </form>
+            </Modal.Body>
+          </Modal>
+          {/* <button
+            style={PM ? { display: "inline-block" } : { display: "none" }}
+            className="btn btn-success"
+            onClick={handleShow}
+          >
+            Add User
+          </button>
+          <button
+            style={!PM ? { display: "inline-block" } : { display: "none" }}
+            className="btn btn-success"
+            onClick={leaveProject}
+          >
+            Leave Project
+          </button>
+          <button
+            style={PM ? { display: "inline-block" } : { display: "none" }}
+            className="btn btn-success"
+            onClick={DeleteProject}
+          >
+            Delete Project
+          </button>
+          
+          <button onClick={() => isclicked(false)}>return</button> */}
+        </div>
+        {/* <p>
           {" "}
           Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked
           Project: {ProjectID}, project Title={ProjectTitle}, Name: {Name}
-        </p>
+        </p> */}
         <h1>Team</h1>
         <table className="table">
           <thead>
@@ -141,89 +245,6 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
             })}
           </tbody>
         </table>
-        <button
-          style={PM ? { display: "inline-block" } : { display: "none" }}
-          className="btn btn-success"
-          onClick={handleShow}
-        >
-          Add User
-        </button>
-        <button
-          style={!PM ? { display: "inline-block" } : { display: "none" }}
-          className="btn btn-success"
-          onClick={leaveProject}
-        >
-          Leave Project
-        </button>
-        <button
-          style={PM ? { display: "inline-block" } : { display: "none" }}
-          className="btn btn-success"
-          onClick={DeleteProject}
-        >
-          Delete Project
-        </button>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add User</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                {/* <input
-                value={email}
-                name="email"
-                type="email"
-                onChange={handleInputChange}
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Email address for user"
-              /> */}
-                <div className="input-group mb-3">
-                  <div className="input-group-prepend">
-                    <label className="input-group-text">Select User</label>
-                  </div>
-
-                  <select
-                    value={email}
-                    className="custom-select"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Add user by email</option>
-                    {users.map((user) => {
-                      let UserToAdd = user.split("-");
-                      return (
-                        <option
-                          key={UserToAdd[2]}
-                          data-key={UserToAdd[2]}
-                          value={UserToAdd[0]}
-                        >
-                          {`${UserToAdd[0]}- ${UserToAdd[1]}`}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-              <img
-                style={{ width: "70px" }}
-                src="https://assets.materialup.com/uploads/163595e3-140e-4334-af76-cf7902795c51/preview.gif"
-                alt="loading"
-                className={loading ? "showLoading" : "hideLoading"}
-              ></img>
-              <p style={{ marginTop: "1rem" }}>{message}</p>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ background: "#4bb3fd", display: "block" }}
-              >
-                Invite
-              </button>
-            </form>
-          </Modal.Body>
-        </Modal>
-        <button onClick={() => isclicked(false)}>return</button>
       </div>
 
       <div className={"row"}>

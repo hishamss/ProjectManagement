@@ -191,3 +191,17 @@ select {
 .hideLoading {
   display: none;
 }
+
+.aboveKanban {
+  height: 60vh;
+}
+
+.projectControl {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.projectControlMenu {
+  background-color: #4bb3fd;
+}
