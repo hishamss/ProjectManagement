@@ -4,7 +4,7 @@ import Header from "./header";
 import { DndProvider } from "react-dnd";
 import Backend, { HTML5Backend } from "react-dnd-html5-backend";
 
-const Main = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
+const Main = ({ Name, LocalId, id, title, isclicked, PM, Users, Messages }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       {/* <Header /> */}
@@ -16,6 +16,7 @@ const Main = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
         isclicked={isclicked}
         PM={PM}
         Users={Users}
+        Messages={Messages}
       />
     </DndProvider>
   );

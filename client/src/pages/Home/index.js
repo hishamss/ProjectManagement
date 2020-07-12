@@ -14,6 +14,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   const [ProjectTitle, setClickedProjectTitle] = useState("");
   const [privilege, setPrivilege] = useState(false);
   const [addedUsers, setAddedUsers] = useState([]);
+  const [projectMessages, setProjectMessages] = useState([]);
   const handleClose = () => {
     setShow(false);
     window.location.reload();
@@ -24,13 +25,17 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   };
 
   const renderProject = (Projectid, ProjectTitle, privilege) => {
-    console.log("clicked ", Projectid);
     API.whoIsAdded(Projectid, LocalId).then(({ data }) => {
-      setAddedUsers(data);
-      setClickedProject(Projectid);
-      setClickedProjectTitle(ProjectTitle);
-      setPrivilege(privilege);
-      setIsclicked(true);
+      API.getMessages(Projectid).then((response) => {
+        const messages = response.data;
+
+        setAddedUsers(data);
+        setProjectMessages(messages);
+        setClickedProject(Projectid);
+        setClickedProjectTitle(ProjectTitle);
+        setPrivilege(privilege);
+        setIsclicked(true);
+      });
     });
   };
 
@@ -71,6 +76,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
           Name={Name}
           PM={privilege}
           Users={addedUsers}
+          Messages={projectMessages}
         ></ProjectsComponent>
       );
     } else {

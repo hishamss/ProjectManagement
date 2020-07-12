@@ -8,7 +8,16 @@ import { data, statuses } from "./data";
 import styles from "./main.css";
 import { AuthContext } from "../../Auth";
 
-const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
+const Homepage = ({
+  Name,
+  LocalId,
+  id,
+  title,
+  isclicked,
+  PM,
+  Users,
+  Messages,
+}) => {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
@@ -144,7 +153,7 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i class="fas fa-bars"></i>
+              <i className="fas fa-bars"></i>
             </button>
             <div
               className="dropdown-menu"
@@ -247,13 +256,26 @@ const Homepage = ({ Name, LocalId, id, title, isclicked, PM, Users }) => {
         <div className="TeamAndMessages">
           <div>
             <div className="messages">
-              <div className="messageArea"></div>
+              <div className="messageArea">
+                {Messages.map((message) => {
+                  return (
+                    <p>
+                      <strong>{message.User.name}</strong>: {message.message}{" "}
+                      (now)
+                    </p>
+                  );
+                })}
+
+                {/* {Messages
+                  ? console.log("yes", Messages)
+                  : console.log("no", Messages)} */}
+              </div>
               <hr />
 
-              <div class="form-group">
+              <div className="form-group">
                 <textarea
                   value={userMessage}
-                  class="form-control"
+                  className="form-control"
                   rows="3"
                   placeholder="Leave a message for your team"
                   onChange={(e) => setUserMessage(e.target.value)}

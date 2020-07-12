@@ -45,4 +45,7 @@ export default {
   addMessage: function (data) {
     return axios.post("api/messages/", data);
   },
+  getMessages: function (ProjectId) {
+    return axios.get(`api/messages/${ProjectId}`);
+  },
 };

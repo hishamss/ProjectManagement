@@ -17,4 +17,17 @@ module.exports = {
         res.status(422).json(err);
       });
   },
+  findAll: function (req, res) {
+    db.Messages.findAll({
+      where: { ProjectId: req.params.id },
+      include: [
+        {
+          model: db.Users,
+          attributes: ["name"],
+        },
+      ],
+    })
+      .then((data) => res.send(data))
+      .catch(() => res.send(false));
+  },
 };
