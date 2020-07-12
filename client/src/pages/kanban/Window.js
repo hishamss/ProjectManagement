@@ -8,7 +8,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
   const handleSubmit = () => {
     const cardNum = items.length + 1;
     const newItem = {
-      id: 5,
+      id: cardNum,
       icon: "⭕️",
       status: "open",
       title: "Card " + cardNum,
