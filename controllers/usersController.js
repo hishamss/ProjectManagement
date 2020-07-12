@@ -78,7 +78,7 @@ module.exports = {
             return err;
         };
     
-    }
+    },
   //This is finding a specified user by the primary key
   // and including the projects associated with that user
   findOne: function (req, res) {
