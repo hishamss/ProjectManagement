@@ -8,7 +8,7 @@ router.route("/:Info").get((req, res) => {
   const ProjectId = Info[1];
   const AddUserId = Info[2];
   const PM = Info[3];
-  const link = `http://713541285287.ngrok.io/api/projects/adduser/${ProjectId}-${AddUserId}`;
+  const link = `https://pm-hss.herokuapp.com/api/projects/adduser/${ProjectId}-${AddUserId}`;
   const ProjectTitle = Info[4];
   const output = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
