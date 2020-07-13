@@ -13,7 +13,7 @@
 
 body {
   color: var(--text-color);
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   margin: 0;
 }
 
@@ -226,10 +226,10 @@ select {
 }
 
 .tableCont {
-  background: #4bb3fd;
+  background: white;
   border-radius: 7px;
   padding: 20px;
-  color: white;
+  color: #4bb3fd;
   min-width: 390px;
 }
 

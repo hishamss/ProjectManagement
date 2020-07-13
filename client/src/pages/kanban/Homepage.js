@@ -161,13 +161,13 @@ const Homepage = ({
     <React.Fragment>
       <div className="aboveKanban">
         <div className="projectControl">
-          <p></p>
           <h1
             className="display-5"
             style={{ color: "black", fontWeight: "bold" }}
           >
-            {ProjectTitle}
+            {ProjectTitle.charAt(0).toUpperCase() + ProjectTitle.slice(1)}
           </h1>
+          <p></p>
           <div className="dropdown">
             <button
               className="btn btn-secondary dropdown-toggle projectControlMenu"
@@ -330,7 +330,7 @@ const Homepage = ({
             </h4>
             <table
               className="table"
-              style={{ color: "white", marginTop: "25px" }}
+              style={{ color: "#4bb3fd", marginTop: "25px" }}
             >
               <thead>
                 <tr>
