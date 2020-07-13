@@ -6,7 +6,7 @@ import DropWrapper from "./DropWrapper";
 import Col from "./col";
 import { statuses } from "./data";
 import styles from "./main.css";
-
+import jquery from "jquery";
 import Moment from "react-moment";
 const Homepage = ({
   Name,
@@ -32,6 +32,7 @@ const Homepage = ({
   const [users, setUsers] = useState([]);
   const [userToAdd, setUserToAdd] = useState();
   const [userMessage, setUserMessage] = useState("");
+  const [UserToAddName, setUserToAddName] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => {
     API.getUsersToAdd(LocalId).then(({ data }) => {
@@ -56,6 +57,16 @@ const Homepage = ({
             if (data === "SequelizeUniqueConstraintError") {
               alert("this user has been added previously to this project!!");
             }
+
+            jquery("tbody").append(
+              `<tr><td class="userData">${UserToAddName}</td><td class="userData">pending</td><td class="userData">
+              <button
+                class="btn btn-success delUser"
+              >
+                Delete User
+              </button>
+              </tr>`
+            );
           });
         })
         .catch(() => {
@@ -79,6 +90,10 @@ const Homepage = ({
     const { value } = event.target;
     const selectedIndex = event.target.options.selectedIndex;
     setUserToAdd(event.target.options[selectedIndex].getAttribute("data-key"));
+    setUserToAddName(
+      event.target.options[selectedIndex].getAttribute("data-name")
+    );
+
     setEmail(value);
   };
 
@@ -225,10 +240,12 @@ const Homepage = ({
                       <option value="">Add user by email</option>
                       {users.map((user) => {
                         let UserToAdd = user.split("-");
+                        console.log("userToAdd", UserToAdd);
                         return (
                           <option
                             key={UserToAdd[2]}
                             data-key={UserToAdd[2]}
+                            data-name={UserToAdd[1]}
                             value={UserToAdd[0]}
                           >
                             {`${UserToAdd[0]}- ${UserToAdd[1]}`}
