@@ -240,7 +240,7 @@ const Homepage = ({
                       <option value="">Add user by email</option>
                       {users.map((user) => {
                         let UserToAdd = user.split("-");
-                        console.log("userToAdd", UserToAdd);
+
                         return (
                           <option
                             key={UserToAdd[2]}
