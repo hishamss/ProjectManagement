@@ -11,7 +11,7 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
       id: cardNum,
       icon: "⭕️",
       status: "open",
-      title: "Card " + cardNum,
+      assignedTo: "User",
       content,
     };
     setItems([...items, newItem]);
