@@ -4,8 +4,9 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import ProjectsComponent from "../kanban/main";
 import "./style.css";
-function Home({ currentUser, Name, LocalId, Projects }) {
+function Home({ currentUser, Name, LocalId, Projects, Type }) {
   const [show, setShow] = useState(false);
+  const [showLimitation, setShowLimitation] = useState(false);
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
@@ -20,9 +21,18 @@ function Home({ currentUser, Name, LocalId, Projects }) {
     setShow(false);
     window.location.reload();
   };
+
+  const handleCloseLimitation = () => {
+    setShowLimitation(false);
+  };
   const handleShow = () => {
-    setMessage("");
-    setShow(true);
+    console.log("this user is ", Type);
+    if (Type === "Free" && Projects.length >= 3) {
+      setShowLimitation(true);
+    } else {
+      setMessage("");
+      setShow(true);
+    }
   };
 
   const renderProject = (Projectid, ProjectTitle, privilege) => {
@@ -57,7 +67,6 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   };
 
   const updateIsClicked = (val) => {
-    console.log("from the other one", val);
     setIsclicked(val);
   };
 
@@ -145,6 +154,17 @@ function Home({ currentUser, Name, LocalId, Projects }) {
               })}
             </div>
           </div>
+          <Modal show={showLimitation} onHide={handleCloseLimitation}>
+            <Modal.Header closeButton>
+              <Modal.Title style={{ color: "black" }}>
+                You've Reached the Limit
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{ color: "black" }}>
+              <p>You have reached the maximum number of projects!</p>
+              <p>Please upgrade your account to get unlimited projects.</p>
+            </Modal.Body>
+          </Modal>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>New Project</Modal.Title>

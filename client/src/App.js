@@ -58,6 +58,7 @@ function App() {
               exact
               path="/home"
               component={Home}
+              Type={type}
             />
 
             <PrivateRoute
@@ -73,6 +74,7 @@ function App() {
               LocalId={localId}
               CurrentID={localId}
               component={Home}
+              Type={type}
             />
           </Switch>
         </div>
