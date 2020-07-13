@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Sequelize
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   app.listen(PORT, function () {
     // Log (server-side) when our server has started
     console.log("Server is listening on: http://localhost:" + PORT);
