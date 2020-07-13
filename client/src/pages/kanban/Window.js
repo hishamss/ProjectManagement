@@ -36,21 +36,23 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
         // onDelete={this.deleteItem}
       >
         <div className={"close-btn-ctn"}>
-          <h1 style={{ flex: "1 90%" }}>Add New Card</h1>
+          <h1 style={{ flex: "1 90%" }}>New Issue</h1>
           <button className={"close-btn"} onClick={onClose}>
             X
           </button>
         </div>
 
         <div>
-          <h2>Description</h2>
-          <p>Add New Description</p>
-          <input className="descriptionInput" onChange={handleChange} />
-          <h2>Status</h2>
+          <input
+            className="descriptionInput"
+            onChange={handleChange}
+            placeholder="Title"
+          />
+          {/* <h2>Status</h2>
           <p>
             {status}
-            {/* {item.icon} {`${item.status.charAt(0).toUpperCase()}${item.status.slice(1)}`} */}
-          </p>
+            
+          </p> */}
           <button className="submit" onClick={handleSubmit}>
             Submit
           </button>
