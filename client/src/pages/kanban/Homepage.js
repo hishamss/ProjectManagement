@@ -7,7 +7,7 @@ import Col from "./col";
 import { data, statuses } from "./data";
 import styles from "./main.css";
 import { AuthContext } from "../../Auth";
-
+import Moment from "react-moment";
 const Homepage = ({
   Name,
   LocalId,
@@ -267,14 +267,15 @@ const Homepage = ({
               <div className="messageArea">
                 {Messages.map((message, index) => {
                   return (
-                    <React.Fragment>
-                      <p key={index}>
+                    <React.Fragment key={index}>
+                      <p>
                         <strong>{message.User.name}:</strong>
                       </p>
                       <p>{message.message}</p>
                       <p className="text-right" style={{ color: "#2dd881" }}>
-                        {" "}
-                        now
+                        <Moment format="YYYY/MM/DD HH:mm">
+                          {message.createdAt}
+                        </Moment>
                       </p>
                     </React.Fragment>
                   );
