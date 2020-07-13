@@ -4,7 +4,16 @@ import ITEM_TYPE from "./data/type";
 import { statuses } from "./data";
 import Window from "./Window";
 
-const DropWrapper = ({ onDrop, children, status, setItems, items }) => {
+const DropWrapper = ({
+  onDrop,
+  children,
+  status,
+  setItems,
+  items,
+  Name,
+  Users,
+  ProjectID,
+}) => {
   const [{ isOver }, drop] = useDrop({
     accept: ITEM_TYPE,
     canDrop: (item, monitor) => {
@@ -38,6 +47,9 @@ const DropWrapper = ({ onDrop, children, status, setItems, items }) => {
         status={status}
         onClose={onClose}
         show={show}
+        Name={Name}
+        Users={Users}
+        ProjectID={ProjectID}
       />
     </div>
   );

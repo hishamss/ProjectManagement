@@ -66,7 +66,7 @@ const Item = ({ item, index, moveItem, status }) => {
           style={{ backgroundColor: status.color }}
         />
         <p className={"item-title"}>{item.content}</p>
-        <p className={"item-title"}>{item.assignedTo}</p>
+        <p className={"item-title text-right"}>{item.assignedTo}</p>
         <p className={"item-status"}>{item.icon}</p>
       </div>
       <Window item={item} onClose={onClose} show={show} />

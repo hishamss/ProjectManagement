@@ -50,4 +50,7 @@ export default {
   getIssues: function (ProjectId) {
     return axios.get(`api/issues/${ProjectId}`);
   },
+  addIssue: function (data) {
+    return axios.post(`api/issues/`, data);
+  },
 };

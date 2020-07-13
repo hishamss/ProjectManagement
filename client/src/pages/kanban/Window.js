@@ -1,25 +1,41 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-
+import API from "../../utils/API";
 Modal.setAppElement("#app");
 
-const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
+const Window = ({
+  show,
+  onClose,
+  item,
+  isNew,
+  status,
+  setItems,
+  items,
+  Name,
+  Users,
+  ProjectID,
+}) => {
   const [content, setContent] = useState("");
+  const [assignedTo, setAssignedTo] = useState("");
   const handleSubmit = () => {
-    const cardNum = items.length + 1;
-    const newItem = {
-      id: cardNum,
-      icon: "⭕️",
+    console.log("sdfsdafsdfdasfs", content, assignedTo);
+    API.addIssue({
       status: "open",
-      assignedTo: "User",
-      content,
-    };
-    setItems([...items, newItem]);
-    onClose();
-  };
-
-  const handleChange = (e) => {
-    setContent(e.target.value);
+      assignedTo: assignedTo,
+      content: content,
+      ProjectId: ProjectID,
+    }).then(() => {
+      const cardNum = items.length + 1;
+      const newItem = {
+        id: cardNum,
+        icon: "⭕️",
+        status: "open",
+        assignedTo: assignedTo,
+        content: content,
+      };
+      setItems([...items, newItem]);
+      onClose();
+    });
   };
 
   const deleteItem = () => {
@@ -45,15 +61,43 @@ const Window = ({ show, onClose, item, isNew, status, setItems, items }) => {
         <div>
           <input
             className="descriptionInput"
-            onChange={handleChange}
+            onChange={(e) => setContent(e.target.value)}
             placeholder="Title"
           />
+          <br />
+          <div className="form-group" style={{ marginBottom: 0 }}>
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text">Assign To</label>
+              </div>
+
+              <select
+                value={assignedTo}
+                className="custom-select"
+                onChange={(e) => setAssignedTo(e.target.value)}
+              >
+                <option value={Name}>Assign yourself</option>
+                {Users.map((user, i) => {
+                  return (
+                    <option key={i} value={user.User.name}>
+                      {user.User.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+
           {/* <h2>Status</h2>
           <p>
             {status}
             
           </p> */}
-          <button className="submit" onClick={handleSubmit}>
+          <button
+            className="submit btn btn-primary"
+            onClick={handleSubmit}
+            style={{ background: "#4bb3fd" }}
+          >
             Submit
           </button>
         </div>

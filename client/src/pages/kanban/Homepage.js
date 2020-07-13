@@ -378,6 +378,9 @@ const Homepage = ({
                 status={s.status}
                 setItems={setItems}
                 items={items}
+                Name={Name}
+                Users={Users}
+                ProjectID={ProjectID}
               >
                 <Col>
                   {items
