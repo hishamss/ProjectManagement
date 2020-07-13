@@ -23,7 +23,6 @@ export default {
   },
 
   getProjects: function (UserId) {
-    console.log("USERUESR", UserId);
     return axios.get(`api/projects/${UserId}`);
   },
 
@@ -47,5 +46,11 @@ export default {
   },
   getMessages: function (ProjectId) {
     return axios.get(`api/messages/${ProjectId}`);
+  },
+  getIssues: function (ProjectId) {
+    return axios.get(`api/issues/${ProjectId}`);
+  },
+  addIssue: function (data) {
+    return axios.post(`api/issues/`, data);
   },
 };

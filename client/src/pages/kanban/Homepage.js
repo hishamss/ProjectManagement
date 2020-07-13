@@ -4,10 +4,10 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import DropWrapper from "./DropWrapper";
 import Col from "./col";
-import { data, statuses } from "./data";
+import { statuses } from "./data";
 import styles from "./main.css";
-import { AuthContext } from "../../Auth";
-
+import jquery from "jquery";
+import Moment from "react-moment";
 const Homepage = ({
   Name,
   LocalId,
@@ -17,11 +17,12 @@ const Homepage = ({
   PM,
   Users,
   Messages,
+  ProjectIssues,
 }) => {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState(ProjectIssues);
   const ProjectID = id;
   const ProjectTitle = title;
   const [email, setEmail] = useState("");
@@ -31,6 +32,7 @@ const Homepage = ({
   const [users, setUsers] = useState([]);
   const [userToAdd, setUserToAdd] = useState();
   const [userMessage, setUserMessage] = useState("");
+  const [UserToAddName, setUserToAddName] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => {
     API.getUsersToAdd(LocalId).then(({ data }) => {
@@ -55,6 +57,16 @@ const Homepage = ({
             if (data === "SequelizeUniqueConstraintError") {
               alert("this user has been added previously to this project!!");
             }
+
+            jquery("tbody").append(
+              `<tr><td class="userData">${UserToAddName}</td><td class="userData">pending</td><td class="userData">
+              <button
+                class="btn btn-success delUser"
+              >
+                Delete User
+              </button>
+              </tr>`
+            );
           });
         })
         .catch(() => {
@@ -78,12 +90,22 @@ const Homepage = ({
     const { value } = event.target;
     const selectedIndex = event.target.options.selectedIndex;
     setUserToAdd(event.target.options[selectedIndex].getAttribute("data-key"));
+    setUserToAddName(
+      event.target.options[selectedIndex].getAttribute("data-name")
+    );
+
     setEmail(value);
   };
 
   const postMessage = () => {
     const pTag = document.createElement("p");
-    pTag.innerHTML = `<strong>${Name}</strong>: ${userMessage} (now)`;
+    const pTag1 = document.createElement("p");
+    const pTag2 = document.createElement("p");
+    pTag2.classList.add("text-right");
+    pTag2.style.color = "#2dd881";
+    pTag.innerHTML = `<strong>${Name}</strong>:`;
+    pTag1.innerHTML = userMessage;
+    pTag2.innerHTML = "now";
 
     const data = {
       message: userMessage,
@@ -93,6 +115,8 @@ const Homepage = ({
     API.addMessage(data).then((res) => {
       if (res) {
         document.getElementsByClassName("messageArea")[0].appendChild(pTag);
+        document.getElementsByClassName("messageArea")[0].appendChild(pTag1);
+        document.getElementsByClassName("messageArea")[0].appendChild(pTag2);
         setUserMessage("");
       } else {
         setUserMessage("Error, try again");
@@ -216,10 +240,12 @@ const Homepage = ({
                       <option value="">Add user by email</option>
                       {users.map((user) => {
                         let UserToAdd = user.split("-");
+
                         return (
                           <option
                             key={UserToAdd[2]}
                             data-key={UserToAdd[2]}
+                            data-name={UserToAdd[1]}
                             value={UserToAdd[0]}
                           >
                             {`${UserToAdd[0]}- ${UserToAdd[1]}`}
@@ -247,7 +273,7 @@ const Homepage = ({
             </Modal.Body>
           </Modal>
         </div>
-        <hr />
+
         {/* <p>
           {" "}
           Projects Page, Coming Soon....., CurrentUser: {LocalId} clicked
@@ -257,12 +283,19 @@ const Homepage = ({
           <div>
             <div className="messages">
               <div className="messageArea">
-                {Messages.map((message) => {
+                {Messages.map((message, index) => {
                   return (
-                    <p>
-                      <strong>{message.User.name}</strong>: {message.message}{" "}
-                      (now)
-                    </p>
+                    <React.Fragment key={index}>
+                      <p>
+                        <strong>{message.User.name}:</strong>
+                      </p>
+                      <p>{message.message}</p>
+                      <p className="text-right" style={{ color: "#2dd881" }}>
+                        <Moment format="YYYY/MM/DD HH:mm">
+                          {message.createdAt}
+                        </Moment>
+                      </p>
+                    </React.Fragment>
                   );
                 })}
 
@@ -278,6 +311,7 @@ const Homepage = ({
                   className="form-control"
                   rows="3"
                   placeholder="Leave a message for your team"
+                  id="leaveMessage"
                   onChange={(e) => setUserMessage(e.target.value)}
                 ></textarea>
               </div>
@@ -344,6 +378,9 @@ const Homepage = ({
                 status={s.status}
                 setItems={setItems}
                 items={items}
+                Name={Name}
+                Users={Users}
+                ProjectID={ProjectID}
               >
                 <Col>
                   {items
