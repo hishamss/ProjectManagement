@@ -15,6 +15,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   const [privilege, setPrivilege] = useState(false);
   const [addedUsers, setAddedUsers] = useState([]);
   const [projectMessages, setProjectMessages] = useState([]);
+  const [projectIssues, setProjectIssues] = useState([]);
   const handleClose = () => {
     setShow(false);
     window.location.reload();
@@ -27,14 +28,30 @@ function Home({ currentUser, Name, LocalId, Projects }) {
   const renderProject = (Projectid, ProjectTitle, privilege) => {
     API.whoIsAdded(Projectid, LocalId).then(({ data }) => {
       API.getMessages(Projectid).then((response) => {
-        const messages = response.data;
+        API.getIssues(Projectid).then((issues) => {
+          const icons = {
+            open: "⭕️",
+            "in progress": "🔆️",
+            "in review": "📝",
+            done: "✅",
+          };
+          const Issues = issues.data;
+          setProjectIssues(
+            Issues.map((item) => {
+              const newItem = item;
+              newItem.icon = icons[item.status];
+              return newItem;
+            })
+          );
 
-        setAddedUsers(data);
-        setProjectMessages(messages);
-        setClickedProject(Projectid);
-        setClickedProjectTitle(ProjectTitle);
-        setPrivilege(privilege);
-        setIsclicked(true);
+          const messages = response.data;
+          setAddedUsers(data);
+          setProjectMessages(messages);
+          setClickedProject(Projectid);
+          setClickedProjectTitle(ProjectTitle);
+          setPrivilege(privilege);
+          setIsclicked(true);
+        });
       });
     });
   };
@@ -77,6 +94,7 @@ function Home({ currentUser, Name, LocalId, Projects }) {
           PM={privilege}
           Users={addedUsers}
           Messages={projectMessages}
+          ProjectIssues={projectIssues}
         ></ProjectsComponent>
       );
     } else {

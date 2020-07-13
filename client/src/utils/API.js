@@ -47,4 +47,7 @@ export default {
   getMessages: function (ProjectId) {
     return axios.get(`api/messages/${ProjectId}`);
   },
+  getIssues: function (ProjectId) {
+    return axios.get(`api/issues/${ProjectId}`);
+  },
 };

@@ -4,9 +4,9 @@ import API from "../../utils/API";
 import { Modal } from "react-bootstrap";
 import DropWrapper from "./DropWrapper";
 import Col from "./col";
-import { data, statuses } from "./data";
+import { statuses } from "./data";
 import styles from "./main.css";
-import { AuthContext } from "../../Auth";
+
 import Moment from "react-moment";
 const Homepage = ({
   Name,
@@ -17,11 +17,12 @@ const Homepage = ({
   PM,
   Users,
   Messages,
+  ProjectIssues,
 }) => {
   useEffect(() => {
     document.body.style.backgroundColor = "#f4f4f9";
   }, []);
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState(ProjectIssues);
   const ProjectID = id;
   const ProjectTitle = title;
   const [email, setEmail] = useState("");
