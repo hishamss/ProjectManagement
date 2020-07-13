@@ -20,6 +20,7 @@ module.exports = {
   findAll: function (req, res) {
     db.Messages.findAll({
       where: { ProjectId: req.params.id },
+      order: [["createdAt", "ASC"]],
       include: [
         {
           model: db.Users,
