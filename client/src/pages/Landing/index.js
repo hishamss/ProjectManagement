@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import { withRouter, Redirect } from "react-router";
 import "./style.css";
-import logo from "./logo.png";
-import ex from "./ex.jpg";
-import ex2 from "./ex2.png";
-import ex3 from "./ex3.png";
+import logo from "./images/logo.png";
+import projects from "./images/projects.png";
+import message from "./images/message.png";
+import kanban from "./images/doneKanban.gif";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-bootstrap/Carousel";
-import "./style.css";
 import Login from "../../components/Login";
 import SignUp from "../../components/SignUp";
 import { AuthContext } from "../../Auth.js";
+import "./style.css";
 
 const Landing = ({ history }) => {
   const { currentUser } = useContext(AuthContext);
@@ -35,33 +35,23 @@ const Landing = ({ history }) => {
           <div className=" offset-1 col-lg-5">
             <Carousel>
               <Carousel.Item>
-                <img className="d-block w-100" src={ex} alt="First slide" />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
-                  </p>
+                <img className="d-block w-100" src={projects} alt="First slide" />
+                <Carousel.Caption style={{ color: "black" }}>
+                  <h3 classname="slide">Manage Multiple Projects</h3>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
-                <img className="d-block w-100" src={ex2} alt="Third slide" />
+                <img className="d-block w-100" src={message} alt="Second slide" />
 
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
+                <Carousel.Caption style={{ color: "black" }}>
+                  <h3>Communicate with your team</h3>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
-                <img className="d-block w-100" src={ex3} alt="Third slide" />
+                <img className="d-block w-100" src={kanban} alt="Third slide" />
 
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>
-                    Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur.
-                  </p>
+                <Carousel.Caption style={{ color: "black" }}> 
+                  <h3>Access to responsive kanban</h3>
                 </Carousel.Caption>
               </Carousel.Item>
             </Carousel>
