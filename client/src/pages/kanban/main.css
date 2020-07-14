@@ -118,6 +118,7 @@ select {
   /* background-color: var(--background-color); */
   background-color: white;
   border-radius: 5px;
+  border: 2px solid #4bb3fd;
 }
 
 .col-header {
@@ -231,6 +232,8 @@ select {
   padding: 20px;
   color: #4bb3fd;
   min-width: 390px;
+  min-height: 390px;
+  border: 2px solid #4bb3fd;
 }
 
 .delUser {
@@ -243,6 +246,7 @@ select {
   min-width: 390px;
   padding: 20px;
   min-height: 242px;
+  border: 2px solid #4bb3fd;
 }
 
 .TeamAndMessages {

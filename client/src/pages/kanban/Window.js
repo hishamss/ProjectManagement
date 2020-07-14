@@ -16,7 +16,7 @@ const Window = ({
   ProjectID,
 }) => {
   const [content, setContent] = useState("");
-  const [assignedTo, setAssignedTo] = useState("");
+  const [assignedTo, setAssignedTo] = useState(Name);
   const handleSubmit = () => {
     console.log("sdfsdafsdfdasfs", content, assignedTo);
     API.addIssue({

@@ -368,7 +368,7 @@ const Homepage = ({
         </div>
       </div>
 
-      <div className={"row"}>
+      <div className={"row"} style={{ marginTop: "60px" }}>
         {statuses.map((s) => {
           return (
             <div key={s.status} className={"col-wrapper"}>
